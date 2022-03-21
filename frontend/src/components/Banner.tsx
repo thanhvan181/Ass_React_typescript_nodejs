@@ -12,7 +12,7 @@ const Banner = (props: Props) => {
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src="https://vnvc.vn/wp-content/uploads/2021/10/vnvc-uu-dai-thang-10.jpg"
+      src="https://www.cowin.gov.in/abha2_1.2d583166ff1ff69133a8.jpg"
       alt="First slide"
     />
     <Carousel.Caption>
@@ -23,7 +23,7 @@ const Banner = (props: Props) => {
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src="https://vnvc.vn/wp-content/uploads/2021/09/vnvc-uu-dai-goi-vac-xin.jpg"
+      src="https://i.chungta.vn/2021/08/20/banner-covid-thumb-01-16294628-1814-2775-1629462815.jpg"
       alt="Second slide"
     />
 

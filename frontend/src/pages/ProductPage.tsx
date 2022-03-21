@@ -29,13 +29,7 @@ const ProductPage = (props: Props) => {
             <CardGroup className='card-groud'>
             <div>
             <Card >
-                <Card.Text className='tx-title' >
-                  <h4>GÓI VẮC XIN INFANRIX (0-9 THÁNG) 
-                  </h4>
-                  
-                  <span>14.190.000 VNĐ
-                  </span>
-                </Card.Text>
+            <Card.Img variant="top" src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png" />
                 <Card.Body>
                   <Card.Title>GÓI VẮC XIN INFANRIX (0-9 THÁNG) - GÓI LINH ĐỘNG 1</Card.Title>
                   <Card.Text>
@@ -49,13 +43,7 @@ const ProductPage = (props: Props) => {
             </div>
             <div>
             <Card >
-                <Card.Text className='tx-title' >
-                  <h4>GÓI VẮC XIN INFANRIX (0-9 THÁNG) 
-                  </h4>
-                  
-                  <span>14.190.000 VNĐ
-                  </span>
-                </Card.Text>
+            <Card.Img variant="top" src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png" />
                 <Card.Body>
                   <Card.Title>GÓI VẮC XIN INFANRIX (0-9 THÁNG) - GÓI LINH ĐỘNG 1</Card.Title>
                   <Card.Text>
@@ -69,13 +57,7 @@ const ProductPage = (props: Props) => {
             </div>
             <div>
             <Card >
-                <Card.Text className='tx-title' >
-                  <h4>GÓI VẮC XIN INFANRIX (0-9 THÁNG) 
-                  </h4>
-                  
-                  <span>14.190.000 VNĐ
-                  </span>
-                </Card.Text>
+            <Card.Img variant="top" src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png" />
                 <Card.Body>
                   <Card.Title>GÓI VẮC XIN INFANRIX (0-9 THÁNG) - GÓI LINH ĐỘNG 1</Card.Title>
                   <Card.Text>
@@ -89,13 +71,7 @@ const ProductPage = (props: Props) => {
             </div>
             <div>
             <Card >
-                <Card.Text className='tx-title' >
-                  <h4>GÓI VẮC XIN INFANRIX (0-9 THÁNG) 
-                  </h4>
-                  
-                  <span>14.190.000 VNĐ
-                  </span>
-                </Card.Text>
+            <Card.Img variant="top" src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png" />
                 <Card.Body>
                   <Card.Title>GÓI VẮC XIN INFANRIX (0-9 THÁNG) - GÓI LINH ĐỘNG 1</Card.Title>
                   <Card.Text>
@@ -109,13 +85,7 @@ const ProductPage = (props: Props) => {
             </div>
             <div>
             <Card >
-                <Card.Text className='tx-title' >
-                  <h4>GÓI VẮC XIN INFANRIX (0-9 THÁNG) 
-                  </h4>
-                  
-                  <span>14.190.000 VNĐ
-                  </span>
-                </Card.Text>
+            <Card.Img variant="top" src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png" />
                 <Card.Body>
                   <Card.Title>GÓI VẮC XIN INFANRIX (0-9 THÁNG) - GÓI LINH ĐỘNG 1</Card.Title>
                   <Card.Text>
@@ -129,13 +99,7 @@ const ProductPage = (props: Props) => {
             </div>
             <div>
             <Card >
-                <Card.Text className='tx-title' >
-                  <h4>GÓI VẮC XIN INFANRIX (0-9 THÁNG) 
-                  </h4>
-                  
-                  <span>14.190.000 VNĐ
-                  </span>
-                </Card.Text>
+            <Card.Img variant="top" src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png" />
                 <Card.Body>
                   <Card.Title>GÓI VẮC XIN INFANRIX (0-9 THÁNG) - GÓI LINH ĐỘNG 1</Card.Title>
                   <Card.Text>
