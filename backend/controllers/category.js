@@ -7,7 +7,7 @@ export const create = async (req, res) => {
         
     } catch (error) {
 
-        
+        console.log("error", error);
         res.status(400).json({
             message: "khong them dc "
         })

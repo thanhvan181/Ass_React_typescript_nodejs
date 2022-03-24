@@ -1,11 +1,8 @@
 import mongoose from "mongoose";
 import {Schema} from "mongoose";
 
-const cagegorySchema = new Schema({
-    index: {
-        type: Number,
-         required: true, 
-    },
+const CompanySchema = new Schema({
+ 
     name: {
         type: String,
         required: true, 
@@ -17,8 +14,20 @@ const cagegorySchema = new Schema({
         unique: true,
         lowercase: true,
         index: true
-    }
+    },
+    address: {
+        type: String,
+
+    },
     
+    longitude: {
+
+    },
+
+    latitude: {
+        
+
+    }
     
 
     
@@ -27,5 +36,5 @@ const cagegorySchema = new Schema({
    
 },  { timestamps: true})
 
-export default mongoose.model("Category", cagegorySchema)
+export default mongoose.model("Company", CompanySchema)
 

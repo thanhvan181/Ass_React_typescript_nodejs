@@ -12,6 +12,12 @@ const sub_cagegorySchema = new Schema({
 
         
     },
+    slug: {
+        type: String,
+        unique: true,
+        lowercase: true,
+        index: true
+    },
     category_id: {
         type: ObjectId,
         ref: "Category"

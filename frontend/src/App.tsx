@@ -15,6 +15,7 @@ import SignupPage from './pages/SignupPage';
 import CategoryPage from './pages/admin/Category/list/CategoryPage';
 import CategoryAddPage from './pages/admin/Category/add/CategoryAddPage';
 import { create } from './api/category';
+import FindVacciationCenterPage from './pages/FindVacciationCenterPage';
 
 type InputCate = { // kiểu dữ liệu của từng input
   name: string,
@@ -48,13 +49,7 @@ function App() {
   // }, [])
   return (
     <div className="App">
-        {/* <header>
-          <ul>
-            <li><NavLink to="/">Home Page</NavLink></li>
-            <li><NavLink to="/product">Product</NavLink></li>
-            <li><NavLink to="/about">About</NavLink></li>
-          </ul>
-        </header> */}
+      
         <main>
           <Routes>
             <Route path="/" element={<WebsiteLayout />}>
@@ -64,6 +59,7 @@ function App() {
                   <Route path="vaccine" element={<ProductPage/>} />
                   <Route path="signin" element={<SigninPage/>} />
                   <Route path="signup" element={<SignupPage/>} />
+                  <Route path="hethongtrungtamtiemchung" element={<FindVacciationCenterPage/>} />
             </Route>
             <Route path="admin" element={<AdminLayout />}>
                 <Route index element={<Navigate to="dashboard" />} />

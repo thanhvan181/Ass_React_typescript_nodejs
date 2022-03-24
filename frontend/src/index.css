@@ -180,3 +180,46 @@ button.btn.btn-primary {
   margin-right: -40px;
   margin-left: 20px;
 }
+.col6 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.title_chinhanh {
+  padding-left: 10px;
+  background: url(./public/images/cham_adress.png) no-repeat left center;
+  color: #2A388F;
+  font-family: MyriadPro-Bold;
+  background-size: 5px 5px;
+  font-size: 18px;
+}
+
+
+.item_address {
+    margin-bottom: 15px;
+}
+.address_chinhanh {
+  color: #6D6E70;
+}
+.text-right {
+  text-align: right;
+}
+.timtrenbado {
+  padding-right: 27px;
+  padding-top: 13px;
+  color: #2A388F;
+  font-family: MyriadPro-Bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  background: url(./public/images/icon_mapaddress.png) no-repeat right center;
+  background-size: 20px auto;
+  
+  display: inline-block;
+}
+iframe {
+  background-image: cover;
+  
+}

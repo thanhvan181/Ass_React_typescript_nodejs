@@ -9,7 +9,7 @@ type Props = {}
 const SignupVaccinationsPage = (props: Props) => {
     return (
         <div>
-    <SignupVaccinations/>
+            <SignupVaccinations/>
     
 
 

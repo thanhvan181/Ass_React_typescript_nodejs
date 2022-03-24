@@ -33,7 +33,7 @@ mongoose.connect('mongodb://localhost:27017/VNVC')
     .catch((error) => console.log(error));
     
 // connection
-const PORT = 8000;
+const PORT = 8080;
 
 app.use("/api", userRouter);
 app.use("/api", categoryRouter);
