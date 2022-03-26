@@ -5,29 +5,38 @@ const CompanySchema = new Schema({
  
     name: {
         type: String,
-        required: true, 
+       
 
         
     },
     slug: {
+        
         type: String,
-        unique: true,
-        lowercase: true,
-        index: true
+        // unique: true,
+        // lowercase: true,
+        // index: true
     },
     address: {
         type: String,
 
     },
     
-    longitude: {
+    // longitude: {
+    //     type: String,
 
-    },
+    // },
 
-    latitude: {
+    // latitude: {
+    //     type: String,
+
         
 
+    // },
+    mapUrl: {
+        type: String,
+
     }
+    
     
 
     

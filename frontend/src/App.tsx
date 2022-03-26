@@ -1,92 +1,74 @@
+import { Navigate, NavLink, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import HomePage from "./pages/HomePage";
+import ProductPage from "./pages/ProductPage";
+import WebsiteLayout from "./pages/layouts/WebsiteLayout";
+import SignupVaccinationsPage from "./pages/SignupVaccinationsPage";
+import SigninPage from "./pages/SigninPage";
+import SignupPage from "./pages/SignupPage";
+import FindVacciationCenterPage from "./pages/FindVacciationCenterPage";
+import SignUp from "./pages/admin/SignUp";
+import SignIn from "./pages/admin/SignIn";
+import Home from "./pages/admin/Home";
+import Category from "./pages/admin/Category";
+import Billing from "./pages/admin/Billing";
+import Profile from "./pages/admin/Profile";
+import AdminLayout from "./pages/layouts/AdminLayout";
 
-import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import ProductPage from './pages/ProductPage';
-import AdminLayout from './pages/layouts/AdminLayout';
-import WebsiteLayout from './pages/layouts/WebsiteLayout';
-import Dashboard from './pages/admin/Dashboard/Dashboard';
-import { useState } from 'react';
+import "antd/dist/antd.css";
+import "./assets/styles/main.css";
+import "./assets/styles/responsive.css";
+import Product from "./pages/admin/Product";
 
-
-import SignupVaccinationsPage from './pages/SignupVaccinationsPage';
-import SigninPage from './pages/SigninPage';
-import SignupPage from './pages/SignupPage';
-
-import CategoryPage from './pages/admin/Category/list/CategoryPage';
-import CategoryAddPage from './pages/admin/Category/add/CategoryAddPage';
-import { create } from './api/category';
-import FindVacciationCenterPage from './pages/FindVacciationCenterPage';
-
-type InputCate = { // kiểu dữ liệu của từng input
-  name: string,
-  index: number,
+type InputCate = {
+  // kiểu dữ liệu của từng input
+  name: string;
+  index: number;
 };
 
 function App() {
-  const [categories, setCategories] = useState<InputCate[]>([])
+  const [categories, setCategories] = useState<InputCate[]>([]);
 
-  const hanlderAddCate = async (category: any) => {
-    console.log("cate", category);
+  // const hanlderAddCate = async (category: any) => {
+  //   console.log("cate", category);
 
-    const {data} = await create(category);
-    console.log("Data", data)
-    setCategories([...categories, data]);
+  //   const { data } = await create(category);
+  //   console.log("Data", data)
+  //   setCategories([...categories, data]);
 
+  // }
 
-
-    
-
-
-
-  }
-
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //       const { data } = await list();
-  //       setProducts(data);
-  //   }
-  //   getProducts();
-  // }, [])
   return (
     <div className="App">
-      
-        <main>
-          <Routes>
-            <Route path="/" element={<WebsiteLayout />}>
-                <Route index element={<HomePage />} />
-                
-                  <Route path="dangkytiemchung" element={<SignupVaccinationsPage />}  />
-                  <Route path="vaccine" element={<ProductPage/>} />
-                  <Route path="signin" element={<SigninPage/>} />
-                  <Route path="signup" element={<SignupPage/>} />
-                  <Route path="hethongtrungtamtiemchung" element={<FindVacciationCenterPage/>} />
-            </Route>
-            <Route path="admin" element={<AdminLayout />}>
-                <Route index element={<Navigate to="dashboard" />} />
-                <Route path="dashboard" element={<Dashboard />} />
+      <main>
+        <Routes>
+          <Route path="/" element={<WebsiteLayout />}>
+            <Route index element={<HomePage />} />
 
-                <Route path="category">
-                  <Route index  element={<CategoryPage  />} />
-                
-                </Route>
-                <Route path="addcate" element={<CategoryAddPage onAdd={hanlderAddCate} />} />
-               
-                {/* <Route path="category" element={<CategoryPage />}/>
-                <Route path="addcate" element={<CategoryAddPage  />} /> */}
-                 
+            <Route
+              path="dangkytiemchung"
+              element={<SignupVaccinationsPage />}
+            />
+            <Route path="vaccine" element={<ProductPage />} />
+            <Route path="signin" element={<SigninPage />} />
+            <Route path="signup" element={<SignupPage />} />
+            <Route
+              path="hethongtrungtamtiemchung"
+              element={<FindVacciationCenterPage />}
+            />
+          </Route>
+          <Route path="admin" element={<AdminLayout />}>
+            <Route element={<Home />} />
+            <Route path="category" element={<Category />} />
+            <Route path="billing" element={<Billing />} />
+            <Route path="product" element={<Product />}/>
 
-               
-                
-                
-            </Route>
-           
-          </Routes>
-        </main>
+            <Route path="profile" element={<Profile />} />
+          </Route>
+        </Routes>
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
-
-
-
+export default App;

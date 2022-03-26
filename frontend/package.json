@@ -10,7 +10,9 @@
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "antd": "^4.19.3",
     "axios": "^0.26.1",
+    "lodash": "^4.17.21",
     "mdb-react-ui-kit": "^2.4.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.2.1",
@@ -19,11 +21,14 @@
     "react-hook-form": "^7.28.0",
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.2",
-    "recharts": "^2.1.9"
+    "recharts": "^2.1.9",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.180",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
+    "@types/styled-components": "^5.1.24",
     "@vitejs/plugin-react": "^1.0.7",
     "typescript": "^4.5.4",
     "vite": "^2.8.0"
