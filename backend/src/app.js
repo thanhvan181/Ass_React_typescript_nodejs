@@ -6,11 +6,9 @@ import userRouter from "../routes/user"
 import categoryRouter from "../routes/category"
 import productRouter from "../routes/products"
 import companyRouter from "../routes/company"
-// import productRoute from '../routes/product';
-// import categoryRoute from '../routes/category';
-// import swaggerUI from 'swagger-ui-express';
-// import swaggerJSDoc from 'swagger-jsdoc';
-
+import subcategoryRouter from "../routes/sub_category"
+import injectionParkRouter from "../routes/injectionpark"
+import registerRouter from "../routes/register"
 
 const app = express();
 const option = {
@@ -41,6 +39,9 @@ app.use("/api", userRouter);
 app.use("/api", categoryRouter);
 app.use("/api", productRouter);
 app.use("/api", companyRouter);
+app.use("/api", subcategoryRouter);
+app.use("/api", injectionParkRouter);
+app.use("/api", registerRouter);
 app.listen(PORT, () => {
     console.log("Server is running port", PORT)
 })

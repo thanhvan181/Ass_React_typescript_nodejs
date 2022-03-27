@@ -1,137 +1,367 @@
-import React from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import React from "react";
+import {
+  Button,
+  Card,
+  CardGroup,
+  Col,
+  Container,
+  Form,
+  ListGroup,
+  Row,
+  Tab,
+} from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { list } from "../api/company";
+import { listInjection } from "../api/injectionpark";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { listproduct } from "../api/product";
 
-type Props = {}
+import { create } from "../api/register";
+import { getproducts } from "../api/product";
+
+type Props = {};
+
+type Inputs = {
+  name: {
+    type: String;
+  };
+  birthday: {
+    type: Date;
+  };
+  code: {
+    type: String;
+  };
+  sex: {
+    type: String;
+  };
+
+  address: {
+    type: String;
+  };
+  contact_person_name: {
+    type: String;
+  };
+  relativeship_phone: {
+    type: String;
+  };
+  relativeship_name: {
+    type: String;
+  };
+  dateo_injection: {
+    type: Date;
+  };
+};
 
 const SignupVaccinations = (props: Props) => {
+  const [company, setCompany] = useState([]);
+  const [injection, setInjection] = useState([]);
+  const [isShowPack, setIsShowPack] = useState(true);
+  const [products, setProducts] = useState([]);
+
+  // useEffect(() => {
+  //     const loadproduct = async () => {
+  //         const { data } = await list();
+  //         setCompany(data);
+  //     };
+  //     loadCompany();
+  // }, []);
+  useEffect(() => {
+    const loadCompany = async () => {
+      const { data } = await list();
+      setCompany(data);
+    };
+    loadCompany();
+  }, []);
+
+  useEffect(() => {
+    const loadInjection = async () => {
+      const { data } = await listInjection();
+      setInjection(data);
+    };
+    loadInjection();
+  }, []);
+  useEffect(() => {
+    const loadallProduct = async () => {
+      const { data } = await listproduct();
+      setProducts(data);
+    };
+    loadallProduct();
+  }, []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  // sử dụng hook useNavigate để chuyển sang
+  //  const navigate = useNavigate()
+  const onSubmit: SubmitHandler<Inputs> = async (dataInput: any) => {
+    console.log("INPUT: ", { dataInput });
+    const { data } = await create(dataInput);
+    console.log("data", data);
+
+    //  navigate("/admin/product");
+  };
+
+  const handleButtonShowPack = () => {
+    setIsShowPack(true);
+  };
+  const handleButtonShowProducts = () => {
+    setIsShowPack(false);
+  };
+
+  const hanleClickshowProductPark = async (id: any) => {
+    const { data } = await getproducts(id);
+    setProducts(data);
+
+    console.log("dataproduct", data);
+
+    // console.log("idpark", id);
+
+    // const {}
+  };
+
   return (
     <div>
-            <Container>
-                <Row>
-                    <Col sm={8}>
+      <Container>
+        <Row>
+          <Col sm={8}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <h5 className="text-h5">THÔNG TIN NGƯỜI TIÊM</h5>
 
-                        <Form>
-                            <h5 className="text-h5">THÔNG TIN NGƯỜI TIÊM</h5>
+              <Row classNameName="mb-3">
+                <Form.Group as={Col} controlId="formGridEmail">
+                  <Form.Label>Họ tên người tiêm </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Nhập họ tên"
+                    {...register("name")}
+                  />
+                </Form.Group>
 
-                            <Row className="mb-3">
-                                <Form.Group as={Col} controlId="formGridEmail">
-                                    <Form.Label>Họ tên người tiêm</Form.Label>
-                                    <Form.Control type="text" placeholder="Nhập họ tên" />
-                                </Form.Group>
-
-                                <Form.Group as={Col} controlId="formGridPassword">
-                                    <Form.Label>Ngày sinh người tiêm</Form.Label>
-                                    <Form.Control type="date" placeholder="" />
-                                </Form.Group>
-                            </Row>
-                            <Row className="mb-3">
-
-                                <Form.Group as={Col} controlId="formGridPassword">
-                                    <Form.Label>Giới tính</Form.Label>
-                                    <Form.Check
+                <Form.Group as={Col} controlId="formGridPassword">
+                  <Form.Label>Ngày sinh người tiêm</Form.Label>
+                  <Form.Control
+                    type="date"
+                    placeholder=""
+                    {...register("birthday")}
+                  />
+                </Form.Group>
+              </Row>
+              <Row classNameName="mb-3">
+                <Form.Group as={Col} controlId="formGridPassword">
+                  <Form.Label>Giới tính</Form.Label>
+                  {/* <Form.Check
                                         inline
                                         label="NAM"
-                                        name="group1"
+                                        // name="group1"
+
                                         type="radio"
+
+                                        {...register('sex')}
 
                                     />
                                     <Form.Check
                                         inline
                                         label="NỮ"
-                                        name="group1"
+                                        // name="group1"
                                         type="radio"
+                                        {...register('sex')}
 
-                                    />
+                                    /> */}
+                  <input {...register("sex")} type="radio" value="male" />
+                  <input {...register("sex")} type="radio" value="female" />
+                </Form.Group>
 
-                                </Form.Group>
+                <Form.Group as={Col} controlId="formGridPassword">
+                  <Form.Label>Mã khách hàng(Nếu có)</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Mã khách hàng"
+                    {...register("code")}
+                  />
+                </Form.Group>
+              </Row>
 
-                                <Form.Group as={Col} controlId="formGridPassword">
-                                    <Form.Label>Mã khách hàng(Nếu có)</Form.Label>
-                                    <Form.Control type="text" placeholder="Mã khách hàng" />
-                                </Form.Group>
-                            </Row>
+              <Form.Group className="mb-3" controlId="formGridAddress1">
+                <Form.Label>Địa Chỉ</Form.Label>
+                <Form.Control
+                  placeholder="1234 Main St"
+                  {...register("address")}
+                />
+              </Form.Group>
 
+              <h5 className="text-h5">THÔNG TIN NGƯỜI LIÊN HỆ </h5>
+              <Form.Group className="mb-3" controlId="formGridAddress1">
+                <Form.Label>Họ và tên người liên hệ </Form.Label>
+                <Form.Control {...register("contact_person_name")} />
+              </Form.Group>
+              <Row className="mb-3">
+                <Form.Group as={Col} controlId="formGridEmail">
+                  <Form.Label>Mối quan hệ với ngừoi tiêm</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Nhập họ tên"
+                    {...register("relativeship_name")}
+                  />
+                </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="formGridAddress1">
-                                <Form.Label>Số nhà, tên đường</Form.Label>
-                                <Form.Control placeholder="1234 Main St" />
-                            </Form.Group>
+                <Form.Group as={Col} controlId="formGridPassword">
+                  <Form.Label>Số điện thoại liên hệ </Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder=""
+                    {...register("relativeship_phone")}
+                  />
+                </Form.Group>
+              </Row>
+              <Row>
+                <h5 className="text-h5">THÔNG TIN DỊCH VỤ </h5>
+                <Form.Group className="mb-3" controlId="formGridAddress1">
+                  <Form.Label>Trung tâm muốn tiêm </Form.Label>
+                  <Form.Select defaultValue="Choose...">
+                    <option>Choose...</option>
+                    {company &&
+                      company.map((compan: any) => {
+                        return (
+                          <>
+                            <option>{compan.name}</option>
+                          </>
+                        );
+                      })}
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group as={Col} controlId="formGridPassword">
+                  <Form.Label>Ngày muốn tiêm</Form.Label>
+                  <Form.Control
+                    type="date"
+                    placeholder=""
+                    {...register("dateo_injection")}
+                  />
+                </Form.Group>
+              </Row>
+              <Row>
+                <Form.Group as={Col} controlId="formGridPassword">
+                  <Form.Label>Loại vắc xin muốn đăng ký</Form.Label>
 
-                            {/* <Form.Group className="mb-3" controlId="formGridAddress2">
-                                <Form.Label></Form.Label>
-                                <Form.Control placeholder="Apartment, studio, or floor" />
-                            </Form.Group> */}
+                  <Button variant="success" onClick={handleButtonShowPack}>
+                    Vacxin Goi
+                  </Button>
+                  <Button variant="success" onClick={handleButtonShowProducts}>
+                    Vacxin Le
+                  </Button>
+                  <Tab.Container
+                    id="list-group-tabs-example"
+                    defaultActiveKey="#link1"
+                  >
+                    <Row>
+                      <Col>
+                        {" "}
+                        {isShowPack ? (
+                          <ListGroup>
+                            {injection &&
+                              injection.map((inject: any) => {
+                                return (
+                                  <>
+                                    <ListGroup.Item
+                                      href={inject._id}
+                                      onClick={() => {
+                                        hanleClickshowProductPark(inject._id);
+                                      }}
+                                    >
+                                      {inject.name}
+                                    </ListGroup.Item>
+                                  </>
+                                );
+                              })}
+                          </ListGroup>
+                        ) : (
+                          <CardGroup className="card-groud">
+                            {products &&
+                              products.map((product: any) => {
+                                return (
+                                  <>
+                                    <div className="product-container">
+                                      <Card>
+                                        <Card.Img
+                                          variant="top"
+                                          src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
+                                        />
+                                        <Card.Body>
+                                          <Card.Title>
+                                            <a href={`/vaccine/${product.id}`}>
+                                              {product.name}
+                                            </a>
+                                          </Card.Title>
+                                          <Card.Text>
+                                            <p>{product.description}</p>
+                                            <span>{product.price}</span>
+                                          </Card.Text>
+                                        </Card.Body>
+                                      </Card>
+                                    </div>
+                                  </>
+                                );
+                              })}
+                          </CardGroup>
+                        )}
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <Tab.Content>
+                          <CardGroup className="card-groud">
+                            {products &&
+                              products.map((product: any) => {
+                                return (
+                                  <>
+                                    <Tab.Pane
+                                      eventKey={product.injectionPark_id}
+                                    >
+                                      <div className="product-container">
+                                        <Card>
+                                          <Card.Img
+                                            variant="top"
+                                            src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
+                                          />
+                                          <Card.Body>
+                                            <Card.Title>
+                                              <a
+                                                href={`/vaccine/${product.id}`}
+                                              >
+                                                {product.name}
+                                              </a>
+                                            </Card.Title>
+                                            <Card.Text>
+                                              <p>{product.description}</p>
+                                              <span>{product.price}</span>
+                                            </Card.Text>
+                                          </Card.Body>
+                                        </Card>
+                                      </div>
+                                    </Tab.Pane>
+                                  </>
+                                );
+                              })}
+                          </CardGroup>
+                        </Tab.Content>
+                      </Col>
+                    </Row>
+                  </Tab.Container>
+                </Form.Group>
+              </Row>
 
-                            <Row className="mb-3">
-                                <Form.Group as={Col} controlId="formGridCity">
-                                    <Form.Label>Tỉnh thành</Form.Label>
-                                    <Form.Control />
-                                </Form.Group>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </Col>
 
-                                <Form.Group as={Col} controlId="formGridState">
-                                    <Form.Label>Quận huyên</Form.Label>
-                                    <Form.Select defaultValue="Choose...">
-                                        <option>Choose...</option>
-                                        <option>...</option>
-                                    </Form.Select>
-                                </Form.Group>
-
-                                <Form.Group as={Col} controlId="formGridZip">
-                                    <Form.Label>Phường xã</Form.Label>
-                                    <Form.Control />
-                                </Form.Group>
-                            </Row>
-                            <h5 className="text-h5">THÔNG TIN NGƯỜI LIÊN HỆ </h5>
-                            <Form.Group className="mb-3" controlId="formGridAddress1">
-                                <Form.Label>Họ và tên người liên hệ </Form.Label>
-                                <Form.Control placeholder="1234 Main St" />
-                            </Form.Group>
-                            <Row className="mb-3">
-                                <Form.Group as={Col} controlId="formGridEmail">
-                                    <Form.Label>Mối quan hệ với ngừoi tiêm</Form.Label>
-                                    <Form.Control type="text" placeholder="Nhập họ tên" />
-                                </Form.Group>
-
-                                <Form.Group as={Col} controlId="formGridPassword">
-                                    <Form.Label>Số điện thoại liên hệ </Form.Label>
-                                    <Form.Control type="number" placeholder="" />
-                                </Form.Group>
-
-
-
-                            </Row>
-                            <Row>
-                                <h5 className="text-h5">THÔNG TIN DỊCH VỤ </h5>
-                                <Form.Group className="mb-3" controlId="formGridAddress1">
-                                    <Form.Label>Trung tâm muốn tiêm </Form.Label>
-                                    <Form.Select defaultValue="Choose...">
-                                        <option>Choose...</option>
-                                        <option>...</option>
-                                    </Form.Select>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGridPassword">
-                                    <Form.Label>Ngày muốn tiêm</Form.Label>
-                                    <Form.Control type="date" placeholder="" />
-                                </Form.Group>
-
-
-
-                            </Row>
-
-
-
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
-                        </Form>
-                    </Col>
-
-                    <Col sm={4}>sm=4</Col>
-                </Row>
-
-            </Container>
+          <Col sm={4}>sm=4</Col>
+        </Row>
+      </Container>
     </div>
-  )
-}
+  );
+};
 
-export default SignupVaccinations
+export default SignupVaccinations;

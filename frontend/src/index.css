@@ -223,3 +223,9 @@ iframe {
   background-image: cover;
   
 }
+.product-container{
+  height: auto;
+}
+h5.text-uppercase {
+  color: wheat;
+}

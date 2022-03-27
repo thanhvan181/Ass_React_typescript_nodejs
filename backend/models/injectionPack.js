@@ -1,11 +1,23 @@
 import mongoose from "mongoose";
-import {Schema} from "mongoose";
+import {Schema, ObjectId} from "mongoose";
 
 const injectionParkSchema = new Schema({
     name: {
         type: String,
 
     },
+   
+    imagePark: {
+        type: String,
+    },
+    
+    description: {
+        type: String,
+    },
+    price: {
+        type: Number
+    },
+
     category_id: {
         type: ObjectId,
         ref: "Category"
@@ -13,7 +25,7 @@ const injectionParkSchema = new Schema({
     subcategory_id: {
         type: ObjectId,
         ref: "Subcategory"
-    },
+    }
     
 
     

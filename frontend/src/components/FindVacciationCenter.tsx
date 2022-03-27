@@ -7,6 +7,7 @@ interface Props {}
 
 const FindVacciationCenter = (props: Props) => {
   const [companies, setCompany] = useState([]);
+  const [mapUrl, setMapUrl] = useState('')
 
   useEffect(() => {
     const loadDataCompany = async () => {
@@ -17,8 +18,9 @@ const FindVacciationCenter = (props: Props) => {
     loadDataCompany();
   }, []);
   
-  const hanlonClickCompany = () => {
-
+  const hanlonClickCompany = (e:any) => {
+    console.log(e.target.dataset.embed)
+      setMapUrl(e.target.dataset.embed);
 
   }
 
@@ -133,8 +135,7 @@ const FindVacciationCenter = (props: Props) => {
                         <span
                           className="timtrenbado"
                           data-title="VNVC Đông Anh"
-                          data-embed="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3838.9619169811685!2d105.84429694160632!3d21.149739558372744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313501ac2db3fdb1%3A0xe66ac4d1d640ac7e!2zVk5WQyDEkMOUTkcgQU5I!5e0!3m2!1svi!2s!4v1592969184757!5m2!1svi!2s
-                                    "
+                          data-embed={company.mapUrl}
                         onClick={hanlonClickCompany}
                         >
                           Tìm trên bản đồ
@@ -148,7 +149,7 @@ const FindVacciationCenter = (props: Props) => {
 
           <Col sm={4}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.056932198286!2d105.75923251480201!3d21.0304078859975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134557fa7f92755%3A0x5151398ad6e192c6!2zVk5WQyBN4bu5IMSQw6xuaA!5e0!3m2!1sen!2s!4v1648115497262!5m2!1sen!2s"
+              src={mapUrl}
               width="400"
               height="450"
               style={{ border: 0 }}

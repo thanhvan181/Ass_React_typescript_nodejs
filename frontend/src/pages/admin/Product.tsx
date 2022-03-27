@@ -1,12 +1,10 @@
 import React from 'react'
+import { Table, Popconfirm, Card, Radio, Button, Space, Form} from "antd";
 
-import { Row, Col, Card, Radio, Table, Upload, message, Progress, Button, Avatar, Typography } from "antd";
-import { ToTopOutlined } from "@ant-design/icons";
 import {useState, useEffect} from "react"
-import { list } from '../../api/product';
-// import { isEmpty } from "lodash";
+import { listproduct } from '../../api/product';
+import { remove } from '../../api/product';
 
-// const { Title } = Typography;
 type Props = {}
 
 
@@ -15,11 +13,15 @@ const Product = (props: Props) => {
 
     const [girdData, setGridData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [editingKey, setEditingKey] = useState("");
+    const [editRow, setEdit] = useState(false);
+
+
 
     useEffect(() => {
         const loadData = async () => {
             setLoading(true);
-            const { data } = await list();
+            const { data } = await listproduct();
             setGridData(data);
             setLoading(false);
         };
@@ -30,18 +32,18 @@ const Product = (props: Props) => {
     useEffect(() => {
         console.log("gridData", girdData)
     })
-    // const handleDelete = (value: any) => {
-    //     remove(value._id);
-    //     const DataSource = [...modifiData];
-    //     const filterData: any = DataSource.filter((item) => item._id !== value._id);
+    const handleDelete = (value: any) => {
+        remove(value._id);
+        const DataSource = [...dataproject];
+        const filterData: any = DataSource.filter((item) => item._id !== value._id);
 
-    //     setGridData(filterData);
-    // };
+        setGridData(filterData);
+    };
 
     
 
    
-    const project = [
+    const project:any = [
         {
             title: "IMAGE",
             dataIndex: "image",
@@ -63,6 +65,25 @@ const Product = (props: Props) => {
             title: "QUANLITY",
             dataIndex: "quanlity"
         },
+        {
+            title: "Actions",
+            dataIndex: "actions",
+            align: "center",
+            render: (_: any, record: any) => {
+              return dataproject.length >= 1 ? (
+            
+                  <Popconfirm
+                    title="Ban co chac chan muon xoa khong"
+                    onConfirm={() => handleDelete(record)}
+                  >
+                    <Button type="primary" danger>
+                      Delete
+                    </Button>
+                  </Popconfirm>
+            
+              ) : null;
+            },
+          },
         
     ];
     const dataproject = girdData.map(({ body, ...item }: any) => ({

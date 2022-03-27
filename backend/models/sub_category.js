@@ -16,7 +16,9 @@ const sub_cagegorySchema = new Schema({
         type: String,
         unique: true,
         lowercase: true,
-        index: true
+        index: true,
+        required: false, 
+
     },
     category_id: {
         type: ObjectId,

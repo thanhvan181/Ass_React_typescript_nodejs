@@ -44,10 +44,13 @@ const RegisterSchema = new Schema({
     dateo_injection : {
         type: Date,
     },
+
     company_id: {
+        require: false,
         type: ObjectId,
         ref: "Company"
     },
+    
 
 
 

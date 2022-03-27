@@ -19,6 +19,7 @@ import "antd/dist/antd.css";
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
 import Product from "./pages/admin/Product";
+import ProductDetail from "./pages/ProductDetail";
 
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -29,14 +30,7 @@ type InputCate = {
 function App() {
   const [categories, setCategories] = useState<InputCate[]>([]);
 
-  // const hanlderAddCate = async (category: any) => {
-  //   console.log("cate", category);
-
-  //   const { data } = await create(category);
-  //   console.log("Data", data)
-  //   setCategories([...categories, data]);
-
-  // }
+ 
 
   return (
     <div className="App">
@@ -49,7 +43,11 @@ function App() {
               path="dangkytiemchung"
               element={<SignupVaccinationsPage />}
             />
-            <Route path="vaccine" element={<ProductPage />} />
+            <Route path="vaccine">
+              <Route index element={<ProductPage />} />
+              <Route path=":id" element={<ProductDetail />} />
+            </Route>
+            {/* <Route path="vaccine" element={<ProductPage />} /> */}
             <Route path="signin" element={<SigninPage />} />
             <Route path="signup" element={<SignupPage />} />
             <Route
@@ -58,10 +56,10 @@ function App() {
             />
           </Route>
           <Route path="admin" element={<AdminLayout />}>
-            <Route element={<Home />} />
+            <Route index element={<Home />} />
             <Route path="category" element={<Category />} />
             <Route path="billing" element={<Billing />} />
-            <Route path="product" element={<Product />}/>
+            <Route path="product" element={<Product />} />
 
             <Route path="profile" element={<Profile />} />
           </Route>

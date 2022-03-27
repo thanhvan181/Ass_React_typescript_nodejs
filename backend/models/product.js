@@ -17,7 +17,8 @@ const productSchema = new Schema({
         
     },
     images: {
-        type: Array
+        type: String,
+        required: false
     },
     price: {
         type: Number,
@@ -49,14 +50,23 @@ const productSchema = new Schema({
     },
     start_use: {
         type: Date,
+        required: false
     },
     end_use : {
         type: Date,
+        required: false
 
     },
     available: {
         type: Boolean,
+        required: false
+    },
+    injectionPark_id: {
+        type: ObjectId,
+        ref: "Injectionpark"
+
     }
+
     
 
     
