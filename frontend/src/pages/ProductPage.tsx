@@ -4,6 +4,7 @@ import {useState, useEffect} from "react";
 import { list } from "../api/category"
 import { getproductsCate, listproduct } from "../api/product";
 
+
 type Props = {}
 
 const ProductPage = (props: Props) => {

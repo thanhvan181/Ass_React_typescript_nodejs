@@ -81,7 +81,9 @@ const WebsiteLayout = (props: Props) => {
 
           <Navbar.Toggle className="coloring" />
           <Navbar.Collapse>
+           
             <Nav>
+              
               <Nav.Link href="/">TRANG TRỦ</Nav.Link>
               <NavDropdown title="GÓI TIÊM">
                 <NavDropdown.Item to="#products/tea">Tea</NavDropdown.Item>
@@ -106,8 +108,10 @@ const WebsiteLayout = (props: Props) => {
                 <NavDropdown.Item to="#products/promo">Promo</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link href="#blog">BẢNG GIÁ</Nav.Link>
+             
 
             </Nav>
+            <Nav>
             <Form className="d-flex">
               <FormControl
                 type="search"
@@ -117,6 +121,11 @@ const WebsiteLayout = (props: Props) => {
               />
               <Button variant="outline-success">Search</Button>
             </Form>
+            
+
+            </Nav>
+            
+           
           </Navbar.Collapse>
 
         </Navbar>

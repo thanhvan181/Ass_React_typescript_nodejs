@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Accordion,
   Button,
   Card,
   CardGroup,
@@ -57,7 +58,7 @@ const SignupVaccinations = (props: Props) => {
   const [injection, setInjection] = useState([]);
   const [isShowPack, setIsShowPack] = useState(true);
   const [products, setProducts] = useState([]);
-
+  const [productslist, setProductslist] = useState([]);
   // useEffect(() => {
   //     const loadproduct = async () => {
   //         const { data } = await list();
@@ -83,7 +84,7 @@ const SignupVaccinations = (props: Props) => {
   useEffect(() => {
     const loadallProduct = async () => {
       const { data } = await listproduct();
-      setProducts(data);
+      setProductslist(data);
     };
     loadallProduct();
   }, []);
@@ -263,22 +264,82 @@ const SignupVaccinations = (props: Props) => {
                               injection.map((inject: any) => {
                                 return (
                                   <>
-                                    <ListGroup.Item
-                                      href={inject._id}
-                                      onClick={() => {
-                                        hanleClickshowProductPark(inject._id);
-                                      }}
-                                    >
-                                      {inject.name}
-                                    </ListGroup.Item>
+                                    <Accordion defaultActiveKey={inject._id}>
+                                      <Accordion.Item
+                                        eventKey={inject._id}
+                                        //  href={inject._id}
+                                        onClick={() => {
+                                          hanleClickshowProductPark(inject._id);
+                                        }}
+                                      >
+                                        <Accordion.Header>
+                                        
+                                          {inject.name}
+                                        </Accordion.Header>
+
+                                        {products &&
+                                          products.map((product: any) => {
+                                            return (
+                                              <>
+                                                <Accordion.Body>
+                                                  <CardGroup className="card-groud">
+                                                    {products &&
+                                                      products.map(
+                                                        (product: any) => {
+                                                          return (
+                                                            <>
+                                                            
+                                                                <div className="product-container">
+                                                                  <Card>
+                                                                    <Card.Img
+                                                                      variant="top"
+                                                                      src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
+                                                                    />
+                                                                    <Card.Body>
+                                                                      <Card.Title>
+                                                                        <a
+                                                                          href={`/vaccine/${product.id}`}
+                                                                        >
+                                                                          {
+                                                                            product.name
+                                                                          }
+                                                                        </a>
+                                                                      </Card.Title>
+                                                                      <Card.Text>
+                                                                        <p>
+                                                                          {
+                                                                            product.description
+                                                                          }
+                                                                        </p>
+                                                                        <span>
+                                                                          {
+                                                                            product.price
+                                                                          }
+                                                                        </span>
+                                                                      </Card.Text>
+                                                                    </Card.Body>
+                                                                  </Card>
+                                                                </div>
+                                                            
+                                                            </>
+                                                          );
+                                                        }
+                                                      )}
+                                                  </CardGroup>
+                                                </Accordion.Body>
+                                              </>
+                                            );
+                                          })}
+                                      </Accordion.Item>
+                                    </Accordion>
                                   </>
                                 );
                               })}
                           </ListGroup>
                         ) : (
                           <CardGroup className="card-groud">
-                            {products &&
-                              products.map((product: any) => {
+                            {productslist &&
+                              productslist.map((product: any) => {
                                 return (
                                   <>
                                     <div className="product-container">
@@ -305,46 +366,6 @@ const SignupVaccinations = (props: Props) => {
                               })}
                           </CardGroup>
                         )}
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <Tab.Content>
-                          <CardGroup className="card-groud">
-                            {products &&
-                              products.map((product: any) => {
-                                return (
-                                  <>
-                                    <Tab.Pane
-                                      eventKey={product.injectionPark_id}
-                                    >
-                                      <div className="product-container">
-                                        <Card>
-                                          <Card.Img
-                                            variant="top"
-                                            src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
-                                          />
-                                          <Card.Body>
-                                            <Card.Title>
-                                              <a
-                                                href={`/vaccine/${product.id}`}
-                                              >
-                                                {product.name}
-                                              </a>
-                                            </Card.Title>
-                                            <Card.Text>
-                                              <p>{product.description}</p>
-                                              <span>{product.price}</span>
-                                            </Card.Text>
-                                          </Card.Body>
-                                        </Card>
-                                      </div>
-                                    </Tab.Pane>
-                                  </>
-                                );
-                              })}
-                          </CardGroup>
-                        </Tab.Content>
                       </Col>
                     </Row>
                   </Tab.Container>

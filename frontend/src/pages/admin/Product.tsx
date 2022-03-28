@@ -1,118 +1,118 @@
 import React from 'react'
-import { Table, Popconfirm, Card, Radio, Button, Space, Form} from "antd";
+import { Table, Popconfirm, Card, Radio, Button, Space, Form, Input } from "antd";
 
-import {useState, useEffect} from "react"
-import { listproduct } from '../../api/product';
-import { remove } from '../../api/product';
+import { useState, useEffect } from "react"
 
-type Props = {}
+// import { remove } from '../../api/product';
+import { ProductType } from '../../types/product';
+import { Link } from 'react-router-dom';
 
-
-const Product = (props: Props) => {
-    const onChange = (e: any) => console.log(`radio checked:${e.target.value}`);
-
-    const [girdData, setGridData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [editingKey, setEditingKey] = useState("");
-    const [editRow, setEdit] = useState(false);
-
-
-
-    useEffect(() => {
-        const loadData = async () => {
-            setLoading(true);
-            const { data } = await listproduct();
-            setGridData(data);
-            setLoading(false);
-        };
-        
-        loadData();
-    }, []);
-
-    useEffect(() => {
-        console.log("gridData", girdData)
-    })
-    const handleDelete = (value: any) => {
-        remove(value._id);
-        const DataSource = [...dataproject];
-        const filterData: any = DataSource.filter((item) => item._id !== value._id);
-
-        setGridData(filterData);
-    };
-
+type ProductManagerProps = {
+    products: ProductType[];
+    onRemove: (id: number) => void
     
+  }
 
+
+const Product = (props: ProductManagerProps) => {
+  
+    
+    
    
-    const project:any = [
+
+
+
+    const project: any = [
         {
             title: "IMAGE",
             dataIndex: "image",
+            editable: true
 
         },
         {
             title: "NAME",
-            dataIndex: "name"
+            dataIndex: "name",
+            editable: true
         },
         {
             title: "PRICE",
-            dataIndex: "price"
+            dataIndex: "price",
+            editable: true
         },
         {
             title: "DESCRIPTION",
-            dataIndex: "description"
+            dataIndex: "description",
+            editable: true
         },
         {
             title: "QUANLITY",
-            dataIndex: "quanlity"
+            dataIndex: "quanlity",
+            editable: true
         },
         {
             title: "Actions",
             dataIndex: "actions",
             align: "center",
             render: (_: any, record: any) => {
-              return dataproject.length >= 1 ? (
+                console.log("record", record._id)
+              return dataproduct.length >= 1 ? (
             
-                  <Popconfirm
+                 <Space>
+                      <Popconfirm
                     title="Ban co chac chan muon xoa khong"
-                    onConfirm={() => handleDelete(record)}
+                    onConfirm={() => props.onRemove(record._id)}
                   >
                     <Button type="primary" danger>
                       Delete
                     </Button>
+
                   </Popconfirm>
-            
+                  <Button type="primary" >
+                     <Link to={`/admin/product/${record._id}/edit`}> Edit</Link>
+                    </Button>
+
+                  
+                 </Space>
+                
+
+
+                 
               ) : null;
             },
           },
+
+       
         
+                       
+            
+    
+
     ];
-    const dataproject = girdData.map(({ body, ...item }: any) => ({
+    const dataproduct = props.products.map(({ body, ...item }: any) => ({
         ...item,
-        key: item._id,
-        products: body,
-    }));
-    console.log("dataProduct", dataproject)
+        key: item.id,
+        category: body,
+        // delete: item._id,
+      }));
+   
+    
+   
     return (
         <div>
-            <Card
-                bordered={false}
-                className="criclebox tablespace mb-24"
-                title="Projects Table"
-                extra={
-                    <>
-                        <Radio.Group onChange={onChange} defaultValue="all">
-                            <Radio.Button value="all">All</Radio.Button>
-                            <Radio.Button value="online">ONLINE</Radio.Button>
-                            <Radio.Button value="store">STORES</Radio.Button>
-                        </Radio.Group>
-                    </>
-                }
-            >
+            <Button type="primary" className="criclebox tablespace mb-24" >
+              <a href="add"> Add Products</a>
+                </Button>
                 <div className="table-responsive">
-                    <Table columns={project} dataSource={dataproject} pagination={false} className="ant-border-space" />
+                    
+                    <Table 
+                    
+                    columns={project} dataSource={dataproduct} pagination={false} className="ant-border-space" />
+
+             
+                  
                 </div>
-              
-            </Card>
+
+          
         </div>
     )
 }

@@ -33,9 +33,8 @@ const productSchema = new Schema({
     },
     slug: {
         type: String,
-        unique: true,
         lowercase: true,
-        index: true
+        slug: "name"
     },
     subcategory_id: {
         type: ObjectId,

@@ -1,19 +1,18 @@
 import User from "../models/user"
-export const create = async ( req, res) => {
-    try {
-        const signup = await new User(req.body).save()
-        res.json(
-            {
-                message: "dang ky thanh cong",
 
-                data: signup 
-            }
-        );
-        
+export const UserbyId = (req, res, next, id) => {
+    try {
+        const user = await User.findById(id).exec();
+        if(!user){
+            res.status(400).json({
+                message: "Không tìm thấy user"
+            })
+        }
+        req.profile = user;
+        next();
     } catch (error) {
-        res.status(400).json({
-            message: "khong them dc "
-        })
         
     }
+
+
 }
