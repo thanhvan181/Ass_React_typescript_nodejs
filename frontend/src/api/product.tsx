@@ -24,6 +24,10 @@ export const getproductsCate = (id:any) => {
     const url = `/products/category/${id}`;
     return instance.get(url)
 }
+// export const getproductsle = () => {
+//     const url = `/product`;
+//     return instance.get(url)
+// }
 export const update = (id:string, product:any) => {
     console.log("UAPI ID: ", id, product)
     const url = `/product/${id}`;

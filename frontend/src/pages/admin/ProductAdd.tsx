@@ -78,7 +78,7 @@ const ProductAdd = (props: ProductAddProps) => {
                     <Input />
                 </Form.Item>
                 <Form.Item label="description" name="description"> 
-                    <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
+                    <TextArea  placeholder="maxLength is 6"  />
 
                 </Form.Item>
                 <Form.Item label="InjectionPark_id" name="injectionPark_id">

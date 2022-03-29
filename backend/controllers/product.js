@@ -63,6 +63,24 @@ export const getProducts = async (req, res) => {
     
 
 }
+// export const getProductPrice = async (req, res) => {
+
+//     const filter = {'price': req.body}
+//     try {
+//         const productsPrice = await Product.find(filter).exec();
+//         res.json(productsPrice)
+        
+//     } catch (error) {
+    
+//         console.log("error", error);
+//         res.status(400).json({
+//             message: "khong them dc"
+//         })
+       
+//     }
+
+
+// }
 export const getProductsCategory = async (req, res) => {
     // console.log("ac")
 

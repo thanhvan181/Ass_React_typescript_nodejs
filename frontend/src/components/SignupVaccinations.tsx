@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 import { listCompany } from "../api/company";
 import { listInjection } from "../api/injectionpark";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { listproduct } from "../api/product";
+import {  listproduct } from "../api/product";
 
 import { create } from "../api/register";
 import { getproducts } from "../api/product";
@@ -51,7 +51,11 @@ type Inputs = {
     };
     dateo_injection: {
         type: Date;
-    };
+    },
+    injectionPark_id: {
+        type: [];
+    }
+   
 };
 
 const SignupVaccinations = (props: Props) => {
@@ -61,6 +65,8 @@ const SignupVaccinations = (props: Props) => {
     const [products, setProducts] = useState([]);
     const [productslist, setProductslist] = useState([]);
     const [addproduct, setAddProduct] = useState([])
+    const [productle, setProductLe] = useState([]);
+
     // useEffect(() => {
     //     const loadproduct = async () => {
     //         const { data } = await list();
@@ -90,6 +96,16 @@ const SignupVaccinations = (props: Props) => {
         };
         loadallProduct();
     }, []);
+    // useEffect(() => {
+    //     const loadallProductle = async () => {
+    //         const { data } = await getproductsle();
+    //         console.log("productleday nay", data)
+
+    //         setProductLe(data);
+    //     };
+    //     loadallProductle();
+    // }, []);
+  
 
     const {
         register,
@@ -165,26 +181,9 @@ const SignupVaccinations = (props: Props) => {
                             <Row classNameName="mb-3">
                                 <Form.Group as={Col} controlId="formGridPassword">
                                     <Form.Label>Giới tính</Form.Label>
-                                    {/* <Form.Check
-                                        inline
-                                        label="NAM"
-                                        // name="group1"
-
-                                        type="radio"
-
-                                        {...register('sex')}
-
-                                    />
-                                    <Form.Check
-                                        inline
-                                        label="NỮ"
-                                        // name="group1"
-                                        type="radio"
-                                        {...register('sex')}
-
-                                    /> */}
-                                    <input {...register("sex")} type="radio" value="male" />
-                                    <input {...register("sex")} type="radio" value="female" />
+                                   
+                                    <input {...register("sex")} type="radio" value="male" />NAM
+                                    <input {...register("sex")} type="radio" value="female" />NỮ
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridPassword">
@@ -295,11 +294,11 @@ const SignupVaccinations = (props: Props) => {
                                                                                                 return (
                                                                                                     <>
                                                                                                         <div className="product-container">
-                                                                                                            <InputGroup >
+                                                                                                            <InputGroup  >
                                                                                                                
                                                                                                               
                                                                                                                 <Card className="top-card">
-                                                                                                                <InputGroup.Checkbox  aria-label="Checkbox for following text input" onClick={(e:any) => hanldeInputData(e, product._id)} />
+                                                                                                                <InputGroup.Checkbox  aria-label="Checkbox for following text input" onClick={(e:any) => hanldeInputData(e, product._id)}  {...register("injectionPark_id")} />
                                                                                                                 <Card.Img
                                                                                                                     variant="top"
                                                                                                                     src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"

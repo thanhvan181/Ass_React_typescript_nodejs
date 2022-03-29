@@ -33,3 +33,20 @@ export const listInjectionPark = async (req, res) => {
     
 
 }
+// export const getInjectParkAll  = async (req, res) => {
+//     const condition = {""}
+//     try {
+//         const injectionPark = await Injectionpark.find().exec();
+//         res.json(injectionPark)
+        
+//     } catch (error) {
+
+//         console.log("error", error);
+//         res.status(400).json({
+//             message: "khong them dc "
+//         })
+       
+//     }
+    
+
+// }

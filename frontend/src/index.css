@@ -237,8 +237,14 @@ button.btn.btn-success {
 }
 
 
-.top-card.card:has(input[type=checkbox]:checked) {
-  border: 1px solid;
-  border-color: blue;
-
+img.card-img-top {
+  padding: 40px;
+}
+.card-body {
+  text-align: center;
+}
+.card-product{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 30px;
 }

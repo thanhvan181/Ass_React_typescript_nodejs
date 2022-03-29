@@ -12,7 +12,7 @@ const Banner = (props: Props) => {
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src="https://www.cowin.gov.in/abha2_1.2d583166ff1ff69133a8.jpg"
+      src="https://i0.wp.com/www.smartprix.com/bytes/wp-content/uploads/2021/02/aarogya.png?fit=1200%2C630&ssl=1"
       alt="First slide"
     />
     <Carousel.Caption>
@@ -23,7 +23,7 @@ const Banner = (props: Props) => {
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src="https://i.chungta.vn/2021/08/20/banner-covid-thumb-01-16294628-1814-2775-1629462815.jpg"
+      src="https://healthid.ndhm.gov.in/static/media/mainbanner.00586187.svg"
       alt="Second slide"
     />
 
@@ -35,7 +35,7 @@ const Banner = (props: Props) => {
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src="https://vnvc.vn/wp-content/uploads/2021/09/vnvc-uu-dai-goi-vac-xin.jpg"
+      src="https://cdn.s3waas.gov.in/s32291d2ec3b3048d1a6f86c2c4591b7e0/uploads/2020/03/2020032094.jpg"
       alt="Third slide"
     />
 
