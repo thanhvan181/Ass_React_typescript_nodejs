@@ -24,6 +24,14 @@ import ProductAdd from "./pages/admin/ProductAdd";
 import { create, listproduct, update } from "./api/product";
 import { remove } from "./api/product"
 import ProductEdit from "./pages/admin/ProductEdit";
+import PrivaRouter from "./components/PrivateRouter";
+import PrivateRouter from "./components/PrivateRouter";
+import City from "./pages/admin/Company";
+import { listCity } from "./api/city";
+import CityAdd from "./pages/admin/CompanyAdd";
+import Company from "./pages/admin/Company";
+import CompanyAdd from "./pages/admin/CompanyAdd";
+import { createCompany, listCompany } from "./api/company";
 
 
 type InputCate = {
@@ -35,12 +43,18 @@ type InputCate = {
 function App() {
   const [categories, setCategories] = useState<InputCate[]>([]);
   const [products, setProducts] = useState<any>([]);
+  const [company, setCompany] = useState<any>([]);
   useEffect(() => {
     const getProducts = async () => {
       const { data } = await listproduct();
       setProducts(data);
     }
     getProducts();
+    const getCity = async () => {
+      const {data} = await listCompany();
+      setCompany(data);
+    }
+    getCity();
   }, []);
   const onHandleAdd = async (product: any) => {
     const { data } = await create(product);
@@ -63,6 +77,18 @@ function App() {
     } catch (error) {
       
     }
+  }
+  const onHanlRemoveCompany = () => {
+  
+
+  }
+  const onHandleAddCompany = async(company: any) => {
+    const { data } = await createCompany(company);
+    console.log("datacompany", data)
+
+    setCompany([...company, data]);
+
+
   }
 
 
@@ -90,10 +116,16 @@ function App() {
               element={<FindVacciationCenterPage />}
             />
           </Route>
-          <Route path="admin" element={<AdminLayout />}>
+          <Route path="admin" element={<PrivateRouter><AdminLayout /></PrivateRouter>}>
             <Route index element={<Home />} />
             <Route path="category" element={<Category />} />
             <Route path="billing" element={<Billing />} />
+            <Route path="company">
+              <Route index element={<Company  company={company} onRemoveCompany={onHanlRemoveCompany} />} />
+              {/* <Route path=":id/edit" element={<ProductEdit  onUpdate={onHandleUpdate} />} /> */}
+              <Route path="addcompany" element={<CompanyAdd onAddCompany={onHandleAddCompany} />} />
+            </Route>
+            
             <Route path="product">
               <Route index element={<Product products={products} onRemove={onHandleRemove} />} />
               <Route path=":id/edit" element={<ProductEdit  onUpdate={onHandleUpdate} />} />

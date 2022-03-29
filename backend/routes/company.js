@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { create, list } from "../controllers/company";
+import { create, list, listCompany, readCompanyinCity } from "../controllers/company";
 
 
 
@@ -9,7 +9,7 @@ const router = Router();
 
 router.post("/company", create )
 
-router.get("/company", list )
-// router.delete("/category/:id", remove )
+router.get("/company", listCompany )
+router.get("/company/:id", readCompanyinCity )
 
 export default router;

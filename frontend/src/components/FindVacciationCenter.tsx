@@ -1,26 +1,40 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Dropdown, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { list } from "../api/company";
+import { listCompany, readCompanyincity } from "../api/company";
+import { listCity } from "../api/city"
 
-interface Props {}
+interface Props { }
 
 const FindVacciationCenter = (props: Props) => {
   const [companies, setCompany] = useState([]);
   const [mapUrl, setMapUrl] = useState('')
+  const [city, setCity] = useState([]);
 
   useEffect(() => {
     const loadDataCompany = async () => {
-      const { data } = await list();
+      const { data } = await listCompany();
       setCompany(data);
       console.log("Data", data);
     };
     loadDataCompany();
+    const loadCity = async () => {
+      const { data } = await listCity();
+      console.log("datacity", data)
+      setCity(data)
+
+    }
+    loadCity()
   }, []);
-  
-  const hanlonClickCompany = (e:any) => {
+
+  const hanlonClickCompany = (e: any) => {
     console.log(e.target.dataset.embed)
-      setMapUrl(e.target.dataset.embed);
+    setMapUrl(e.target.dataset.embed);
+
+  }
+  const hanldeClickCity = async (id: any) => {
+    const { data } = await readCompanyincity(id);
+    setCompany(data);
 
   }
 
@@ -111,12 +125,34 @@ const FindVacciationCenter = (props: Props) => {
       <Container>
         <Row>
           <Col sm={8}>
-          <h2>HÀ NỘI </h2>
+            <Dropdown>
+              <Dropdown.Toggle id="dropdown-custom-components">
+                Tìm theo khu vực
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu >
+                {city && city.map((ci: any) => {
+                  return (
+                    <>
+                      <Dropdown.Item eventKey="1"
+                        onClick={() => hanldeClickCity(ci._id)}
+                      >{ci.name}</Dropdown.Item>
+                    </>
+
+
+
+                  )
+                })}
+
+              </Dropdown.Menu>
+            </Dropdown>
+
             {companies &&
-              companies.map((company:any) => {
+              companies.map((company: any) => {
+                console.log("company",companies )
                 return (
                   <>
-                   
+
                     <div className="item_address">
                       <div className="title_chinhanh">{company.name}:</div>
                       <div className="address_chinhanh">
@@ -126,7 +162,7 @@ const FindVacciationCenter = (props: Props) => {
                           rel="no-follow"
                           className="small"
                           target="_blank"
-                          href="https://goo.gl/maps/eZSwnMabJR3f4aR39"
+                          href={company.mapUrl}
                         >
                           Xem bản đồ trên google
                         </a>{" "}
@@ -136,7 +172,7 @@ const FindVacciationCenter = (props: Props) => {
                           className="timtrenbado"
                           data-title="VNVC Đông Anh"
                           data-embed={company.mapUrl}
-                        onClick={hanlonClickCompany}
+                          onClick={hanlonClickCompany}
                         >
                           Tìm trên bản đồ
                         </span>

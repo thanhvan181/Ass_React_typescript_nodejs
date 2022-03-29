@@ -76,13 +76,14 @@ const WebsiteLayout = (props: Props) => {
         <hr />
 
 
-        <Navbar bg="dark" variant="dark"
+     <div className='nav-two'>
+     <Navbar bg="dark" variant="dark"
           sticky="top" expand="sm" collapseOnSelect>
 
           <Navbar.Toggle className="coloring" />
           <Navbar.Collapse>
            
-            <Nav>
+            <Nav className='ms-auto'>
               
               <Nav.Link href="/">TRANG TRỦ</Nav.Link>
               <NavDropdown title="GÓI TIÊM">
@@ -129,6 +130,7 @@ const WebsiteLayout = (props: Props) => {
           </Navbar.Collapse>
 
         </Navbar>
+     </div>
 
       </header>
 

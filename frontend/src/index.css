@@ -58,9 +58,9 @@ code {
   border-color: #198754;
   background-color: #ffc107;
 }
-nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.sticky-top {
+/* nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.sticky-top {
   padding-left: 300px;
-}
+} */
 .vacsinsteps {
   padding: 45px;
   background-color: #edffff;
@@ -228,4 +228,17 @@ iframe {
 }
 h5.text-uppercase {
   color: wheat;
+}
+.row {
+  margin-top: 20px;
+}
+button.btn.btn-success {
+  margin-right: 10px;
+}
+
+
+.top-card.card:has(input[type=checkbox]:checked) {
+  border: 1px solid;
+  border-color: blue;
+
 }

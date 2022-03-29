@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {Schema} from "mongoose";
+import {Schema, ObjectId} from "mongoose";
 
 const CompanySchema = new Schema({
  
@@ -13,6 +13,7 @@ const CompanySchema = new Schema({
         
         type: String,
         // unique: true,
+        required: false,
         // lowercase: true,
         // index: true
     },
@@ -35,6 +36,11 @@ const CompanySchema = new Schema({
     mapUrl: {
         type: String,
 
+    },
+
+    city_id: {
+        type: ObjectId,
+        ref: "City"
     }
     
     
