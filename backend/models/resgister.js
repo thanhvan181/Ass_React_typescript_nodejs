@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-import {Schema, ObjectId } from "mongoose";
+import { Schema, ObjectId } from "mongoose";
 
 const RegisterSchema = new Schema({
     name: {
@@ -18,10 +18,8 @@ const RegisterSchema = new Schema({
     },
     code: {
         required: false,
+        type: String
 
-        type: ObjectId,
-        ref: "User"
-        
     },
     address: {
         type: String,
@@ -41,30 +39,30 @@ const RegisterSchema = new Schema({
 
 
     },
-    dateo_injection : {
+    dateo_injection: {
         type: Date,
     },
 
     company_id: {
         require: false,
-        type: ObjectId,
-        ref: "Company"
+        type: String
     },
-    
+    injectionPark_id: [String],
 
 
 
 
 
-   
-    
-    
 
-    
-   
 
-   
-},  { timestamps: true})
+
+
+
+
+
+
+
+}, { timestamps: true })
 
 export default mongoose.model("Register", RegisterSchema)
 

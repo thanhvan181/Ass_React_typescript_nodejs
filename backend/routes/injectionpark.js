@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createInjectionPark, listInjectionPark } from "../controllers/injectionPark";
+import { createInjectionPark, listInjectionPark, getInjectPacks } from "../controllers/injectionPark";
 
 
 
@@ -7,9 +7,10 @@ import { createInjectionPark, listInjectionPark } from "../controllers/injection
 
 const router = Router();
 
-router.post("/injectionpark", createInjectionPark )
+router.post("/injectionpark", createInjectionPark)
 
-router.get("/injectionpark", listInjectionPark )
+router.get("/injectionpark", listInjectionPark)
+router.get("/injectionpacks", getInjectPacks)
 // router.delete("/category/:id", remove )
 
 export default router;

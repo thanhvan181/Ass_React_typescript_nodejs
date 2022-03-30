@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Layout, Drawer, Affix } from "antd";
-import Sidenav from "../../components/admin/layout/Sidenav";
-import Header from "../../components/admin/layout/Header";
-import Footer from "../../components/admin/layout/Footer";
+import Sidenav from "../admin/layout/Sidenav";
+import Header from "../admin/layout/Header";
+import Footer from "../admin/layout/Footer";
 
 const { Header: AntHeader, Content, Sider } = Layout;
 function AdminLayout({ children }: any) {

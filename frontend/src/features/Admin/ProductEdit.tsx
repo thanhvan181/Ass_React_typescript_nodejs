@@ -18,21 +18,21 @@ import { useParams, useNavigate } from "react-router-dom";
 import { read } from "../../api/product";
 
 type ProductAddProps = {
-  onUpdate: (id:any, product: any) => void;
+  onUpdate: (id: any, product: any) => void;
 };
 const ProductEdit = (props: ProductAddProps) => {
   const [injection, setInjection] = useState([]);
   const [company, setCompany] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
-  
 
+  const dateFormat = "YYYY-MM-DD";
   const { id } = useParams();
   const { Option } = Select;
   const [form] = Form.useForm();
   const navigate = useNavigate();
-    
+
   const onSubmit: any = (dataInput: any) => {
-    console.log("DATA submit: ", dataInput)
+    console.log("DATA submit: ", dataInput);
     props.onUpdate(id, dataInput);
 
     navigate("/admin/product");
@@ -42,8 +42,8 @@ const ProductEdit = (props: ProductAddProps) => {
     const getProduct = async () => {
       const { data } = await read(id);
       console.log(data);
-       
-        form.setFieldsValue(data);
+
+      form.setFieldsValue(data);
     };
     getProduct();
   }, []);
@@ -76,8 +76,7 @@ const ProductEdit = (props: ProductAddProps) => {
         layout="horizontal"
       >
         <Form.Item label="Name" name="name">
-          <Input 
-          />
+          <Input />
         </Form.Item>
         <Form.Item label="description" name="description">
           <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
@@ -118,12 +117,14 @@ const ProductEdit = (props: ProductAddProps) => {
               })}
           </Select>
         </Form.Item>
-        <Form.Item label="Start_use" name="start_use">
-          <DatePicker />
+        <Form.Item label="Start_End">
+
+          <DatePicker name="start_use" ></DatePicker>
         </Form.Item>
-        <Form.Item label="End_use" name="end_use">
-          <DatePicker />
+        <Form.Item label="End_use">
+          <DatePicker name="end_use" ></DatePicker>
         </Form.Item>
+
         <Form.Item label="Price" name="price">
           <InputNumber />
         </Form.Item>

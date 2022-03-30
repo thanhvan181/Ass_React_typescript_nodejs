@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@material-ui/core": "^4.12.3",
-    "antd": "^4.19.3",
-    "react-apexcharts": "^1.4.0",
-    "styled-components": "^5.3.3"
-  }
-}

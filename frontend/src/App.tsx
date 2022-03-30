@@ -1,40 +1,45 @@
 import { Navigate, NavLink, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
-import WebsiteLayout from "./pages/layouts/WebsiteLayout";
-import SignupVaccinationsPage from "./pages/SignupVaccinationsPage";
-import SigninPage from "./pages/SigninPage";
-import SignupPage from "./pages/SignupPage";
-import FindVacciationCenterPage from "./pages/FindVacciationCenterPage";
+import HomePage from "./features/Website/HomePage";
+// import ProductPage from "./features/Website/ProductPage";
+import WebsiteLayout from "./components/layouts/WebsiteLayout";
+import SignupVaccinationsPage from "./features/Website/SignupVaccinationsPage";
+import SigninPage from "./features/Website/SigninPage";
+import SignupPage from "./features/Website/SignupPage";
 
-import Home from "./pages/admin/Home";
-import Category from "./pages/admin/Category";
-import Billing from "./pages/admin/Billing";
-import Profile from "./pages/admin/Profile";
-import AdminLayout from "./pages/layouts/AdminLayout";
+
+import Home from "./features/Admin/Home";
+import Category from "./features/Admin/Category";
+import Billing from "./features/Admin/Billing";
+import Profile from "./features/Admin/Profile";
+import AdminLayout from "./components/layouts/AdminLayout";
 
 import "antd/dist/antd.css";
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
-import Product from "./pages/admin/Product";
-import ProductDetail from "./pages/ProductDetail";
-import ProductAdd from "./pages/admin/ProductAdd";
+import Product from "./features/Admin/Product";
+import ProductDetail from "./features/Website/ProductDetail";
+import ProductAdd from "./features/Admin/ProductAdd";
 import { create, listproduct, update } from "./api/product";
 import { remove } from "./api/product";
-import ProductEdit from "./pages/admin/ProductEdit";
+import ProductEdit from "./features/Admin/ProductEdit";
 import PrivateRouter from "./components/PrivateRouter";
-import Company from "./pages/admin/Company";
-import CompanyAdd from "./pages/admin/CompanyAdd";
+import Company from "./features/Admin/Company";
+import CompanyAdd from "./features/Admin/CompanyAdd";
 import { createCompany, listCompany } from "./api/company";
+
+import MainPage from "./features/Website/ProductClient/Pages/Main";
+
+import FindVacciationCenter from "./features/Website/FindVacciationCenter";
+ "./features/Website/ProductClient";
 type InputCate = {
   // kiểu dữ liệu của từng input
   name: string;
   index: number;
 };
-
+// const Product = React.lazy(() => import('./features/Website/ProductClient'));
 function App() {
-  const [categories, setCategories] = useState<InputCate[]>([]);
+ 
   const [products, setProducts] = useState<any>([]);
   const [company, setCompany] = useState<any>([]);
   useEffect(() => {
@@ -89,8 +94,8 @@ function App() {
               path="dangkytiemchung"
               element={<SignupVaccinationsPage />}
             />
-            <Route path="vaccine">
-              <Route index element={<ProductPage />} />
+            <Route path="product">
+            <Route index  element={<MainPage/>} />
               <Route path=":id" element={<ProductDetail />} />
             </Route>
             {/* <Route path="vaccine" element={<ProductPage />} /> */}
@@ -99,7 +104,7 @@ function App() {
             {/* <Route path="test" element={<TestiMonials />} /> */}
             <Route
               path="hethongtrungtamtiemchung"
-              element={<FindVacciationCenterPage />}
+              element={<FindVacciationCenter />}
             />
           </Route>
           <Route

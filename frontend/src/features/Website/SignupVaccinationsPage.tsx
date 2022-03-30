@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SignupVaccinations from '../components/SignupVaccinations'
+import SignupVaccinations from '../../components/SignupVaccinations'
 
 
 

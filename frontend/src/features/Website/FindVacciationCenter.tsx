@@ -1,8 +1,11 @@
 import React from "react";
 import { Col, Container, Dropdown, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { listCompany, readCompanyincity } from "../api/company";
-import { listCity } from "../api/city"
+import { listCompany, readCompanyincity } from "../../api/company";
+import { listCity } from "../../api/city";
+import Banner from "../../components/Banner";
+
+
 
 interface Props { }
 
@@ -40,6 +43,7 @@ const FindVacciationCenter = (props: Props) => {
 
   return (
     <div>
+        <Banner/>
       <Container className="content-search">
         <Row className="col6">
           <div>

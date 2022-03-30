@@ -5,8 +5,8 @@ import { Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { signin } from "../api/auth";
-import { authenticated } from '../untils/localStoge'
+import { signin } from "../../api/auth";
+import { authenticated } from '../../untils/localStoge'
 
 type TypeInputs = {
     email: string,

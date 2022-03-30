@@ -6,9 +6,10 @@ import { create, getCategory, list, remove } from '../controllers/category';
 
 const router = Router();
 
-router.post("/category", create )
-router.get("/category", list )
+router.post("/category", create)
+router.get("/category", list)
+router.get("/categories", getCategory)
 // d
-router.delete("/category/:id", remove )
+router.delete("/category/:id", remove)
 
 export default router;

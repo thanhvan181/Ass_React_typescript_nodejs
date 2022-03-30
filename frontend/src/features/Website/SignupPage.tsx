@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { signup } from '../api/auth';
+import { signup } from '../../api/auth';
 
 type TypeInputs = {
   email: string,
