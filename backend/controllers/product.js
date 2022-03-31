@@ -34,7 +34,13 @@ export const list = async (req, res) => {
     try {
         let page = parseInt(req.query.page) || 1
         let limit = parseInt(req.query.pageSize) || 8
-        const products = await Product.find().limit(limit).skip((page - 1) ? (page - 1) * limit : limit).exec();
+        let sort = {}
+        console.log("Query params: ", req.query)
+        if (req.query.sortBy && req.query.orderBy) {
+            sort[req.query.sortBy] = req.query.orderBy === 'desc' ? -1 : 1
+        }
+        console.log("Sort: ", sort)
+        const products = await Product.find().sort(sort).limit(limit).skip(((page - 1) * limit)).exec();
         const productCount = await Product.count()
         const totalPages = Math.ceil(productCount / limit)
         res.status(200).send({
@@ -76,24 +82,23 @@ export const getProducts = async (req, res) => {
 
 
 }
-// export const getProductPrice = async (req, res) => {
 
-//     const filter = {'price': req.body}
-//     try {
-//         const productsPrice = await Product.find(filter).exec();
-//         res.json(productsPrice)
+export const searchProduct = async (req, res) => {
+    try {
+        const productsPrice = await Product.find(req.query).exec();
+        res.status(200).send(
+            {
+                data: productsPrice
+            }
+        )
+    } catch (error) {
+        res.status(404).json({
+            message: "Not Found!"
+        })
 
-//     } catch (error) {
+    }
+}
 
-//         console.log("error", error);
-//         res.status(400).json({
-//             message: "khong them dc"
-//         })
-
-//     }
-
-
-// }
 export const getProductsCategory = async (req, res) => {
     // console.log("ac")
 
