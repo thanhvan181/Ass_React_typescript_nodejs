@@ -11,31 +11,28 @@ export const fetchProduct = createAsyncThunk(
   }
 );
 export const loadCategory = createAsyncThunk(
-    'product/listCategory', async (id) => {
-       
-            const { data } = await list();
-            return data
-       
-    }
-)
+  "product/listCategory",
+  async (id) => {
+    const { data } = await list();
+    return data;
+  }
+);
 export const getProductinCategory = createAsyncThunk(
-  'category/listproduct',
- async (id: any) => {
-     const {data} = await getproductsCate(id)
-     console.log("datainputcate", data);
-     return data;
-     
- }
-)
+  "category/listproduct",
+  async (id: any) => {
+    const { data } = await getproductsCate(id);
+    console.log("datainputcate", data);
+    return data;
+  }
+);
 export const readone = createAsyncThunk(
-  'product/productDetails',
- async (id: any) => {
-     const {data} = await read(id)
-     console.log("datainputcate", data);
-     return data;
-     
- })
-
+  "product/productDetails",
+  async (id: any) => {
+    const { data } = await read(id);
+    console.log("datainputcate", data);
+    return data;
+  }
+);
 
 // export const addProduct = createAsyncThunk(
 //     'product/addProduct', async (product, { rejectWithValue }) => {
@@ -48,40 +45,38 @@ export const readone = createAsyncThunk(
 //     }
 // )
 
-
 // interface ProductsState {
 //   products: []
- 
+
 // }
 
 // type initialState = {
 //   products: [],
- 
+
 // }
 const initialState = {
   value: [],
   cateogry: [],
-  // current: {}
-
+  current: {}
 };
 
 const productSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState,
   reducers: {
     // fill in primary logic here
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
-      
       state.value = action.payload;
     }),
-    builder.addCase(getProductinCategory.fulfilled, (state, action) => {
-      
-      state.value = action.payload;
-  })
-   
+      builder.addCase(getProductinCategory.fulfilled, (state, action) => {
+        state.value = action.payload;
+      }),
+      builder.addCase(readone.fulfilled, (state, action) => {
+        state.current = action.payload;
+      });
   },
-})
+});
 
 export default productSlice.reducer;

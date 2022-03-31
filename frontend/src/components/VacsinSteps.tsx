@@ -11,7 +11,7 @@ const VacsinSteps = (props: Props) => {
               <h1 className='text-title'>Tiêm chủng trong 3 bước dễ dàng</h1>
             <CardGroup className='vacsinsteps'>
               
-                <Card>
+                <Card >
                     <Card.Img variant="top" src="https://www.cowin.gov.in/assets/images/Step_1.svg" />
                     <Card.Body>
                         <Card.Title>BƯỚC 1</Card.Title>

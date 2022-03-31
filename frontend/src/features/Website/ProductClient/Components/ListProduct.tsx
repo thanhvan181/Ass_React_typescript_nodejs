@@ -30,14 +30,14 @@ const ListProduct = () => {
                       <Card.Body>
                         <Card.Title>
                           <a href={`/product/${productitem._id}`}>
-                            {productitem.name}
+                            {productitem.name.slice(0,30)}...
                          
                           </a>
                         </Card.Title>
                         <Card.Text>
                           <span>Phòng bệnh:
                           </span>
-                          <p>{productitem.description}</p>
+                          <p>{productitem.description.slice(0,90)} ...</p>
                           <span>{productitem.price}</span>
                         </Card.Text>
                       </Card.Body>

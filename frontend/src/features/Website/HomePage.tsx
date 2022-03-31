@@ -1,6 +1,7 @@
 import React from 'react'
 import Banner from '../../components/Banner'
-import CardCasual from '../../components/CardCasual'
+
+
 import TemVector from '../../components/TemVector/TemVector'
 import VacsinReview from '../../components/VacsinReview'
 import VacsinReviewthree from '../../components/VacsinReviewthree'
@@ -13,12 +14,13 @@ type Props = {}
 const HomePage = (props: Props) => {
   return (
     <div>
-      {/* <Banner/> */}
+     
       <Banner/>
       <VacsinSteps />
       <VactionList/>
+      {/* <ShowProductHome/> */}
       
-      <CardCasual/>
+    
       <VacsinReview/>
       
       <VacsinReviewtwo/>

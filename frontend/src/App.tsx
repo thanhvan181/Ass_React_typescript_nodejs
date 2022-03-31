@@ -18,7 +18,7 @@ import "antd/dist/antd.css";
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
 import Product from "./features/Admin/Product";
-import ProductDetail from "./features/Website/ProductDetail";
+
 import ProductAdd from "./features/Admin/ProductAdd";
 import { create, listproduct, update } from "./api/product";
 import { remove } from "./api/product";
@@ -32,7 +32,7 @@ import MainPage from "./features/Website/ProductClient/Pages/Main";
 
 import FindVacciationCenter from "./features/Website/FindVacciationCenter";
 import ProductDetails from "./features/Website/ProductClient/Pages/Details";
-import Details from "./features/Website/ProductClient/Components/Detail";
+
  "./features/Website/ProductClient";
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -98,7 +98,7 @@ function App() {
             />
             <Route path="product">
             <Route index  element={<MainPage/>} />
-              <Route path=":id" element={< Details/>} />
+              <Route path=":id" element={<ProductDetails/>} />
             </Route>
             {/* <Route path="vaccine" element={<ProductPage />} /> */}
             <Route path="signin" element={<SigninPage />} />

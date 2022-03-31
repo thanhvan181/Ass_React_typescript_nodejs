@@ -1,19 +1,24 @@
 import React, { useEffect } from "react";
 import "./VactionList.css";
-import { useState } from "react";
-import { list } from "../../api/category";
 
-interface Props {}
+import { useSelector, useDispatch } from "react-redux";
 
-const VactionList = (props: Props) => {
-  const [category, setCategory] = useState([]);
+
+import { loadCategory } from "../../features/Website/Category/CategorySlide";
+import { getProductinCategory } from "../../features/Website/ProductClient/ProductClientSlide";
+
+
+
+const VactionList = () => {
+  const dispatch = useDispatch();
+  ;
+  const category = useSelector( (state: any) => state.category.category);
   useEffect(() => {
-    const loadcategory = async () => {
-      const { data } = await list();
-      setCategory(data);
-    };
-    loadcategory();
-  }, []);
+    dispatch(loadCategory())
+
+      
+}, [])
+
   return (
     <div className="DIV_1">
       <div className="DIV_2">
@@ -39,30 +44,7 @@ const VactionList = (props: Props) => {
                   );
                 })}
 
-              {/* <li className="LI_11">
-						<a href="" className="A_12">Merge Certificates</a>
-						<p className="P_13">
-							In case you have multiple certificates of Dose 1 generated from different accounts, you can merge them into the final vaccination certificate.
-						</p>
-					</li>
-					<li className="LI_14">
-						<a href="" className="A_15">Add Passport</a>
-						<p className="P_16">
-							You can link your passport to your vaccination certificate. By adding a passport to your vaccination certificate you can submit a request and get an international travel certificate.
-						</p>
-					</li>
-					<li className="LI_17">
-						<a href="" className="A_18">Report Unknown Member</a>
-						<p className="P_19">
-							If there are any unknown members are associated with your account, you can remove them from your account by reporting unknown members.
-						</p>
-					</li>
-					<li className="LI_20">
-						<a href="" className="A_21">Transfer Member To New Number</a>
-						<p className="P_22">
-							You can transfer members associated with your existing account to the new mobile number.
-						</p>
-					</li> */}
+            
             </ul>
           </div>
         </div>

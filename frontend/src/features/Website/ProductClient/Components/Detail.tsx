@@ -10,13 +10,14 @@ const Details = () => {
   const dispatch = useDispatch();
   ;
   const {id} = useParams();
-  const productsone = useSelector( (state: any) => state.product.value);
-  console.log("getProduc", productsone)
+  const product = useSelector((state :any) => state.product.current);
+  console.log("product", product)
+  
 
   useEffect(() => {
    dispatch(readone(id))
 
-  }, [])
+  }, [id])
 
   return (
     <>
@@ -30,10 +31,14 @@ const Details = () => {
           </Col>
 
           <Col sm={8}>
-            <h1>MÔ TẢ THÔNG TIN VẮC XIN <span>{productsone.name}</span> </h1>
+            <h1>MÔ TẢ THÔNG TIN VẮC XIN :
+            <span>{product.name}</span> </h1>
             <p>
-            {productsone.description}
+            {product.description}
             </p>
+            <Button variant="success" className="btn-pro">
+                          Chọn Mua
+            </Button>
           </Col>
         </Row>
         <Row>

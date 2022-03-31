@@ -240,12 +240,14 @@ button.btn.btn-success {
 img.card-img-top {
   padding: 40px;
 }
-.card-body {
-  text-align: center;
-}
+
 .card-product{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 30px;
 }
-
+.card-body {
+  height: 200px;
+  text-align: center;
+  word-wrap: break-word;
+}

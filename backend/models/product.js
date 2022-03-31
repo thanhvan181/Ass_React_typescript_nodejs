@@ -31,6 +31,8 @@ const productSchema = new Schema({
         required: true,
         text: true
     },
+  
+
     slug: {
         type: String,
         lowercase: true,

@@ -12,7 +12,7 @@ const Banner = (props: Props) => {
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src="https://i0.wp.com/www.smartprix.com/bytes/wp-content/uploads/2021/02/aarogya.png?fit=1200%2C630&ssl=1"
+      src="https://api.bvptw.org/new_images/coronavirus-banner-x_32516d90_2dbd_4b7e_a339_391e3ad54950.png"
       alt="First slide"
     />
     <Carousel.Caption>
