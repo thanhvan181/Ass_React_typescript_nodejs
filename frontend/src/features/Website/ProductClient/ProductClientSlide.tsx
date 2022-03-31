@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { list } from "../../../api/category";
-import { getproductsCate, listproduct } from "../../../api/product";
+import { getproductsCate, listproduct, read } from "../../../api/product";
 // import { getAll, add, get } from '../../api/productApi';
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
@@ -27,6 +27,16 @@ export const getProductinCategory = createAsyncThunk(
      
  }
 )
+export const readone = createAsyncThunk(
+  'product/productDetails',
+ async (id: any) => {
+     const {data} = await read(id)
+     console.log("datainputcate", data);
+     return data;
+     
+ })
+
+
 // export const addProduct = createAsyncThunk(
 //     'product/addProduct', async (product, { rejectWithValue }) => {
 //         try {

@@ -10,13 +10,16 @@ const MainPage = (props: Props) => {
     <div>
       <Container>
         <Row className="ab">
-          <Col sm={4}>
-              <Danhmuc/>
-          </Col>
-
           <Col sm={8}>
+              <Danhmuc/>
              
               <ListProduct/>
+          </Col>
+
+          <Col sm={4}>
+            
+             
+            
           </Col>
         </Row>
       </Container>

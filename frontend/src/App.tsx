@@ -31,6 +31,8 @@ import { createCompany, listCompany } from "./api/company";
 import MainPage from "./features/Website/ProductClient/Pages/Main";
 
 import FindVacciationCenter from "./features/Website/FindVacciationCenter";
+import ProductDetails from "./features/Website/ProductClient/Pages/Details";
+import Details from "./features/Website/ProductClient/Components/Detail";
  "./features/Website/ProductClient";
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -96,7 +98,7 @@ function App() {
             />
             <Route path="product">
             <Route index  element={<MainPage/>} />
-              <Route path=":id" element={<ProductDetail />} />
+              <Route path=":id" element={< Details/>} />
             </Route>
             {/* <Route path="vaccine" element={<ProductPage />} /> */}
             <Route path="signin" element={<SigninPage />} />

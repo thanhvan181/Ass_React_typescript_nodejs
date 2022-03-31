@@ -7,10 +7,6 @@ import { useEffect } from 'react';
 import { getProductinCategory, loadCategory } from "../ProductClientSlide";
 
 
-const hanldeClickCategory = () => {
-
-}
-
 const Danhmuc = () => {
     const dispatch = useDispatch();
   ;
@@ -53,17 +49,11 @@ const hanldeClickCategory = (id: any) => {
                       })}
                   </Dropdown.Menu>
           </Dropdown>
+
         </div>
+      
 
-        {/* <div>
-          <Dropdown>
-            <Dropdown.Toggle id="dropdown-custom-components">
-              Sắp xếp theo giá
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu></Dropdown.Menu>
-          </Dropdown>
-        </div> */}
+       
       </div>
     )
 }

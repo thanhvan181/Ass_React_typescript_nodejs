@@ -29,12 +29,14 @@ const ListProduct = () => {
                       />
                       <Card.Body>
                         <Card.Title>
-                          <a href={`/vaccine/${productitem.id}`}>
+                          <a href={`/product/${productitem._id}`}>
                             {productitem.name}
+                         
                           </a>
                         </Card.Title>
                         <Card.Text>
-                          <span>Phòng bệnh: </span>
+                          <span>Phòng bệnh:
+                          </span>
                           <p>{productitem.description}</p>
                           <span>{productitem.price}</span>
                         </Card.Text>

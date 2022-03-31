@@ -15,14 +15,14 @@ import {
 import { useState, useEffect } from "react";
 import { listCompany } from "../api/company";
 import { getCategory } from "../api/category";
-import { listInjection, getInjectionPacks } from "../api/injectionpark";
+import {  getInjectionPacks } from "../api/injectionpark";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { listproduct } from "../api/product";
 
 import { create } from "../api/register";
 import { getproducts } from "../api/product";
 
-type Props = {};
+
 
 type Inputs = {
   name: {
@@ -59,16 +59,13 @@ type Inputs = {
 
 };
 
-const SignupVaccinations = (props: Props) => {
+const SignupVaccinations = (props: Inputs) => {
   const [company, setCompany] = useState([]);
   const [injection, setInjection] = useState([]);
   const [isShowPack, setIsShowPack] = useState(true);
-  const [products, setProducts] = useState([]);
   const [productslist, setProductslist] = useState([]);
-  const [addproduct, setAddProduct] = useState([])
-  const [productle, setProductLe] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
-  const [subCategory, setSubCategory] = useState([]);
+  
 
   useEffect(() => {
     const getCategories = async () => {
@@ -76,10 +73,7 @@ const SignupVaccinations = (props: Props) => {
       console.log("GET CATEGORY: ", data)
       setCategoryList(data);
     };
-    // const getSubCategory = async () => {
-    //     const { data } = await list();
-    //     setSubCategory(data);
-    // };
+  
     getCategories();
   }, []);
   useEffect(() => {
@@ -90,13 +84,7 @@ const SignupVaccinations = (props: Props) => {
     loadCompany();
   }, []);
 
-  // useEffect(() => {
-  //   const loadInjection = async () => {
-  //     const { data } = await listInjection();
-  //     setInjection(data);
-  //   };
-  //   loadInjection();
-  // }, []);
+  
   useEffect(() => {
     const loadallProduct = async () => {
       const { data } = await listproduct();
@@ -104,15 +92,7 @@ const SignupVaccinations = (props: Props) => {
     };
     loadallProduct();
   }, []);
-  // useEffect(() => {
-  //     const loadallProductle = async () => {
-  //         const { data } = await getproductsle();
-  //         console.log("productleday nay", data)
-
-  //         setProductLe(data);
-  //     };
-  //     loadallProductle();
-  // }, []);
+  
 
 
   const {
@@ -123,14 +103,12 @@ const SignupVaccinations = (props: Props) => {
   // sử dụng hook useNavigate để chuyển sang
   //  const navigate = useNavigate()
   const onSubmit: SubmitHandler<Inputs> = async (dataInput: any) => {
-    let checkboxs = document.querySelectorAll('input[name="injectionPark_id"][type="checkbox"]:checked');
-    let selected = Array.from(checkboxs).map(x => x.value)
-    console.log("SELECT pack: ", selected)
-    console.log("INPUT: ", { ...dataInput, ...{ "injectionPark_id": selected } });
+    let checkboxs = document.querySelectorAll('input[name="injectionPark_id"][type="checkbox"]:checked') ;
+    let selected = Array.from(checkboxs).map((x:any) => x.value)
+   
     const { data } = await create({ ...dataInput, ...{ "injectionPark_id": selected } });
     console.log("data", data);
-
-    //  navigate("/admin/product");
+   
   };
 
   const handleButtonShowPack = () => {
@@ -146,12 +124,13 @@ const SignupVaccinations = (props: Props) => {
     const { data } = await getInjectionPacks({ 'subcategory_id': id });
     setInjection(data);
 
-    console.log("PACK: ", data);
+    // console.log("PACK: ", data);
 
-    // console.log("idpark", id);
+    // // console.log("idpark", id);
 
-    // const {}
+    // // const {}
   };
+
   const hanldeInputData = (e: any, id: any) => {
     console.log("Click Product: ", id)
     console.log("Click Product eenv: ", e)
