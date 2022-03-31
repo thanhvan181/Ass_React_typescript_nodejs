@@ -1,8 +1,14 @@
 import instance from './instance';
 
-export const listproduct = () => {
-    const url = `/products`;
-    return instance.get(url)
+export const listproduct = (params:any) => {
+    const paramString = new URLSearchParams(params).toString();
+    if(!paramString){
+        const url = `/products`;
+        return instance.get(url)
+
+    }
+    const url = `/products?${paramString}`
+   return instance.get(url)
 }
 export const remove = (id:any) => {
     const url = `/product/${id}`;

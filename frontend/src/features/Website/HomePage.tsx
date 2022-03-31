@@ -1,5 +1,6 @@
 import React from 'react'
 import Banner from '../../components/Banner'
+import ShowProduct from '../../components/ShowProduct'
 
 
 import TemVector from '../../components/TemVector/TemVector'
@@ -18,7 +19,7 @@ const HomePage = (props: Props) => {
       <Banner/>
       <VacsinSteps />
       <VactionList/>
-      {/* <ShowProductHome/> */}
+      <ShowProduct/>
       
     
       <VacsinReview/>

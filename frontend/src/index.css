@@ -251,3 +251,8 @@ img.card-img-top {
   text-align: center;
   word-wrap: break-word;
 }
+ul.pagination {
+ 
+  justify-content: center;
+  margin-top: 20px;
+}

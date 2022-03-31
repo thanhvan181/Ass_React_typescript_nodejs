@@ -4,15 +4,16 @@ import { getproductsCate, listproduct, read } from "../../../api/product";
 // import { getAll, add, get } from '../../api/productApi';
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
-  async () => {
-    const { data } = await listproduct();
-    console.log("data", data);
-    return data;
+  async (params:any) => {
+    const {data: {data, paging}, } = await listproduct(params);
+    console.log("dataproduct", data);
+    console.log("paging", paging);
+    return {data, paging};
   }
 );
 export const loadCategory = createAsyncThunk(
   "product/listCategory",
-  async (id) => {
+  async () => {
     const { data } = await list();
     return data;
   }
@@ -57,7 +58,9 @@ export const readone = createAsyncThunk(
 const initialState = {
   value: [],
   cateogry: [],
-  current: {}
+  current: {},
+  paging: {},
+
 };
 
 const productSlice = createSlice({
@@ -68,7 +71,9 @@ const productSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
-      state.value = action.payload;
+      state.value = action.payload.data;
+      state.paging = action.payload.paging;
+      // state.paging = action.payload;
     }),
       builder.addCase(getProductinCategory.fulfilled, (state, action) => {
         state.value = action.payload;
