@@ -12,17 +12,30 @@ const Details = () => {
   ;
   const {id} = useParams();
   const product = useSelector((state :any) => state.product.current);
-  const productincategory = useSelector((state: any) => state.product.refProducts)
-  console.log("product", product)
+  const productincategory = useSelector((state: any) => state.product.value)
+  console.log("productlienquan", productincategory)
   
 
   useEffect(() => {
    dispatch(readone(id))
 
+   dispatch(getProductinCategory(product.category_id))
+
   
    
 
   }, [id])
+  useEffect(() => {
+ 
+ 
+    dispatch(getProductinCategory(product.category_id))
+ 
+   
+    
+ 
+   }, [product.category_id])
+  
+ 
  
 
 
@@ -40,6 +53,7 @@ const Details = () => {
           <Col sm={8}>
             <h1>MÔ TẢ THÔNG TIN VẮC XIN :
             <span>{product.name}</span> </h1>
+            {/* <span>{product.category_id}</span> */}
             <p>
               {/* {product.category_id} */}
             {product.description}
@@ -65,6 +79,7 @@ const Details = () => {
                     <Card.Title>
                       <a 
                       href={`/product/${items._id}`}
+                      
                         >
                     
                         {items.name.slice(0,30)}

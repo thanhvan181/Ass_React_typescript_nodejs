@@ -28,7 +28,7 @@ const HomePage = (props: Props) => {
       <VacsinReviewtwo/>
       <ShowProduct/>
       <VacsinReviewthree/>
-      <TemVector/>
+      {/* <TemVector/> */}
      
      
       

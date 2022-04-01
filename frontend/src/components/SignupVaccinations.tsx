@@ -15,19 +15,15 @@ import {
 import { useState, useEffect } from "react";
 import { listCompany } from "../api/company";
 import { getCategory } from "../api/category";
-import {  getInjectionPacks } from "../api/injectionpark";
+import { getInjectionPacks } from "../api/injectionpark";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { listproduct } from "../api/product";
+import { getAll, listproduct } from "../api/product";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { create } from "../api/register";
 
-import { useNavigate } from 'react-router-dom';
-
-
-
-
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   name: {
@@ -57,11 +53,10 @@ type Inputs = {
   };
   dateo_injection: {
     type: Date;
-  },
+  };
   injectionPark_id: {
     type: [];
-  }
-
+  };
 };
 
 const SignupVaccinations = (props: any) => {
@@ -71,16 +66,15 @@ const SignupVaccinations = (props: any) => {
   const [productslist, setProductslist] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const notify = () => toast(`Dang ky thanh cong`);
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getCategories = async () => {
       const { data } = await getCategory();
-      console.log("GET CATEGORY: ", data)
+      console.log("GET CATEGORY: ", data);
       setCategoryList(data);
     };
-  
+
     getCategories();
   }, []);
   useEffect(() => {
@@ -91,16 +85,13 @@ const SignupVaccinations = (props: any) => {
     loadCompany();
   }, []);
 
-  
   useEffect(() => {
     const loadallProduct = async () => {
-      const { data } = await listproduct("");
+      const { data } = await getAll();
       setProductslist(data);
     };
     loadallProduct();
   }, []);
-  
-
 
   const {
     register,
@@ -110,29 +101,32 @@ const SignupVaccinations = (props: any) => {
   // sử dụng hook useNavigate để chuyển sang
   //  const navigate = useNavigate()
   const onSubmit: SubmitHandler<Inputs> = async (dataInput: any) => {
-    let checkboxs = document.querySelectorAll('input[name="injectionPark_id"][type="checkbox"]:checked') ;
-    let selected = Array.from(checkboxs).map((x:any) => x.value)
-    
-   
-    const { data } = await create({ ...dataInput, ...{ "injectionPark_id": selected } });
+    let checkboxs = document.querySelectorAll(
+      'input[name="injectionPark_id"][type="checkbox"]:checked'
+    );
+    let selected = Array.from(checkboxs).map((x: any) => x.value);
+
+    const { data } = await create({
+      ...dataInput,
+      ...{ injectionPark_id: selected },
+    });
     console.log("data", data);
-    navigate("/success")
-   
+    navigate("/success");
+
     // notify(data);
-   
   };
 
   const handleButtonShowPack = () => {
-    console.log("show pack")
+    console.log("show pack");
     setIsShowPack(true);
   };
   const handleButtonShowProducts = () => {
-    console.log("hidden pack")
+    console.log("hidden pack");
     setIsShowPack(false);
   };
 
   const hanleClickshowProductPark = async (id: any) => {
-    const { data } = await getInjectionPacks({ 'subcategory_id': id });
+    const { data } = await getInjectionPacks({ subcategory_id: id });
     setInjection(data);
 
     // console.log("PACK: ", data);
@@ -143,17 +137,13 @@ const SignupVaccinations = (props: any) => {
   };
 
   const hanldeInputData = (e: any, id: any) => {
-    console.log("Click Product: ", id)
-    console.log("Click Product eenv: ", e)
+    console.log("Click Product: ", id);
+    console.log("Click Product eenv: ", e);
     // setAddProduct(id);
 
-
-    console.log("e", e.target)
+    console.log("e", e.target);
     // e.target.parentElement.style.color = 'green'
-
-
-
-  }
+  };
 
   return (
     <div>
@@ -185,9 +175,10 @@ const SignupVaccinations = (props: any) => {
               <Row classNameName="mb-3">
                 <Form.Group as={Col} controlId="formGridPassword">
                   <Form.Label>Giới tính</Form.Label>
-
-                  <input {...register("sex")} type="radio" value="male" />NAM
-                  <input {...register("sex")} type="radio" value="female" />NỮ
+                  <input {...register("sex")} type="radio" value="male" />
+                  NAM
+                  <input {...register("sex")} type="radio" value="female" />
+                  NỮ
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridPassword">
@@ -223,7 +214,7 @@ const SignupVaccinations = (props: any) => {
                   />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId="formGridPassword" >
+                <Form.Group as={Col} controlId="formGridPassword">
                   <Form.Label>Số điện thoại liên hệ </Form.Label>
                   <Form.Control
                     type="number"
@@ -279,73 +270,93 @@ const SignupVaccinations = (props: any) => {
                               categoryList.map((category: any) => {
                                 return (
                                   <>
-                                    {category.subcategories && category.subcategories.map((sub: any) => {
-                                      return (
-                                        <>
-                                          <Accordion>
-                                            <Accordion.Item
-                                              eventKey={`${sub._id}${category.id}`}
-                                              //  href={inject._id}
-                                              onClick={() => {
-                                                hanleClickshowProductPark(sub._id);
-                                              }}
-                                            >
-                                              <Accordion.Header>
-                                                {`${category.name}/${sub.name}`}
-                                              </Accordion.Header>
+                                    {category.subcategories &&
+                                      category.subcategories.map((sub: any) => {
+                                        return (
+                                          <>
+                                            <Accordion>
+                                              <Accordion.Item
+                                                eventKey={`${sub._id}${category.id}`}
+                                                //  href={inject._id}
+                                                onClick={() => {
+                                                  hanleClickshowProductPark(
+                                                    sub._id
+                                                  );
+                                                }}
+                                              >
+                                                <Accordion.Header>
+                                                  {`${category.name}/${sub.name}`}
+                                                </Accordion.Header>
 
-                                              <Accordion.Body>
-
-                                                <CardGroup className="card-groud">
-                                                  {injection &&
-                                                    injection.map((product: any) => {
-                                                      return (
-                                                        <>
-                                                          <div className="product-container">
-                                                            <InputGroup  >
-
-
-                                                              <Card className="top-card">
-                                                                <InputGroup.Checkbox aria-label="Checkbox for following text input" type="checkbox" value={product._id} onClick={(e: any) => hanldeInputData(e, product._id)}  {...register("injectionPark_id")} />
-                                                                <Card.Img
-                                                                  variant="top"
-                                                                  src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
-                                                                />
-                                                                <Card.Body>
-                                                                  <Card.Title>
-                                                                    <a
-                                                                      href={`/vaccine/${product.id}`}
-                                                                    >
-                                                                      {product.name}
-                                                                    </a>
-                                                                  </Card.Title>
-                                                                  <Card.Text>
-                                                                    <p>
-                                                                      {
-                                                                        product.description
+                                                <Accordion.Body>
+                                                  <CardGroup className="card-groud">
+                                                    {injection &&
+                                                      injection.map(
+                                                        (product: any) => {
+                                                          return (
+                                                            <>
+                                                              <div className="product-container">
+                                                                <InputGroup>
+                                                                  <Card className="top-card">
+                                                                    <InputGroup.Checkbox
+                                                                      aria-label="Checkbox for following text input"
+                                                                      type="checkbox"
+                                                                      value={
+                                                                        product._id
                                                                       }
-                                                                    </p>
-                                                                    <span>
-                                                                      {product.price}
-                                                                    </span>
-                                                                  </Card.Text>
-                                                                </Card.Body>
-                                                              </Card>
-                                                            </InputGroup>
-
-
-                                                          </div>
-                                                        </>
-                                                      );
-                                                    })}
-                                                </CardGroup>
-                                              </Accordion.Body>
-                                            </Accordion.Item>
-                                          </Accordion>
-                                        </>
-                                      )
-                                    })}
-
+                                                                      onClick={(
+                                                                        e: any
+                                                                      ) =>
+                                                                        hanldeInputData(
+                                                                          e,
+                                                                          product._id
+                                                                        )
+                                                                      }
+                                                                      {...register(
+                                                                        "injectionPark_id"
+                                                                      )}
+                                                                    />
+                                                                    <Card.Img
+                                                                      variant="top"
+                                                                      src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
+                                                                    />
+                                                                    <Card.Body>
+                                                                      <Card.Title>
+                                                                        <a
+                                                                          href={`/vaccine/${product.id}`}
+                                                                        >
+                                                                          {
+                                                                            product.name
+                                                                          }
+                                                                        </a>
+                                                                      </Card.Title>
+                                                                      <Card.Text>
+                                                                        <p>
+                                                                          {
+                                                                            product.description
+                                                                          }
+                                                                        </p>
+                                                                        <span>
+                                                                          {
+                                                                            product.price
+                                                                          }
+                                                                        </span>
+                                                                      </Card.Text>
+                                                                    </Card.Body>
+                                                                  </Card>
+                                                                </InputGroup>
+                                                              </div>
+                                                            </>
+                                                          );
+                                                        }
+                                                      )}
+                                                  </CardGroup>
+                                                </Accordion.Body>
+                                              </Accordion.Item>
+                                            </Accordion>
+                                          </>
+                                        );
+                                      })}
                                   </>
                                 );
                               })}
@@ -364,15 +375,30 @@ const SignupVaccinations = (props: any) => {
                                         />
                                         <Card.Body>
                                           <Card.Title>
-                                            <a href={`/vaccine/${product.id}`}>
-                                              {product.name}
+                                            <a
+                                              href={`/product/${product._id}`}
+                                            >
+                                              {product.name.slice(0, 30)}...
                                             </a>
                                           </Card.Title>
                                           <Card.Text>
-                                            <p>{product.description}</p>
+                                            <span>Phòng bệnh:</span>
+                                            <p>
+                                              {product.description.slice(
+                                                0,
+                                                90
+                                              )}{" "}
+                                              ...
+                                            </p>
                                             <span>{product.price}</span>
                                           </Card.Text>
                                         </Card.Body>
+                                        <Button
+                                          variant="success"
+                                          className="btn-pro"
+                                        >
+                                          Chọn Mua
+                                        </Button>
                                       </Card>
                                     </div>
                                   </>
