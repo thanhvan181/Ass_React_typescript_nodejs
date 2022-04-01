@@ -4,20 +4,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { useEffect } from 'react';
-import { readone } from "../ProductClientSlide";
+import { getProductinCategory, readone } from "../ProductClientSlide";
+// import { loadCategory } from "../../Category/CategorySlide";
 
 const Details = () => {
   const dispatch = useDispatch();
   ;
   const {id} = useParams();
   const product = useSelector((state :any) => state.product.current);
+  const productincategory = useSelector((state: any) => state.product.refProducts)
   console.log("product", product)
   
 
   useEffect(() => {
    dispatch(readone(id))
 
+  
+   
+
   }, [id])
+ 
+
 
   return (
     <>
@@ -34,6 +41,7 @@ const Details = () => {
             <h1>MÔ TẢ THÔNG TIN VẮC XIN :
             <span>{product.name}</span> </h1>
             <p>
+              {/* {product.category_id} */}
             {product.description}
             </p>
             <Button variant="success" className="btn-pro">
@@ -44,102 +52,40 @@ const Details = () => {
         <Row>
           <h1>Các sản phẩm vaccine liên quan </h1>
           <CardGroup className="card-product">
-            <div className="product-container">
-                      <Card>
-                        <Card.Img
-                          variant="top"
-                          src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
-                        />
-                        <Card.Body>
-                          <Card.Title>
-                            {/* <a href={`/product/${productitem.id}`}> */}
-                              {/* {productitem.name} */}
-                              ddddd
-                            {/* </a> */}
-                          </Card.Title>
-                          <Card.Text>
-                            <span>Phòng bệnh: </span>
-                            <p>ddkkshsjs</p>
-                            <span>883883838</span>
-                          </Card.Text>
-                        </Card.Body>
-                        <Button variant="success" className="btn-pro">
-                          Chọn Mua
-                        </Button>
-                      </Card>
-              </div>
-              <div className="product-container">
-                      <Card>
-                        <Card.Img
-                          variant="top"
-                          src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
-                        />
-                        <Card.Body>
-                          <Card.Title>
-                            {/* <a href={`/product/${productitem.id}`}> */}
-                              {/* {productitem.name} */}
-                              ddddd
-                            {/* </a> */}
-                          </Card.Title>
-                          <Card.Text>
-                            <span>Phòng bệnh: </span>
-                            <p>ddkkshsjs</p>
-                            <span>883883838</span>
-                          </Card.Text>
-                        </Card.Body>
-                        <Button variant="success" className="btn-pro">
-                          Chọn Mua
-                        </Button>
-                      </Card>
-              </div>
-              <div className="product-container">
-                      <Card>
-                        <Card.Img
-                          variant="top"
-                          src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
-                        />
-                        <Card.Body>
-                          <Card.Title>
-                            {/* <a href={`/product/${productitem.id}`}> */}
-                              {/* {productitem.name} */}
-                              ddddd
-                            {/* </a> */}
-                          </Card.Title>
-                          <Card.Text>
-                            <span>Phòng bệnh: </span>
-                            <p>ddkkshsjs</p>
-                            <span>883883838</span>
-                          </Card.Text>
-                        </Card.Body>
-                        <Button variant="success" className="btn-pro">
-                          Chọn Mua
-                        </Button>
-                      </Card>
-              </div>
-              <div className="product-container">
-                      <Card>
-                        <Card.Img
-                          variant="top"
-                          src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
-                        />
-                        <Card.Body>
-                          <Card.Title>
-                            {/* <a href={`/product/${productitem.id}`}> */}
-                              {/* {productitem.name} */}
-                              ddddd
-                            {/* </a> */}
-                          </Card.Title>
-                          <Card.Text>
-                            <span>Phòng bệnh: </span>
-                            <p>ddkkshsjs</p>
-                            <span>883883838</span>
-                          </Card.Text>
-                        </Card.Body>
-                        <Button variant="success" className="btn-pro">
-                          Chọn Mua
-                        </Button>
-                      </Card>
-              </div>
+           
+            {productincategory && productincategory.map((items:any) => {
+              return (
+                <div className="product-container">
+                <Card>
+                  <Card.Img
+                    variant="top"
+                    src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
+                  />
+                  <Card.Body>
+                    <Card.Title>
+                      <a 
+                      href={`/product/${items._id}`}
+                        >
+                    
+                        {items.name.slice(0,30)}
+                       
+                      </a>
+                    </Card.Title>
+                    <Card.Text>
+                      <span>Phòng bệnh: </span>
+                      <p>{items.description.slice(0,90)}</p>
+                      <span>{items.price}</span>
+                    </Card.Text>
+                  </Card.Body>
+                  <Button variant="success" className="btn-pro">
+                    Chọn Mua
+                  </Button>
+                </Card>
+        </div>
+              )
+            })}
+             
+             
               
                 
             </CardGroup>

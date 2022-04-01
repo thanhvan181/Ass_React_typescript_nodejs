@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import AddProduct from "../../Components/AddProduct";
 import Danhmuc from "../../Components/Danhmuc";
 import ListProduct from "../../Components/ListProduct";
 
@@ -17,7 +18,7 @@ const MainPage = (props: Props) => {
           </Col>
 
           <Col sm={4}>
-            
+            <AddProduct/>
              
             
           </Col>

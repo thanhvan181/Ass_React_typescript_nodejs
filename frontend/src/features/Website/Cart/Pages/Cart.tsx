@@ -4,12 +4,13 @@ interface Props {
     
 }
 
-const ProductDetail = (props: Props) => {
+const Cart = (props: Props) => {
     return (
         <div>
-            ProductDetail
+            
+            
         </div>
     )
 }
 
-export default ProductDetail
+export default Cart

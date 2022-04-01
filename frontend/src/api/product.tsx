@@ -31,10 +31,10 @@ export const getproductsCate = (id:any) => {
     const url = `/products/category/${id}`;
     return instance.get(url)
 }
-// export const getproductsle = () => {
-//     const url = `/product`;
-//     return instance.get(url)
-// }
+export const getproductsSubcate = (id:any) => {
+    const url = `products/subcategory/${id}`;
+    return instance.get(url)
+}
 export const update = (id:string, product:any) => {
     console.log("UAPI ID: ", id, product)
     const url = `/product/${id}`;
@@ -46,4 +46,8 @@ export const searchProduct = (params:any) => {
     const url = `/search?${paramString}`
     console.log("SEARch URL: ", url, params)
     return instance.get(url);
+}
+export const getAll = () => {
+    const url = `/productall`;
+    return instance.get(url)
 }

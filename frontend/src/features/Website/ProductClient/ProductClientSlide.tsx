@@ -1,13 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Action } from "history";
 import { list } from "../../../api/category";
-import { getproductsCate, listproduct, read, remove, searchProduct } from "../../../api/product";
+import { getAll, getproductsCate, getproductsSubcate, listproduct, read, remove, searchProduct } from "../../../api/product";
 // import { getAll, add, get } from '../../api/productApi';
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
   async (params:any) => {
+    // console.log("params2223", params)
     const {data: {data, paging}, } = await listproduct(params);
-    console.log("dataproduct", data);
-    console.log("paging", paging);
+    // console.log("dataproduct", data);
+    // console.log("paging", paging);
     return {data, paging};
   }
 );
@@ -46,8 +48,28 @@ export const removeproduct = createAsyncThunk(
   "product/removeproduct",
   async (id:any) => {
     console.log("idremove", id);
+
     const { data } = await remove(id);
+    console.log('datarm', data);
    
+    return data;
+  }
+
+)
+export const searchProductinSubcategory = createAsyncThunk(
+  "product/searchsub",
+  async (id:any) => {
+    console.log("iddub", id);
+    const { data } = await getproductsSubcate(id);
+   
+    return data;
+  }
+
+)
+export const getAllproducts = createAsyncThunk(
+  "product/getAll",
+  async () => {
+    const {data} = await getAll();
     return data;
   }
 
@@ -78,6 +100,8 @@ const initialState = {
   cateogry: [],
   current: {},
   paging: {},
+  refProducts: [],
+  productallAdmin: [],
 
 };
 
@@ -91,11 +115,18 @@ const productSlice = createSlice({
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
       state.value = action.payload.data;
       state.paging = action.payload.paging;
+      // state.value = action.payload;
+      console.log("actions", action)
       // state.paging = action.payload;
     }),
       builder.addCase(getProductinCategory.fulfilled, (state, action) => {
         state.value = action.payload;
+        // console.log("actionget", action)
+        
+        // state.refProducts = action.payload
+          // console.log("actionsgets", action)
       }),
+     
       builder.addCase(readone.fulfilled, (state, action) => {
         state.current = action.payload;
       }),
@@ -105,9 +136,20 @@ const productSlice = createSlice({
         state.value = action.payload.data;
       });
       builder.addCase(removeproduct.fulfilled, (state, action) => {
-        // console.log("actionpayload", action.payload)
-        state.value = action.payload.data;
+        console.log("actionpayload", action.payload)
+        state.productallAdmin = state.productallAdmin.filter((item:any) => item._id !== action.payload._id);
+
       });
+      builder.addCase(searchProductinSubcategory.fulfilled, (state, action) => {
+        // console.log("actionpayload", action.payload)
+        state.value = action.payload;
+      }),
+      builder.addCase(getAllproducts.fulfilled, (state, action) => {
+        state.productallAdmin = action.payload
+
+      })
+
+  
   },
 });
 

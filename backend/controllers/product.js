@@ -39,6 +39,11 @@ export const list = async (req, res) => {
         if (req.query.sortBy && req.query.orderBy) {
             sort[req.query.sortBy] = req.query.orderBy === 'desc' ? -1 : 1
         }
+        // if(req.query.getAll){
+        //     const products = await Product.find().exec();
+            
+
+        // }
         console.log("Sort: ", sort)
         const products = await Product.find().sort(sort).limit(limit).skip(((page - 1) * limit)).exec();
         const productCount = await Product.count()
@@ -122,6 +127,25 @@ export const getProductsCategory = async (req, res) => {
 
 
 }
+export const getProductsSubcateogy = async (req, res) => {
+    // console.log("ac")
+
+    const filter = { 'subcategory_id': req.params.id }
+    try {
+        const productsCate = await Product.find(filter).exec();
+        res.json(productsCate)
+
+    } catch (error) {
+
+        console.log("error", error);
+        res.status(400).json({
+            message: "khong them dc "
+        })
+
+    }
+
+
+}
 export const remove = async (req, res) => {
     const condition = { _id: req.params.id };
     try {
@@ -162,5 +186,20 @@ export const update = async (req, res) => {
         })
     }
 }
+export const fetchAllProduct = async (req, res) => {
+   
+    try {
+        const products = await Product.find().exec();
+        res.json(products)
+    } catch (error) {
+        res.status(error).json({
+            message: "loi khong them duoc"
+        })
+
+    }
+
+}
+
+
 
 

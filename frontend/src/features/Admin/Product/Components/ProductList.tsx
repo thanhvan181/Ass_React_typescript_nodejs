@@ -12,7 +12,8 @@ import {
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProduct, removeproduct } from '../../../Website/ProductClient/ProductClientSlide';
+import { getAllproducts, removeproduct } from '../../../Website/ProductClient/ProductClientSlide';
+import { Spa } from "@material-ui/icons";
 
 
 
@@ -23,13 +24,14 @@ const ProductList = () => {
   
   const [filteredInfo, setFilteredInfo] = useState<any>({});
   const [sortedInfo, setSortedInfo] = useState<any>({});
-  const products = useSelector((state:any) => state.product.value)
-  console.log("productall", products)
+  const productsAll = useSelector((state:any) => state.product.productallAdmin)
+  console.log("productall", productsAll)
+  console.log(typeof(productsAll))
 
   const dispatch = useDispatch();
   
     useEffect(() => {
-       dispatch(fetchProduct(""))
+       dispatch(getAllproducts())
     }, [])
 
     const onRemove = (id:any) => {
@@ -62,7 +64,7 @@ const ProductList = () => {
         columnKey: 'price',
     });
   };
-  const dataproduct = products.map(({ body, ...item }: any) => ({
+  const dataproduct = productsAll.map(({ body, ...item }: any) => ({
     ...item,
     key: item.id,
     category: body,
@@ -128,7 +130,8 @@ const ProductList = () => {
         render: (_: any, record: any) => {
           console.log("record", record._id);
           return dataproduct.length >= 1 ? (
-            <Space>
+              <>
+                 <Space>
               <Popconfirm
                 title="Ban co chac chan muon xoa khong"
                 onConfirm={() => onRemove(record._id)}
@@ -137,10 +140,17 @@ const ProductList = () => {
                   Delete
                 </Button>
               </Popconfirm>
+
               <Button type="primary">
-                <Link to={`/admin/product/${record._id}/edit`}> Edit</Link>
-              </Button>
+             <Link to={`/admin/product/${record._id}/edit`}> Edit</Link>
+           </Button>
+             
             </Space>
+           
+              </>
+         
+           
+           
           ) : null;
         },
       },
@@ -153,7 +163,7 @@ const ProductList = () => {
   return (
     <div>
       <Button type="primary" className="criclebox tablespace mb-24">
-        <a href="add"> Add Products</a>
+        <a href="/admin/product/add"> Add Products</a>
       </Button>
       <div className="table-responsive">
       <Space style={{ marginBottom: 16 }}>

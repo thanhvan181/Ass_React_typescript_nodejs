@@ -117,9 +117,9 @@ function App() {
           <Route
             path="admin"
             element={
-              <PrivateRouter>
+              // <PrivateRouter>
                 <AdminLayout />
-              </PrivateRouter>
+              // </PrivateRouter>
             }
           >
             <Route index element={<Home />} />
@@ -153,8 +153,14 @@ function App() {
                 path=":id/edit"
                 element={<ProductEdit onUpdate={onHandleUpdate} />}
               />
-              <Route path="add" element={<ProductAdd onAdd={onHandleAdd} />} />
+               <Route
+                  path="add"
+                  element={<ProductAdd onAdd={onHandleAdd} />}
+                />
+             
+             
             </Route>
+           
 
             <Route path="profile" element={<Profile />} />
           </Route>

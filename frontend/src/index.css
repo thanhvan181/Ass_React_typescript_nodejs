@@ -260,6 +260,7 @@ ul.pagination {
   display: grid;
   grid-template-columns:  1fr 1fr 1fr;
   border-radius: 10px;
+  grid-gap: 20px;
 }
 button.btn.btn-primary {
   
@@ -278,4 +279,10 @@ button.btn.btn-primary {
 a.text-a {
   
   color: white;
+}
+select.form-select {
+  margin: 20px 10px 20px 0px;
+}
+.add_pr {
+  margin-top: 70px;
 }
