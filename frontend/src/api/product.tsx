@@ -10,6 +10,7 @@ export const listproduct = (params:any) => {
     const url = `/products?${paramString}`
    return instance.get(url)
 }
+
 export const remove = (id:any) => {
     const url = `/product/${id}`;
     return instance.delete(url)
@@ -40,3 +41,9 @@ export const update = (id:string, product:any) => {
     return  instance.put(url ,product )
 
 } 
+export const searchProduct = (params:any) => {
+    const paramString = new URLSearchParams(params).toString();
+    const url = `/search?${paramString}`
+    console.log("SEARch URL: ", url, params)
+    return instance.get(url);
+}

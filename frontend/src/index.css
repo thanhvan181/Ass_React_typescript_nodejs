@@ -256,3 +256,26 @@ ul.pagination {
   justify-content: center;
   margin-top: 20px;
 }
+.dropdow-grid {
+  display: grid;
+  grid-template-columns:  1fr 1fr 1fr;
+  border-radius: 10px;
+}
+button.btn.btn-primary {
+  
+  border-color: gray;
+  background-color: white;
+}
+
+@media (min-width: 768px){
+  .col-md-auto {
+    flex: 0 0 auto;
+    width: auto;
+    width: 500px;
+    margin: 30px 0px;
+}
+}
+a.text-a {
+  
+  color: white;
+}

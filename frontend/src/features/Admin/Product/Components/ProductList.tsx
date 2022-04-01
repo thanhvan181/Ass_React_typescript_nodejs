@@ -1,43 +1,42 @@
 
-import { SearchOutlined } from '@ant-design/icons';
-import React from "react";
+
 import {
   Table,
   Popconfirm,
-  Card,
-  Radio,
+
   Button,
   Space,
-  Form,
-  Input,
+
 } from "antd";
 
 import { useState, useEffect } from "react";
-
-
-import { ProductType } from "../../types/product";
 import { Link } from "react-router-dom";
-import { SortUp } from "react-bootstrap-icons";
-import { sortedLastIndexBy } from 'lodash';
-
-type ProductManagerProps = {
-  products: ProductType[];
-  onRemove: (id: number) => void;
-};
-
-// type sortProps = {
-//     columnKey: any,
-//     order: any
-
-// }
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProduct, removeproduct } from '../../../Website/ProductClient/ProductClientSlide';
 
 
-const Product = (props: ProductManagerProps) => {
+
+
+
+
+const ProductList = () => {
   
   const [filteredInfo, setFilteredInfo] = useState<any>({});
   const [sortedInfo, setSortedInfo] = useState<any>({});
+  const products = useSelector((state:any) => state.product.value)
+  console.log("productall", products)
 
-  // let { sortedInfo } = setFilteredInfo;
+  const dispatch = useDispatch();
+  
+    useEffect(() => {
+       dispatch(fetchProduct(""))
+    }, [])
+
+    const onRemove = (id:any) => {
+        console.log("id",id);
+        dispatch(removeproduct(id))
+    }
+  
 
   const handleChange = (pagination:any, filters:any, sorter:any) => {
      console.log("Em thich sort: ", sorter, filters)
@@ -63,69 +62,13 @@ const Product = (props: ProductManagerProps) => {
         columnKey: 'price',
     });
   };
-  const dataproduct = props.products.map(({ body, ...item }: any) => ({
+  const dataproduct = products.map(({ body, ...item }: any) => ({
     ...item,
     key: item.id,
     category: body,
     // delete: item._id,
   }));
-  // sortedInfo = sortedInfo || {};
-  // filteredInfo = filteredInfo || {};
-
-  // const project: any = [
-  //   {
-  //     title: "IMAGE",
-  //     dataIndex: "image",
-  //     editable: true,
-  //   },
-  //   {
-  //     title: "NAME",
-  //     dataIndex: "name",
-  //     editable: true,
-      
-  //   },
-  //   {
-  //     title: "PRICE",
-  //     dataIndex: "price",
-  //     editable: true,
-  //   },
-  //   {
-  //     title: "DESCRIPTION",
-  //     dataIndex: "description",
-  //     editable: true,
-  //   },
-  //   {
-  //     title: "QUANLITY",
-  //     dataIndex: "quanlity",
-  //     editable: true,
-  //   },
-  //   {
-  //     title: "Actions",
-  //     dataIndex: "actions",
-  //     align: "center",
-  //     render: (_: any, record: any) => {
-  //       console.log("record", record._id);
-  //       return dataproduct.length >= 1 ? (
-  //         <Space>
-  //           <Popconfirm
-  //             title="Ban co chac chan muon xoa khong"
-  //             onConfirm={() => props.onRemove(record._id)}
-  //           >
-  //             <Button type="primary" danger>
-  //               Delete
-  //             </Button>
-  //           </Popconfirm>
-  //           <Button type="primary">
-  //             <Link to={`/admin/product/${record._id}/edit`}> Edit</Link>
-  //           </Button>
-  //         </Space>
-  //       ) : null;
-  //     },
-  //   },
-  // ];
-    // let { filteredInfo }  = setFilteredInfo;
-    // sortedInfo = sortedInfo || {};
-    // filteredInfo = filteredInfo || {};
+  
   
     const project :any = [
       {
@@ -188,7 +131,7 @@ const Product = (props: ProductManagerProps) => {
             <Space>
               <Popconfirm
                 title="Ban co chac chan muon xoa khong"
-                onConfirm={() => props.onRemove(record._id)}
+                onConfirm={() => onRemove(record._id)}
               >
                 <Button type="primary" danger>
                   Delete
@@ -221,7 +164,7 @@ const Product = (props: ProductManagerProps) => {
         <Table
           columns={project}
           dataSource={dataproduct}
-        //   pagination={true}
+        //   pagination={false}
         onChange={handleChange}
           bordered
           className="ant-border-space"
@@ -231,4 +174,4 @@ const Product = (props: ProductManagerProps) => {
   );
 };
 
-export default Product;
+export default ProductList;

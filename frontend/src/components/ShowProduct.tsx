@@ -14,7 +14,7 @@ const ShowProduct = () => {
   const [page, setPage] = useState(1);
   const showProduct = useSelector((state: any) => state.product.value);
   const paging = useSelector((state:any) => state.product.paging)
-  
+  console.log("SHOWPROduct:", showProduct)
 
   
     useEffect(() => {

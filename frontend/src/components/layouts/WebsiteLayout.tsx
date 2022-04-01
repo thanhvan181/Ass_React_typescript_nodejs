@@ -1,23 +1,54 @@
 import React from 'react'
 // import { Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink, Outlet } from 'react-router-dom';
-import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { Button, Container, Dropdown, DropdownButton, Form, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 
 // import { GoLocation } from "react-icons";
 // import { GoLocation  } from 'react-bootstrap-icons';
 import {
   MDBFooter,
   MDBContainer,
-  MDBIcon,
+  
   MDBInput,
   MDBCol,
   MDBRow,
   MDBBtn
 } from 'mdb-react-ui-kit';
+import { useSelector, useDispatch } from "react-redux";
+// import {useEffect, useState} from "react";
+import { searchSanpham } from '../../features/Website/ProductClient/ProductClientSlide';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { isAuthenticate } from '../../untils/localStoge';
 
-type Props = {}
 
-const WebsiteLayout = (props: Props) => {
+type TypeInputs = {
+  q: string;
+  
+ 
+};
+
+const WebsiteLayout = () => {
+
+ 
+  const dispatch = useDispatch();
+
+
+  const {
+    register,
+    handleSubmit,
+   
+  } = useForm<TypeInputs>();
+  
+
+  const onSubmit: SubmitHandler<TypeInputs> = (data:any) => {
+    console.log("datasearch", data);
+
+    dispatch(searchSanpham(data));
+   
+  };
+ 
+
+  
   return (
     <div>
 
@@ -59,6 +90,22 @@ const WebsiteLayout = (props: Props) => {
                 </svg>
 
                 TƯ VẤN</Nav.Link>
+                {/* {
+
+
+                  isAuthenticate ? (<DropdownButton id="dropdown-basic-button" title={isAuthenticate.name}>
+                  <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                </DropdownButton>): (<Nav.Link href="/signin">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  fill="#007c7c" className="bi bi-person-rolodex" viewBox="0 0 16 16">
+                  <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                  <path d="M1 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h.5a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h.5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6.707L6 1.293A1 1 0 0 0 5.293 1H1Zm0 1h4.293L6 2.707A1 1 0 0 0 6.707 3H15v10h-.085a1.5 1.5 0 0 0-2.4-.63C11.885 11.223 10.554 10 8 10c-2.555 0-3.886 1.224-4.514 2.37a1.5 1.5 0 0 0-2.4.63H1V2Z" />
+                </svg>
+
+                ĐĂNG KÝ/ĐĂNG NHẬP</Nav.Link>)
+                  
+                } */}
 
               <Nav.Link href="/signin">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  fill="#007c7c" className="bi bi-person-rolodex" viewBox="0 0 16 16">
@@ -113,14 +160,19 @@ const WebsiteLayout = (props: Props) => {
 
             </Nav>
             <Nav>
-            <Form className="d-flex">
+            <Form className="d-flex" onSubmit={handleSubmit(onSubmit)}>
               <FormControl
                 type="search"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+
+                {...register("q")}
+
+
+
               />
-              <Button variant="outline-success">Search</Button>
+              <Button type='submit' variant="outline-success">Search</Button>
             </Form>
             
 

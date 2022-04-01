@@ -12,7 +12,7 @@ type TypeInputs = {
   name: String;
 };
 
-const Signup = () => {
+const SignupPage = () => {
   const dispatch = useDispatch();
 
   const {
@@ -74,4 +74,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignupPage;

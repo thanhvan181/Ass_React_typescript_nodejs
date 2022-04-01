@@ -2,6 +2,7 @@
 
 export const authenticated = (user: any, next: () => void) => {
     localStorage.setItem('user', JSON.stringify(user));
+    console.log("user", user)
     next();
 }
 export const isAuthenticate = () => {

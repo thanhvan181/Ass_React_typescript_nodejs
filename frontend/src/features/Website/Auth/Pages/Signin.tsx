@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { signIn } from '../AuthSlide';
 import { useForm ,SubmitHandler} from 'react-hook-form';
+import { authenticated } from '../../../../untils/localStoge';
+import { useNavigate } from 'react-router-dom';
+
 
 type TypeInputs = {
     email: string;
@@ -11,19 +14,25 @@ type TypeInputs = {
    
   };
 
-const Signin = () => {
+const SigninPage = () => {
     const dispatch = useDispatch();
     const {
         register,
         handleSubmit,
         formState: { errors },
       } = useForm<TypeInputs>();
+      const navigate = useNavigate();
       
     
       const onSubmit: SubmitHandler<TypeInputs> = (data) => {
-        console.log("data", data);
+        console.log("datain", data);
     
         dispatch(signIn(data));
+        navigate('/');
+
+        // authenticated(data, () => {
+           
+        // })
        
       }
     return (
@@ -53,4 +62,4 @@ const Signin = () => {
     )
 }
 
-export default Signin
+export default SigninPage

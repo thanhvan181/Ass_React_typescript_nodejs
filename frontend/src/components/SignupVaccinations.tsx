@@ -19,8 +19,13 @@ import {  getInjectionPacks } from "../api/injectionpark";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { listproduct } from "../api/product";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { create } from "../api/register";
-import { getproducts } from "../api/product";
+
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 
@@ -59,12 +64,14 @@ type Inputs = {
 
 };
 
-const SignupVaccinations = (props: Inputs) => {
+const SignupVaccinations = (props: any) => {
   const [company, setCompany] = useState([]);
   const [injection, setInjection] = useState([]);
   const [isShowPack, setIsShowPack] = useState(true);
   const [productslist, setProductslist] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
+  const notify = () => toast(`Dang ky thanh cong`);
+  const navigate = useNavigate()
   
 
   useEffect(() => {
@@ -87,7 +94,7 @@ const SignupVaccinations = (props: Inputs) => {
   
   useEffect(() => {
     const loadallProduct = async () => {
-      const { data } = await listproduct();
+      const { data } = await listproduct("");
       setProductslist(data);
     };
     loadallProduct();
@@ -105,9 +112,13 @@ const SignupVaccinations = (props: Inputs) => {
   const onSubmit: SubmitHandler<Inputs> = async (dataInput: any) => {
     let checkboxs = document.querySelectorAll('input[name="injectionPark_id"][type="checkbox"]:checked') ;
     let selected = Array.from(checkboxs).map((x:any) => x.value)
+    
    
     const { data } = await create({ ...dataInput, ...{ "injectionPark_id": selected } });
     console.log("data", data);
+    navigate("/success")
+   
+    // notify(data);
    
   };
 
@@ -375,7 +386,7 @@ const SignupVaccinations = (props: Inputs) => {
                 </Form.Group>
               </Row>
 
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" onClick={notify}>
                 Submit
               </Button>
             </Form>

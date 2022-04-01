@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { list } from "../../../api/category";
-import { getproductsCate, listproduct, read } from "../../../api/product";
+import { getproductsCate, listproduct, read, remove, searchProduct } from "../../../api/product";
 // import { getAll, add, get } from '../../api/productApi';
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
@@ -34,6 +34,24 @@ export const readone = createAsyncThunk(
     return data;
   }
 );
+export const searchSanpham = createAsyncThunk(
+  "product/searchproduct",
+  async (params:any) => {
+    const { data } = await searchProduct(params);
+   
+    return data;
+  }
+)
+export const removeproduct = createAsyncThunk(
+  "product/removeproduct",
+  async (id:any) => {
+    console.log("idremove", id);
+    const { data } = await remove(id);
+   
+    return data;
+  }
+
+)
 
 // export const addProduct = createAsyncThunk(
 //     'product/addProduct', async (product, { rejectWithValue }) => {
@@ -80,6 +98,15 @@ const productSlice = createSlice({
       }),
       builder.addCase(readone.fulfilled, (state, action) => {
         state.current = action.payload;
+      }),
+      builder.addCase(searchSanpham.fulfilled, (state, action) => {
+        console.log("STATE: ", state)
+        console.log("Action: ", action)
+        state.value = action.payload.data;
+      });
+      builder.addCase(removeproduct.fulfilled, (state, action) => {
+        // console.log("actionpayload", action.payload)
+        state.value = action.payload.data;
       });
   },
 });

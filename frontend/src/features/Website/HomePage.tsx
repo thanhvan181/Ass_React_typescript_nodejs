@@ -18,13 +18,15 @@ const HomePage = (props: Props) => {
      
       <Banner/>
       <VacsinSteps />
-      <VactionList/>
-      <ShowProduct/>
+     
+     
       
     
       <VacsinReview/>
-      
+      <VactionList/>
+     
       <VacsinReviewtwo/>
+      <ShowProduct/>
       <VacsinReviewthree/>
       <TemVector/>
      

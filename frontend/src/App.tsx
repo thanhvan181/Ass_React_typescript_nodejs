@@ -1,23 +1,16 @@
 import { Navigate, NavLink, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import HomePage from "./features/Website/HomePage";
-// import ProductPage from "./features/Website/ProductPage";
 import WebsiteLayout from "./components/layouts/WebsiteLayout";
 import SignupVaccinationsPage from "./features/Website/SignupVaccinationsPage";
-import SigninPage from "./features/Website/SigninPage";
-import SignupPage from "./features/Website/SignupPage";
-
-
 import Home from "./features/Admin/Home";
 import Category from "./features/Admin/Category";
 import Billing from "./features/Admin/Billing";
 import Profile from "./features/Admin/Profile";
 import AdminLayout from "./components/layouts/AdminLayout";
-
 import "antd/dist/antd.css";
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
-import Product from "./features/Admin/Product";
 
 import ProductAdd from "./features/Admin/ProductAdd";
 import { create, listproduct, update } from "./api/product";
@@ -32,6 +25,12 @@ import MainPage from "./features/Website/ProductClient/Pages/Main";
 
 import FindVacciationCenter from "./features/Website/FindVacciationCenter";
 import ProductDetails from "./features/Website/ProductClient/Pages/Details";
+import SigninPage from "./features/Website/Auth/Pages/Signin";
+import SignupPage from "./features/Website/Auth/Pages/Signup";
+import ProductList from "./features/Admin/Product/Components/ProductList";
+import ListProduct from "./features/Website/ProductClient/Components/ListProduct";
+import ListProductAdmin from "./features/Admin/Product/pages/List";
+import SuccessSingupVacciation from "./components/SuccessSingupVacciation";
 
  "./features/Website/ProductClient";
 type InputCate = {
@@ -46,7 +45,11 @@ function App() {
   const [company, setCompany] = useState<any>([]);
   useEffect(() => {
     const getProducts = async () => {
-      const { data } = await listproduct();
+      const { data: {data}} = await listproduct("");
+
+      // console.log("productaaaaaaa", products);
+
+      // console.log("listproduca", data.data);
       setProducts(data);
     };
     getProducts();
@@ -103,6 +106,8 @@ function App() {
             {/* <Route path="vaccine" element={<ProductPage />} /> */}
             <Route path="signin" element={<SigninPage />} />
             <Route path="signup" element={<SignupPage />} />
+            <Route path="success" element={<SuccessSingupVacciation />} />
+
             {/* <Route path="test" element={<TestiMonials />} /> */}
             <Route
               path="hethongtrungtamtiemchung"
@@ -141,7 +146,7 @@ function App() {
               <Route
                 index
                 element={
-                  <Product products={products} onRemove={onHandleRemove} />
+                  < ListProductAdmin/>
                 }
               />
               <Route

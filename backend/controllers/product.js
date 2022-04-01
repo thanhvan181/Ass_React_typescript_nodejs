@@ -84,11 +84,15 @@ export const getProducts = async (req, res) => {
 }
 
 export const searchProduct = async (req, res) => {
+    const searchString = req.query.q || "";
+    console.log("SEARCH TEXT: ", searchString)
+    const limit = req.query.limit || 10
     try {
-        const productsPrice = await Product.find(req.query).exec();
+        const productSeachName= await Product.find({$text: {$search: searchString}}).limit(limit).exec();
+        console.log("productName", productSeachName)
         res.status(200).send(
             {
-                data: productsPrice
+                data: productSeachName
             }
         )
     } catch (error) {
@@ -158,4 +162,5 @@ export const update = async (req, res) => {
         })
     }
 }
+
 

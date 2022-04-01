@@ -8,9 +8,8 @@ const productSchema = new Schema({
         trim: true,
         required: true,
         maxlength: 255,
-        text: true
-
-        
+        text: true,
+        index: true
     },
     code: {
         type: String,
@@ -75,7 +74,8 @@ const productSchema = new Schema({
    
 
    
-},  { timestamps: true})
+},  { timestamps: true});
+productSchema.index({"$**": "text"});
 
 export default mongoose.model("Product", productSchema)
 

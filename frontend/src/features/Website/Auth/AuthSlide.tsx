@@ -7,6 +7,10 @@ export const signIn = createAsyncThunk(
   'auth/signin',
   async (Datauser:any) => {
       const { data } = await signin(Datauser)
+      console.log("dataUser", data)
+    //   authenticated(data, () => {
+    //     // navigate('/');
+    // })
       return data
   }
 )
