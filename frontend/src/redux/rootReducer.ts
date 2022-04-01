@@ -8,17 +8,14 @@ import Subcategory from '../features/Website/Subcategory/Subcategory';
 
 
 
+
 const rootReducer = combineReducers({
 
     product: productSlice,
     category: CategorySlide,
     subcategory: Subcategory,
     cart: CartSlide,
-    auth: AuthSlide,
-    
-   
-    
-    
+    user: AuthSlide,
 });
 export default rootReducer
 
