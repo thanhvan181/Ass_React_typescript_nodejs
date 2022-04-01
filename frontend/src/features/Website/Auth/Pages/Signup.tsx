@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../AuthSlide";
+import { useNavigate } from 'react-router-dom';
+import { is } from "immer/dist/internal";
 
 type TypeInputs = {
   email: string;
@@ -14,20 +16,37 @@ type TypeInputs = {
 
 const SignupPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userInfo = useSelector((state: any) => state.user.userInfo)
+  const isAuthenticated = useSelector((state: any) => state.user.isAuthenticated)
+  const accessToken = useSelector((state: any) => state.user.accessToken)
+
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TypeInputs>();
-  
+
 
   const onSubmit: SubmitHandler<TypeInputs> = (data) => {
     console.log("data", data);
 
     dispatch(signUp(data));
-   
+    console.log("CurrentUSr: ", userInfo, isAuthenticated)
+    if (Object.keys(userInfo).length !== 0 && !isAuthenticated) {
+      navigate('/signin')
+    } else {
+      navigate('/')
+    }
   };
+
+  // useEffect(() => {
+  //   if (isAuthenticated && accessToken !== null) {
+  //     console.log("NAV: ", isAuthenticated, accessToken)
+  //     navigate('/')
+  //   }
+  // }, [accessToken, isAuthenticated])
 
   return (
     <div>

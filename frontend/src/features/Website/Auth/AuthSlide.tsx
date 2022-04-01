@@ -5,21 +5,16 @@ import { getproductsCate, listproduct } from "../../../api/product";
 
 export const signIn = createAsyncThunk(
   'auth/signin',
-  async (Datauser:any) => {
-      const { data } = await signin(Datauser)
-      console.log("dataUser", data)
-    //   authenticated(data, () => {
-    //     // navigate('/');
-    // })
-      return data
+  async (Datauser: any) => {
+    const { data } = await signin(Datauser)
+    return data
   }
 )
 export const signUp = createAsyncThunk(
   'auth/signup',
-  async (Datauser:any) => {
-    console.log("datauserssss", Datauser)
-      const { data } = await signup(Datauser)
-      return data
+  async (Datauser: any) => {
+    const { data } = await signup(Datauser)
+    return data
   }
 )
 
@@ -27,18 +22,54 @@ export const signUp = createAsyncThunk(
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { info: {}, isAuthenticated: false },
+  initialState: {
+    userInfo: {},
+    currentUser: null,
+    isAuthenticated: false,
+    isLoading: false,
+    errorMessage: '',
+
+  },
   reducers: {
-   
+    logout: (state: any, action) => {
+      state.userInfo = {}
+      state.currentUser = null
+      state.isAuthenticated = false
+      state.isLoading = false
+      state.errorMessage = ''
+    },
   },
   extraReducers: (builder) => {
+    builder.addCase(signIn.pending, (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = '';
+    });
     builder.addCase(signIn.fulfilled, (state, action) => {
-      
-      state.info = action.payload;
-    })
-   
-   
+      state.currentUser = action.payload;
+      state.isAuthenticated = true;
+      state.errorMessage = '';
+    });
+
+    builder.addCase(signIn.rejected, (state, action: any) => {
+
+      state.isLoading = false;
+      state.errorMessage = action.payload.message;
+    });
+
+    builder.addCase(signUp.pending, (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = '';
+    });
+    builder.addCase(signUp.fulfilled, (state, action) => {
+      state.userInfo = action.payload.user;
+      state.errorMessage = '';
+    });
+
+    builder.addCase(signUp.rejected, (state, action: any) => {
+      state.isLoading = false;
+      state.errorMessage = action.payload.message;
+    });
   },
 })
-
+export const { logout } = authSlice.actions
 export default authSlice.reducer;

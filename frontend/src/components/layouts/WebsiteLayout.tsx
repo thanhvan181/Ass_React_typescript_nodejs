@@ -1,14 +1,15 @@
 import React from 'react'
 // import { Container, Nav, Navbar } from 'react-bootstrap';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import { Button, Container, Dropdown, DropdownButton, Form, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 
 // import { GoLocation } from "react-icons";
 // import { GoLocation  } from 'react-bootstrap-icons';
+import { logout } from '../../features/Website/Auth/AuthSlide';
 import {
   MDBFooter,
   MDBContainer,
-  
+
   MDBInput,
   MDBCol,
   MDBRow,
@@ -18,37 +19,36 @@ import { useSelector, useDispatch } from "react-redux";
 // import {useEffect, useState} from "react";
 import { searchSanpham } from '../../features/Website/ProductClient/ProductClientSlide';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { isAuthenticate } from '../../untils/localStoge';
+// import { isAuthenticate } from '../../untils/localStoge';
 
 
 type TypeInputs = {
   q: string;
-  
- 
+
+
 };
 
 const WebsiteLayout = () => {
-
- 
   const dispatch = useDispatch();
-
+  const isAuthenticated = useSelector((state: any) => state.user.isAuthenticated)
+  const user = useSelector((state: any) => state.user.currentUser)
 
   const {
     register,
     handleSubmit,
-   
-  } = useForm<TypeInputs>();
-  
 
-  const onSubmit: SubmitHandler<TypeInputs> = (data:any) => {
+  } = useForm<TypeInputs>();
+
+
+  const onSubmit: SubmitHandler<TypeInputs> = (data: any) => {
     console.log("datasearch", data);
 
     dispatch(searchSanpham(data));
-   
-  };
- 
 
-  
+  };
+
+
+
   return (
     <div>
 
@@ -90,7 +90,7 @@ const WebsiteLayout = () => {
                 </svg>
 
                 TƯ VẤN</Nav.Link>
-                {/* {
+              {/* {
 
 
                   isAuthenticate ? (<DropdownButton id="dropdown-basic-button" title={isAuthenticate.name}>
@@ -106,14 +106,22 @@ const WebsiteLayout = () => {
                 ĐĂNG KÝ/ĐĂNG NHẬP</Nav.Link>)
                   
                 } */}
-
-              <Nav.Link href="/signin">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  fill="#007c7c" className="bi bi-person-rolodex" viewBox="0 0 16 16">
-                  <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                  <path d="M1 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h.5a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h.5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6.707L6 1.293A1 1 0 0 0 5.293 1H1Zm0 1h4.293L6 2.707A1 1 0 0 0 6.707 3H15v10h-.085a1.5 1.5 0 0 0-2.4-.63C11.885 11.223 10.554 10 8 10c-2.555 0-3.886 1.224-4.514 2.37a1.5 1.5 0 0 0-2.4.63H1V2Z" />
-                </svg>
-
-                ĐĂNG KÝ/ĐĂNG NHẬP</Nav.Link>
+              {!isAuthenticated ?
+                <Nav.Link href="/signin">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#007c7c" className="bi bi-person-rolodex" viewBox="0 0 16 16">
+                    <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                    <path d="M1 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h.5a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h.5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6.707L6 1.293A1 1 0 0 0 5.293 1H1Zm0 1h4.293L6 2.707A1 1 0 0 0 6.707 3H15v10h-.085a1.5 1.5 0 0 0-2.4-.63C11.885 11.223 10.554 10 8 10c-2.555 0-3.886 1.224-4.514 2.37a1.5 1.5 0 0 0-2.4.63H1V2Z" />
+                  </svg>
+                  ĐĂNG KÝ/ĐĂNG NHẬP
+                </Nav.Link>
+                :
+                <>
+                  <Nav.Link>
+                    Welcome {user.user.name}
+                  </Nav.Link>
+                  <Link to="/signin" onClick={() => dispatch(logout())}>Logout</Link>
+                </>
+              }
 
             </Nav>
 
@@ -123,66 +131,66 @@ const WebsiteLayout = () => {
         <hr />
 
 
-     <div className='nav-two'>
-     <Navbar bg="dark" variant="dark"
-          sticky="top" expand="sm" collapseOnSelect>
+        <div className='nav-two'>
+          <Navbar bg="dark" variant="dark"
+            sticky="top" expand="sm" collapseOnSelect>
 
-          <Navbar.Toggle className="coloring" />
-          <Navbar.Collapse>
-           
-            <Nav className='ms-auto'>
-              
-              <Nav.Link href="/">TRANG TRỦ</Nav.Link>
-              <NavDropdown title="GÓI TIÊM">
-                <NavDropdown.Item to="#products/tea">Tea</NavDropdown.Item>
-                <NavDropdown.Item to="#products/coffee">Coffee</NavDropdown.Item>
-                <NavDropdown.Item to="#products/chocolate">Chocolate</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item to="#products/promo">Promo</NavDropdown.Item>
-              </NavDropdown>
-              {/* <Nav.Link to="#contact-us">Contact Us</Nav.Link> */}
-              <NavDropdown title="TIÊM CHỦNG CHO TRẺ EM">
-                <NavDropdown.Item to="#products/tea">Tea</NavDropdown.Item>
-                <NavDropdown.Item to="#products/coffee">Coffee</NavDropdown.Item>
-                <NavDropdown.Item to="#products/chocolate">Chocolate</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item to="#products/promo">Promo</NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown title="TIÊM CHỦNG CHO NGƯỜI LỚN">
-                <NavDropdown.Item to="#products/tea">Tea</NavDropdown.Item>
-                <NavDropdown.Item to="#products/coffee">Coffee</NavDropdown.Item>
-                <NavDropdown.Item to="#products/chocolate">Chocolate</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item to="#products/promo">Promo</NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link href="#blog">BẢNG GIÁ</Nav.Link>
-             
+            <Navbar.Toggle className="coloring" />
+            <Navbar.Collapse>
 
-            </Nav>
-            <Nav>
-            <Form className="d-flex" onSubmit={handleSubmit(onSubmit)}>
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
+              <Nav className='ms-auto'>
 
-                {...register("q")}
+                <Nav.Link href="/">TRANG TRỦ</Nav.Link>
+                <NavDropdown title="GÓI TIÊM">
+                  <NavDropdown.Item to="#products/tea">Tea</NavDropdown.Item>
+                  <NavDropdown.Item to="#products/coffee">Coffee</NavDropdown.Item>
+                  <NavDropdown.Item to="#products/chocolate">Chocolate</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item to="#products/promo">Promo</NavDropdown.Item>
+                </NavDropdown>
+                {/* <Nav.Link to="#contact-us">Contact Us</Nav.Link> */}
+                <NavDropdown title="TIÊM CHỦNG CHO TRẺ EM">
+                  <NavDropdown.Item to="#products/tea">Tea</NavDropdown.Item>
+                  <NavDropdown.Item to="#products/coffee">Coffee</NavDropdown.Item>
+                  <NavDropdown.Item to="#products/chocolate">Chocolate</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item to="#products/promo">Promo</NavDropdown.Item>
+                </NavDropdown>
+                <NavDropdown title="TIÊM CHỦNG CHO NGƯỜI LỚN">
+                  <NavDropdown.Item to="#products/tea">Tea</NavDropdown.Item>
+                  <NavDropdown.Item to="#products/coffee">Coffee</NavDropdown.Item>
+                  <NavDropdown.Item to="#products/chocolate">Chocolate</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item to="#products/promo">Promo</NavDropdown.Item>
+                </NavDropdown>
+                <Nav.Link href="#blog">BẢNG GIÁ</Nav.Link>
 
 
+              </Nav>
+              <Nav>
+                <Form className="d-flex" onSubmit={handleSubmit(onSubmit)}>
+                  <FormControl
+                    type="search"
+                    placeholder="Search"
+                    className="me-2"
+                    aria-label="Search"
 
-              />
-              <Button type='submit' variant="outline-success">Search</Button>
-            </Form>
-            
+                    {...register("q")}
 
-            </Nav>
-            
-           
-          </Navbar.Collapse>
 
-        </Navbar>
-     </div>
+
+                  />
+                  <Button type='submit' variant="outline-success">Search</Button>
+                </Form>
+
+
+              </Nav>
+
+
+            </Navbar.Collapse>
+
+          </Navbar>
+        </div>
 
       </header>
 
