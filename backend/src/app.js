@@ -14,7 +14,7 @@ import cityRouter from "../routes/city";
 
 const app = express();
 const option = {
-    
+
 }
 
 // middleware
@@ -30,10 +30,10 @@ app.use(express.json())
 // app.use("/api",categoryRoute);
 
 // connnect database
-mongoose.connect('mongodb://localhost:27017/VNVC')
+mongoose.connect('mongodb+srv://demodatabase:tiKHgyRnf6njJIbT@cluster0.myvkr.mongodb.net/VNVC?retryWrites=true&w=majority')
     .then(() => console.log("Kết nối db thành công"))
     .catch((error) => console.log(error));
-    
+
 // connection
 const PORT = 8080;
 
