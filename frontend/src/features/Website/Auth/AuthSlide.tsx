@@ -2,11 +2,15 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { signin, signup } from "../../../api/auth";
 import { list } from "../../../api/category";
 import { getproductsCate, listproduct } from "../../../api/product";
+import { authenticated } from "../../../untils/localStoge";
 
 export const signIn = createAsyncThunk(
   'auth/signin',
   async (Datauser: any) => {
     const { data } = await signin(Datauser)
+    authenticated(data, () => {
+      
+    })
     return data
   }
 )

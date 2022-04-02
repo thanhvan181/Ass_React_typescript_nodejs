@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Table, Popconfirm, Button, Space } from "antd";
 import { isEmpty } from "lodash";
 import { list, remove } from "../api/category";
+import { Link } from "react-router-dom";
 
 const DataTable = (props: any) => {
   const [girdData, setGridData] = useState([]);
@@ -33,10 +34,7 @@ const DataTable = (props: any) => {
   }));
 
   const columns: any[] = [
-    {
-      title: "STT",
-      dataIndex: "",
-    },
+    
     {
       title: "NAME",
       dataIndex: "name",
@@ -49,14 +47,22 @@ const DataTable = (props: any) => {
       render: (_: any, record: any) => {
         return modifiData.length >= 1 ? (
       
+           
+            <Space>
             <Popconfirm
               title="Ban co chac chan muon xoa khong"
-              onConfirm={() => handleDelete(record)}
+              onConfirm={() => handleDelete(record._id)}
             >
               <Button type="primary" danger>
                 Delete
               </Button>
             </Popconfirm>
+
+            <Button type="primary">
+           <Link to={`/admin/category/${record._id}/edit`}> Edit</Link>
+         </Button>
+           
+          </Space>
       
         ) : null;
       },
@@ -65,6 +71,9 @@ const DataTable = (props: any) => {
 
   return (
     <div>
+      <Button type="primary" className="criclebox tablespace mb-24">
+        <a href="/admin/category/add"> Add Categorys</a>
+      </Button>
       <Table
         dataSource={modifiData}
         columns={columns}

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { list } from "../../../api/category";
-import { getproductsCate } from "../../../api/product";
+import { create, list, remove, updatecate } from "../../../api/category";
+
 
 
 export const loadCategory = createAsyncThunk(
@@ -10,6 +10,29 @@ export const loadCategory = createAsyncThunk(
             return data
        
     }
+)
+
+export const removeCategory = createAsyncThunk(
+  'category/removeCategory', async (id:any) => {
+     
+          const { data } = await remove(id);
+          return data
+     
+  }
+)
+export const addCategory = createAsyncThunk(
+  'category/addcategory', 
+  async (category:any) => {
+    const {data} = await create(category);
+    return data
+  }
+)
+export const editCategory = createAsyncThunk(
+  'eidtCategory',
+  async (id, product) => {
+    const {data} = await updatecate(id, product)
+    return data;
+  }
 )
 
 
@@ -30,7 +53,17 @@ const categorySlice = createSlice({
     builder.addCase(loadCategory.fulfilled, (state, action) => {
       
       state.category = action.payload;
+    }),
+    builder.addCase(removeCategory.fulfilled, (state, action) =>  {
+      // state.productallAdmin = state.productallAdmin.filter((item:any) => item._id !== action.payload._id);
+
+      state.category = state.category.filter((item:any) => item._id !== action.payload._id )
+    }),
+    builder.addCase(addCategory.fulfilled, (state,action) => {
+
     })
+
+
    
    
   },

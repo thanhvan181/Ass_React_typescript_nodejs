@@ -29,10 +29,10 @@ const SigninPage = () => {
     
         dispatch(signIn(data));
         navigate('/');
+        
+  
 
-        // authenticated(data, () => {
-           
-        // })
+        
        
       }
     return (
