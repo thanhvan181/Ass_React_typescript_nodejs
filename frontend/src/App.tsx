@@ -1,5 +1,4 @@
-import { Navigate, NavLink, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import HomePage from "./features/Website/HomePage";
 import WebsiteLayout from "./components/layouts/WebsiteLayout";
 import SignupVaccinationsPage from "./features/Website/SignupVaccinationsPage";
@@ -10,13 +9,7 @@ import AdminLayout from "./components/layouts/AdminLayout";
 import "antd/dist/antd.css";
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
-import { ToastContainer, toast } from 'react-toastify'
-import { create, listproduct } from "./api/product";
-import { remove } from "./api/product";
 import PrivateRouter from "./components/PrivateRouter";
-import Company from "./features/Admin/Company";
-import CompanyAdd from "./features/Admin/CompanyAdd";
-import { createCompany, listCompany } from "./api/company";
 import MainPage from "./features/Website/ProductClient/Pages/Main";
 import FindVacciationCenter from "./features/Website/FindVacciationCenter";
 import ProductDetails from "./features/Website/ProductClient/Pages/Details";
@@ -32,6 +25,7 @@ import AddInjectionPark from "./features/Admin/InjectionPark/Pages/AddInjectionP
 import Add from "./features/Admin/Product/pages/Add";
 import Edit from "./features/Admin/Product/pages/Edit";
 import 'react-toastify/dist/ReactToastify.css';
+import EditInjectionPark from "./features/Admin/InjectionPark/Pages/EditInjectionPark";
  
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -46,7 +40,7 @@ function App() {
   return (
     <div className="App">
       <main>
-        <Routes>
+      <Routes>
           <Route path="/" element={<WebsiteLayout />}>
             <Route index element={<HomePage />} />
 
@@ -105,7 +99,7 @@ function App() {
               />
               <Route
                 path=":id/edit"
-                element={<EditCategory />}
+                element={<EditInjectionPark />}
               />
                <Route
                   path="add"

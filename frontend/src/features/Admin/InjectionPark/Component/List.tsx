@@ -12,7 +12,7 @@ import {
   import { useState, useEffect } from "react";
   import { Link } from "react-router-dom";
   import { useDispatch, useSelector } from 'react-redux';
-import { loadInjectionPark } from "../InjectionPark";
+  import { loadInjectionPark, removeInjection } from "../InjectionPark";
   
   
   
@@ -25,8 +25,8 @@ import { loadInjectionPark } from "../InjectionPark";
     const [filteredInfo, setFilteredInfo] = useState<any>({});
     const [sortedInfo, setSortedInfo] = useState<any>({});
     const injectionparkAll = useSelector((state:any) => state.injection.injectionpark)
-    // console.log("productall", productsAll)
-    // console.log(typeof(productsAll))
+    // console.log("allinjec", injectionparkAll)
+   
   
     const dispatch = useDispatch();
     
@@ -35,8 +35,10 @@ import { loadInjectionPark } from "../InjectionPark";
       }, [])
   
       const onRemove = (id:any) => {
-          console.log("id",id);
-          // dispatch(removeproduct(id))
+       
+        dispatch(removeInjection(id))
+          // console.log("id",id);
+          
       }
     
   
@@ -85,12 +87,34 @@ import { loadInjectionPark } from "../InjectionPark";
           key: 'name',
           filters: [
             { text: 'thành niên và thanh niên ', value: 'thành niên và thanh niên ' },
-            { text: ' phụ nữ chuẩn bị trước mang tha', value: ' phụ nữ chuẩn bị trước mang tha' },
+            { text: ' phụ nữ ', value: ' phụ nữ ' },
           ],
           filteredValue: filteredInfo.name || null,
           onFilter: (value:any, record:any) => record.name.includes(value),
           sorter: (a:any, b:any) => a.name.length - b.name.length,
-          sortOrder: sortedInfo.columnKey === 'name',
+          sortOrder: sortedInfo.columnKey === 'name' ,
+          ellipsis: true,
+        },
+        {
+          title: 'Price',
+          dataIndex: 'price',
+          key: 'price',
+          sorter: (a:any, b:any) => a.price - b.price,
+          sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
+          ellipsis: true,
+        },
+        {
+          title: 'DESCRIPTION',
+          dataIndex: 'description',
+          key: 'description',
+          filters: [
+            { text: 'cum', value: 'cum' },
+            { text: 'New York', value: 'New York' },
+          ],
+          filteredValue: filteredInfo.description || null,
+          onFilter: (value:any, record:any) => record.address.includes(value),
+          sorter: (a:any, b:any) => a.description.length - b.description.length,
+          sortOrder: sortedInfo.columnKey === 'description' && sortedInfo.order,
           ellipsis: true,
         },
       

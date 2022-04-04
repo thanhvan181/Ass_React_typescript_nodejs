@@ -277,7 +277,7 @@ const SignupVaccinations = (props: any) => {
                                             <Accordion>
                                               <Accordion.Item
                                                 eventKey={`${sub._id}${category.id}`}
-                                                //  href={inject._id}
+                                                
                                                 onClick={() => {
                                                   hanleClickshowProductPark(
                                                     sub._id

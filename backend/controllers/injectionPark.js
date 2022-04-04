@@ -66,9 +66,22 @@ export const updateInjectionPark = async ( req, res) => {
         const condition = { _id: req.params.id };
         const doc = req.body;
         const option = { new: true };
-        const categories = await Injectionpark.findByIdAndUpdate(condition, doc, option);
-        res.json(categories)
+        const injectionpark = await Injectionpark.findByIdAndUpdate(condition, doc, option);
+        res.json(injectionpark)
 
+        
+    } catch (error) {
+        res.status(400).json({
+            message: "loi roi nhe"
+        })
+        
+    }
+}
+export const readoneInjectionPark = async (req, res) => {
+    try {
+        const condition = { _id: req.params.id };
+        const injectionpark = await Injectionpark.findOne(condition);
+        res.json(injectionpark)
         
     } catch (error) {
         res.status(400).json({

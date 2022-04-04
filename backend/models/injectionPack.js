@@ -4,18 +4,23 @@ import {Schema, ObjectId} from "mongoose";
 const injectionParkSchema = new Schema({
     name: {
         type: String,
+        required: true,
 
     },
    
     imagePark: {
         type: String,
+        
+
     },
     
     description: {
         type: String,
+        required: true,
     },
     price: {
-        type: Number
+        type: Number,
+        required: true,
     },
 
     category_id: {

@@ -15,23 +15,23 @@ import TextArea from 'antd/lib/input/TextArea';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { addInjectionPark,  loadInjectionPark } from '../../InjectionPark/InjectionPark';
-// import { listSub } from '../../../../api/subcategory';
-// import { loadSubCategory } from '../../../Website/Subcategory/Subcategory';
-// import { addProduct } from '../../../Website/ProductClient/ProductClientSlide';
+import { loadInjectionPark, readoneInjection, updateInjectionParks } from '../../InjectionPark/InjectionPark';
+import { useParams } from "react-router-dom";
 
 const { Option } = Select;
 
 
-const Add = () => {
-    // const [injection, setInjection] = useState([])
-    // const [company, setCompany] = useState([])
+
+const Edit = () => {
+  
+    const { id } = useParams();
 
     const dispatch = useDispatch();
    
     const cateogory = useSelector((state: any) => state.category.category);
-    console.log("Category", cateogory)
     const subcategory = useSelector((state:any) => state.subcategory.subcategory)
+    const injectionone = useSelector((state: any) => state.injection.current)
+
 
 
 
@@ -41,13 +41,26 @@ const Add = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate()
 
-
+    useEffect(() => {
+        dispatch(readoneInjection(id));
+       
+        
+      
+      }, [id])
+      form.setFieldsValue(injectionone);
+    
+     
 
     const onSubmit:any = (dataInput: any) => {
 
        
-        console.log("inputData", dataInput)
-        dispatch(addInjectionPark(dataInput))
+     
+        console.log("idedit", id),
+        console.log("datainput", dataInput)
+        
+        dispatch(updateInjectionParks({id, dataInput}))
+        dispatch(loadInjectionPark())
+      
         navigate("/admin/injection")
 
 
@@ -117,4 +130,4 @@ const Add = () => {
 }
 
 
-export default Add
+export default Edit

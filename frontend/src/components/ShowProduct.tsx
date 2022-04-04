@@ -23,18 +23,18 @@ const ShowProduct = () => {
   
   const { register, handleSubmit } = useForm();
 
-//   const onSubmit = () => {
-//     console.log("prodcut1", productone)
-//     dispatch(readone(productone._id))
-//     const newData = {
-//         ...productone,
+  const onSubmit = () => {
+    console.log("prodcut1", productone)
+    // dispatch(readone(productone._id))
+    const newData = {
+        ...productone,
 
         
-//     } ;
-//     // console.log("newData", newData)
-//     // dispatch(addToCart(newData));
+    } ;
+    console.log("newData", newData)
+    dispatch(addToCart(newData));
     
-// }
+}
 
   useEffect(() => {
     
@@ -63,7 +63,7 @@ const ShowProduct = () => {
   return (
     <>
       <h1 className="text-title">Các Loại Vắc Xin</h1>
-      {/* <Form onSubmit={handleSubmit(onSubmit)}> */}
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <CardGroup className="card-product">
           {showProduct &&
             showProduct.map((productitem: any) => (
@@ -92,7 +92,7 @@ const ShowProduct = () => {
               </div>
             ))}
         </CardGroup>
-      {/* </Form> */}
+      </Form>
 
       <div>
         <Pagination>{items}</Pagination>

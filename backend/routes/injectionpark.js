@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createInjectionPark, listInjectionPark, getInjectPacks, removeInjectionPark, updateInjectionPark } from "../controllers/injectionPark";
+import { createInjectionPark, listInjectionPark, getInjectPacks, removeInjectionPark, updateInjectionPark, readoneInjectionPark } from "../controllers/injectionPark";
 
 
 
@@ -11,8 +11,9 @@ router.post("/injectionpark", createInjectionPark)
 
 router.get("/injectionparks", listInjectionPark)
 router.get("/injectionpark", getInjectPacks)
-router.delete("/injectionparks/:id", removeInjectionPark)
-router.put("injectionparks/:id", updateInjectionPark)
+router.delete("/injectionpark/:id", removeInjectionPark)
+router.put("/injectionpark/:id", updateInjectionPark)
+router.get('/injectionparks/:id', readoneInjectionPark)
 // router.delete("/category/:id", remove )
 
 export default router;
