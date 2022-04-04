@@ -52,3 +52,28 @@ export const getInjectPacks = async (req, res) => {
 
 
 }
+export const removeInjectionPark = async (req, res) => {
+    const condition = { _id: req.params.id };
+    try {
+        const categories = await Injectionpark.findOneAndDelete(condition).exec();
+        res.json(categories)
+    } catch (error) {
+
+    }
+}
+export const updateInjectionPark = async ( req, res) => {
+    try {
+        const condition = { _id: req.params.id };
+        const doc = req.body;
+        const option = { new: true };
+        const categories = await Injectionpark.findByIdAndUpdate(condition, doc, option);
+        res.json(categories)
+
+        
+    } catch (error) {
+        res.status(400).json({
+            message: "loi roi nhe"
+        })
+        
+    }
+}

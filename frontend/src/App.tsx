@@ -10,10 +10,9 @@ import AdminLayout from "./components/layouts/AdminLayout";
 import "antd/dist/antd.css";
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
-
+import { ToastContainer, toast } from 'react-toastify'
 import { create, listproduct } from "./api/product";
 import { remove } from "./api/product";
-
 import PrivateRouter from "./components/PrivateRouter";
 import Company from "./features/Admin/Company";
 import CompanyAdd from "./features/Admin/CompanyAdd";
@@ -23,15 +22,11 @@ import FindVacciationCenter from "./features/Website/FindVacciationCenter";
 import ProductDetails from "./features/Website/ProductClient/Pages/Details";
 import SigninPage from "./features/Website/Auth/Pages/Signin";
 import SignupPage from "./features/Website/Auth/Pages/Signup";
-import ProductList from "./features/Admin/Product/Components/ProductList";
-import ListProduct from "./features/Website/ProductClient/Components/ListProduct";
 import ListProductAdmin from "./features/Admin/Product/pages/List";
 import SuccessSingupVacciation from "./components/SuccessSingupVacciation";
 import ListCategory from "./features/Admin/Category/Pages/ListCategory";
 import AddCategoryAdmin from "./features/Admin/Category/Pages/AddCategoryAdmin";
 import EditCategory from "./features/Admin/Category/Components/EditCategory";
-import InjectionPark from "./features/Admin/InjectionPark/InjectionPark";
-import ListInjection from "./features/Admin/InjectionPark/Component/List";
 import ListInjectionPark from "./features/Admin/InjectionPark/Pages/InjectionPark";
 import AddInjectionPark from "./features/Admin/InjectionPark/Pages/AddInjectionPark";
 import Add from "./features/Admin/Product/pages/Add";
@@ -46,52 +41,7 @@ type InputCate = {
 // const Product = React.lazy(() => import('./features/Website/ProductClient'));
 function App() {
  
-  const [products, setProducts] = useState<any>([]);
-  const [company, setCompany] = useState<any>([]);
-  useEffect(() => {
-    const getProducts = async () => {
-      const { data: {data}} = await listproduct("");
-
-      // console.log("productaaaaaaa", products);
-
-      // console.log("listproduca", data.data);
-      setProducts(data);
-    };
-    getProducts();
-    const getCity = async () => {
-      const { data } = await listCompany();
-      setCompany(data);
-    };
-    getCity();
-  }, []);
-  const onHandleAdd = async (product: any) => {
-    const { data } = await create(product);
-
-    setProducts([...products, data]);
-  };
-  const onHandleRemove = async (id: number) => {
-    remove(id);
-    // rerender
-    setProducts(products.filter((item: any) => item._id !== id));
-  };
-  // const onHandleUpdate = async (id: any, product: any) => {
-  //   try {
-  //     console.log("product", product);
-
-  //     const { data } = await update(id, product);
-
-  //     setProducts(
-  //       products.map((item: any) => (item._id === data._id ? product : item))
-  //     );
-  //   } catch (error) {}
-  // };
-  const onHanlRemoveCompany = () => {};
-  const onHandleAddCompany = async (company: any) => {
-    const { data } = await createCompany(company);
-    console.log("datacompany", data);
-
-    setCompany([...company, data]);
-  };
+  
 
   return (
     <div className="App">
@@ -170,17 +120,12 @@ function App() {
             <Route path="company">
               <Route
                 index
-                element={
-                  <Company
-                    company={company}
-                    onRemoveCompany={onHanlRemoveCompany}
-                  />
-                }
+                // element={}
               />
               {/* <Route path=":id/edit" element={<ProductEdit  onUpdate={onHandleUpdate} />} /> */}
               <Route
                 path="addcompany"
-                element={<CompanyAdd onAddCompany={onHandleAddCompany} />}
+                // element={}
               />
             </Route>
 
