@@ -22,7 +22,11 @@ export const remove = (id: any) => {
 
     return instance.delete(url)
 }
-export const updatecate = (id: any, category:any) => {
+export const updatecate = (id:any,category:any) => {
     const url = `/category/${id}`
-    return  instance.put(url ,category )
+    return  instance.put(url, category )
+}
+export const read = (id: any) => {
+    const url = `/category/${id}`
+    return instance.get(url)
 }

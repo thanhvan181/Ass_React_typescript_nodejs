@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Action } from "history";
 import { list } from "../../../api/category";
-import { getAll, getproductsCate, getproductsSubcate, listproduct, read, remove, searchProduct } from "../../../api/product";
+import { create, getAll, getproductsCate, getproductsSubcate, listproduct, read, remove, searchProduct, updateproduct } from "../../../api/product";
 // import { getAll, add, get } from '../../api/productApi';
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
@@ -74,6 +74,29 @@ export const getAllproducts = createAsyncThunk(
   }
 
 )
+export const addProduct = createAsyncThunk(
+  "product/getAll",
+  async (product:any) => {
+    const {data} = await create(product);
+    return data;
+  }
+
+)
+
+export const editProduct = createAsyncThunk(
+  'eidtProduct',
+  async (params:any) => {
+
+    const {id, dataInput:product} = params
+    console.log("params", params)
+
+  
+   
+    const {data} = await updateproduct(id, product)
+    console.log("DATA UPdateproduct", data)
+    return data;
+  }
+)
 
 // export const addProduct = createAsyncThunk(
 //     'product/addProduct', async (product, { rejectWithValue }) => {
@@ -102,6 +125,7 @@ const initialState = {
   paging: {},
   refProducts: [],
   productallAdmin: [],
+  
 
 };
 
@@ -121,13 +145,11 @@ const productSlice = createSlice({
     }),
       builder.addCase(getProductinCategory.fulfilled, (state, action) => {
         state.value = action.payload;
-        // console.log("actionget", action)
         
-        // state.refProducts = action.payload
-          // console.log("actionsgets", action)
       }),
      
       builder.addCase(readone.fulfilled, (state, action) => {
+        console.log("reducersercuren", action.payload)
         state.current = action.payload;
       }),
       builder.addCase(searchSanpham.fulfilled, (state, action) => {
@@ -141,7 +163,7 @@ const productSlice = createSlice({
 
       });
       builder.addCase(searchProductinSubcategory.fulfilled, (state, action) => {
-        // console.log("actionpayload", action.payload)
+        
         state.value = action.payload;
       }),
       builder.addCase(getAllproducts.fulfilled, (state, action) => {

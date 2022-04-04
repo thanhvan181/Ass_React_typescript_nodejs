@@ -10,10 +10,10 @@ import AdminLayout from "./components/layouts/AdminLayout";
 import "antd/dist/antd.css";
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
-import ProductAdd from "./features/Admin/ProductAdd";
-import { create, listproduct, update } from "./api/product";
+
+import { create, listproduct } from "./api/product";
 import { remove } from "./api/product";
-import ProductEdit from "./features/Admin/ProductEdit";
+
 import PrivateRouter from "./components/PrivateRouter";
 import Company from "./features/Admin/Company";
 import CompanyAdd from "./features/Admin/CompanyAdd";
@@ -30,8 +30,14 @@ import SuccessSingupVacciation from "./components/SuccessSingupVacciation";
 import ListCategory from "./features/Admin/Category/Pages/ListCategory";
 import AddCategoryAdmin from "./features/Admin/Category/Pages/AddCategoryAdmin";
 import EditCategory from "./features/Admin/Category/Components/EditCategory";
-
- "./features/Website/ProductClient";
+import InjectionPark from "./features/Admin/InjectionPark/InjectionPark";
+import ListInjection from "./features/Admin/InjectionPark/Component/List";
+import ListInjectionPark from "./features/Admin/InjectionPark/Pages/InjectionPark";
+import AddInjectionPark from "./features/Admin/InjectionPark/Pages/AddInjectionPark";
+import Add from "./features/Admin/Product/pages/Add";
+import Edit from "./features/Admin/Product/pages/Edit";
+import 'react-toastify/dist/ReactToastify.css';
+ 
 type InputCate = {
   // kiểu dữ liệu của từng input
   name: string;
@@ -68,17 +74,17 @@ function App() {
     // rerender
     setProducts(products.filter((item: any) => item._id !== id));
   };
-  const onHandleUpdate = async (id: any, product: any) => {
-    try {
-      console.log("product", product);
+  // const onHandleUpdate = async (id: any, product: any) => {
+  //   try {
+  //     console.log("product", product);
 
-      const { data } = await update(id, product);
+  //     const { data } = await update(id, product);
 
-      setProducts(
-        products.map((item: any) => (item._id === data._id ? product : item))
-      );
-    } catch (error) {}
-  };
+  //     setProducts(
+  //       products.map((item: any) => (item._id === data._id ? product : item))
+  //     );
+  //   } catch (error) {}
+  // };
   const onHanlRemoveCompany = () => {};
   const onHandleAddCompany = async (company: any) => {
     const { data } = await createCompany(company);
@@ -131,11 +137,29 @@ function App() {
               />
               <Route
                 path=":id/edit"
-                element={<EditCategory  />}
+                element={<EditCategory />}
               />
                <Route
                   path="add"
                   element={<AddCategoryAdmin  />}
+                />
+             
+             
+            </Route>
+            <Route path="injection">
+              <Route
+                index
+                element={
+                  <ListInjectionPark/>
+                }
+              />
+              <Route
+                path=":id/edit"
+                element={<EditCategory />}
+              />
+               <Route
+                  path="add"
+                  element={<AddInjectionPark  />}
                 />
              
              
@@ -169,11 +193,11 @@ function App() {
               />
               <Route
                 path=":id/edit"
-                element={<ProductEdit onUpdate={onHandleUpdate} />}
+                element={<Edit/>}
               />
                <Route
                   path="add"
-                  element={<ProductAdd onAdd={onHandleAdd} />}
+                  element={<Add  />}
                 />
              
              

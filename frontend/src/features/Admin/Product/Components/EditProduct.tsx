@@ -11,23 +11,31 @@ import {
     TreeSelect,
     Switch,
 } from 'antd';
-
-
 import TextArea from 'antd/lib/input/TextArea';
-import { listInjection } from '../../api/injectionpark';
-import { list } from '../../api/category';
-import { listSub } from '../../api/subcategory';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { loadInjectionPark } from '../../InjectionPark/InjectionPark';
+import { listSub } from '../../../../api/subcategory';
+import { loadSubCategory } from '../../../Website/Subcategory/Subcategory';
+import {  editProduct, fetchProduct, getAllproducts, readone } from '../../../Website/ProductClient/ProductClientSlide';
 
 const { Option } = Select;
+import { useParams } from "react-router-dom";
 
-type ProductAddProps = {
-    onAdd: (product: any) => void
-}
-const ProductAdd = (props: ProductAddProps) => {
-    const [injection, setInjection] = useState([])
-    const [company, setCompany] = useState([])
-    const [subcategory, setSubcategory] = useState([])
+
+
+const EditProduct = () => {
+    const { id } = useParams();
+
+
+    const dispatch = useDispatch();
+    const injection  = useSelector((state: any) => state.injection.injectionpark)
+    const cateogory = useSelector((state: any) => state.category.category);
+    const subcategory = useSelector((state:any) => state.subcategory.subcategory)
+    const productone = useSelector((state:any) => state.product.current)
+
+
 
 
 
@@ -35,34 +43,36 @@ const ProductAdd = (props: ProductAddProps) => {
     const [form] = Form.useForm();
     const navigate = useNavigate()
 
+
+
     const onSubmit:any = (dataInput: any) => {
-        props.onAdd(dataInput);
-        console.log("inputData", dataInput)
+
+       
+        console.log("inputDataedit", dataInput)
+
+        dispatch(editProduct({id, dataInput}));
+        dispatch(getAllproducts())
         navigate("/admin/product")
+
 
     }
     useEffect(() => {
-        const loadInject = async () => {
-            const {data} = await listInjection();
-            setInjection(data);
+
+        dispatch(readone(id))
 
 
-        }
-        loadInject();
-        const loadcompany = async () => {
-            const {data} = await list();
-            setCompany(data);
-            
-        }
-        loadcompany();
+        dispatch(loadInjectionPark())
+        dispatch(loadSubCategory())
+
+
+
+
+        
        
-        const loadsubcategory = async () => {
-            const {data} = await listSub();
-            setSubcategory(data);
-            
-        }
-        loadsubcategory();
-    }, [])
+       
+       
+    }, [id])
+    form.setFieldsValue(productone);
 
     return (
         <>
@@ -108,7 +118,7 @@ const ProductAdd = (props: ProductAddProps) => {
                 <Form.Item label="Category_id" name="category_id">
                   
                 <Select>
-                        {company && company.map((compa:any) => {
+                        {cateogory && cateogory.map((compa:any) => {
                             return (
                                 <>
                                   <Option value={compa._id}>{compa.name}</Option>
@@ -144,4 +154,4 @@ const ProductAdd = (props: ProductAddProps) => {
 }
 
 
-export default ProductAdd
+export default EditProduct

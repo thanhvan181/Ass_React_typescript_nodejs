@@ -7,10 +7,20 @@ const cartSlice = createSlice({
     },
     reducers: {
         addToCart(state, action) {
-            // const newProduct = action.payload;
-            // const existProduct = state.items.find(item => item._id === newProduct.id);
+            // const ItemsIndex = state.items.findIndex((item:any) => item._id === action.payload._id);
+
+            // if(ItemsIndex >= 0) {
+                
+            // }
+            const newProduct = action.payload;
+            // // const pesudoId = (new Date()).getTime();
+
+            // const existProduct = state.items.find((item:any) => item._id === newProduct.id);
             // if (!existProduct) {
-            //     state.items.push(newProduct);
+                
+
+
+            //     // state.items.push(newProduct);
             // }
         },
         // increaseCart(state, action) {

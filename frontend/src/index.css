@@ -61,17 +61,27 @@ code {
 /* nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.sticky-top {
   padding-left: 300px;
 } */
+.bg-step{
+  margin-top: 20px;
+  background-color: #edffff;
+  padding-top: 20px;
+
+}
+.b-info {
+  background-color: #edffff;
+
+}
 .vacsinsteps {
   padding: 45px;
-  background-color: #edffff;
+  
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 30px;
 }
 .text-bg{
-  background-color: #007c7c;
-  color: white;
+  /* background-color: #007c7c; */
+  color: black;
 
   
 }
@@ -285,4 +295,16 @@ select.form-select {
 }
 .add_pr {
   margin-top: 70px;
+}
+img.card-img.img-cate {
+  position: relative;
+  top: 100px;
+  width: 150px;
+  left: 50px;
+}
+.card-bo.card-body {
+  position: absolute;
+}
+.bg-cate{
+ background-color: #edffff;
 }

@@ -37,11 +37,11 @@ const TableCategory = () => {
   
     //   setGridData(filterData);
     };
-  
-    const modifiData = categorylist.map(({ body, ...item }: any) => ({
+    console.log("CATLIST: ", categorylist)
+    const modifiData = categorylist.map((item: any) => ({
       ...item,
-      key: item.id,
-      category: isEmpty(body) ? item.category : body,
+      key: item._id,
+    //   category: isEmpty(item) ? item.category : body,
     }));
   
     const columns: any[] = [

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { create, list, remove, updatecate } from "../../../api/category";
-
+import { create, list, read, remove, updatecate } from "../../../api/category";
+// const [form] = Form.useForm();
 
 
 export const loadCategory = createAsyncThunk(
@@ -29,17 +29,31 @@ export const addCategory = createAsyncThunk(
 )
 export const editCategory = createAsyncThunk(
   'eidtCategory',
-  async (id, product) => {
-    const {data} = await updatecate(id, product)
+  async (params:any) => {
+    const {id, dataInput:category} = params
+    console.log("params", params)
+    console.log("ID: ", id)
+    console.log("Payload: ", category)
+    const {data} = await updatecate(id, category)
+    console.log("DATA UPdate", data)
     return data;
   }
 )
+export const readonecategory = createAsyncThunk(
+  "category/readone",
+  async (id: any) => {
+    const {data} = await read(id);
+    // form.setFieldsValue(data);
 
+    return data
+
+  }
+)
 
 const initialState = {
   category: [],
  
-  // current: {}
+  current: {}
 
 };
 
@@ -51,7 +65,7 @@ const categorySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loadCategory.fulfilled, (state, action) => {
-      
+      console.log("CAT", action.payload)
       state.category = action.payload;
     }),
     builder.addCase(removeCategory.fulfilled, (state, action) =>  {
@@ -60,8 +74,18 @@ const categorySlice = createSlice({
       state.category = state.category.filter((item:any) => item._id !== action.payload._id )
     }),
     builder.addCase(addCategory.fulfilled, (state,action) => {
+      state.category = action.payload;
 
     })
+    builder.addCase(readonecategory.fulfilled, (state,action) => {
+      state.current = action.payload;
+
+
+    }),
+  builder.addCase(editCategory.fulfilled, (state, action) => {
+    // state.category = action.payload;
+
+  })
 
 
    

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { signin, signup } from "../../../api/auth";
 import { list } from "../../../api/category";
 import { getproductsCate, listproduct } from "../../../api/product";
-import { authenticated } from "../../../untils/localStoge";
+import { authenticated, removeAuthencicate } from "../../../untils/localStoge";
 
 export const signIn = createAsyncThunk(
   'auth/signin',
@@ -41,6 +41,8 @@ const authSlice = createSlice({
       state.isAuthenticated = false
       state.isLoading = false
       state.errorMessage = ''
+      removeAuthencicate()
+
     },
   },
   extraReducers: (builder) => {

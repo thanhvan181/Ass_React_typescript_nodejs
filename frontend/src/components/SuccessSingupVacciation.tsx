@@ -13,6 +13,7 @@ const SuccessSingupVacciation = () => {
       1 of 3
     </Col> */}
     <Col md="auto">
+      <img src="https://verify.cowin.gov.in/static/media/verify-certificate.29230f43.png" alt="" />
     <h1 className="text-h1">Đăng ký thành công</h1>
         <p>Quý khách đã đăng ký thông tin tiêm chủng thành công.
             Việc đăng ký thông tin đầy đủ sẽ giúp quý khách tiết kiệm thời gian khi làm thủ tục tại quầy lễ tân.

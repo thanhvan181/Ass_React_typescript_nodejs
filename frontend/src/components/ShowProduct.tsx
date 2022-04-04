@@ -4,7 +4,7 @@ import { Button, Card, CardGroup, Form, Pagination } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 
-import { fetchProduct } from "../features/Website/ProductClient/ProductClientSlide";
+import { fetchProduct, readone } from "../features/Website/ProductClient/ProductClientSlide";
 import { addToCart } from "../features/Website/Cart/CartSlide";
 
 const ShowProduct = () => {
@@ -16,23 +16,31 @@ const ShowProduct = () => {
   const [page, setPage] = useState(1);
   const showProduct = useSelector((state: any) => state.product.value);
   const paging = useSelector((state: any) => state.product.paging);
-  const product = useSelector((state:any )=> state.product.current);
-  console.log("productadd", product)
-  console.log("SHOWPROduct:", showProduct);
+  const productone = useSelector((state:any )=> state.product.current);
+
+  console.log("producone", productone)
+
+  
   const { register, handleSubmit } = useForm();
-  const onSubmit = () => {
-    const newData = {
-        ...product,
-        // quantity: +data.quantity
-    } ;
-    console.log("newData", newData)
-    dispatch(addToCart(newData));
+
+//   const onSubmit = () => {
+//     console.log("prodcut1", productone)
+//     dispatch(readone(productone._id))
+//     const newData = {
+//         ...productone,
+
+        
+//     } ;
+//     // console.log("newData", newData)
+//     // dispatch(addToCart(newData));
     
-}
+// }
 
   useEffect(() => {
+    
     dispatch(fetchProduct({ pageSize: 4, page: page }));
   }, [page]);
+
   const onHanldClick = (e: any) => {
     // console.log("event", e);
     // console.log("event", e.target.innerHTML);
@@ -55,7 +63,7 @@ const ShowProduct = () => {
   return (
     <>
       <h1 className="text-title">Các Loại Vắc Xin</h1>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      {/* <Form onSubmit={handleSubmit(onSubmit)}> */}
         <CardGroup className="card-product">
           {showProduct &&
             showProduct.map((productitem: any) => (
@@ -84,7 +92,7 @@ const ShowProduct = () => {
               </div>
             ))}
         </CardGroup>
-      </Form>
+      {/* </Form> */}
 
       <div>
         <Pagination>{items}</Pagination>

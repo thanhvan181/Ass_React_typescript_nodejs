@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import InjectionPark from '../features/Admin/InjectionPark/InjectionPark';
 import AuthSlide from '../features/Website/Auth/AuthSlide';
 import CartSlide from '../features/Website/Cart/CartSlide';
 import CategorySlide from '../features/Website/Category/CategorySlide';
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     subcategory: Subcategory,
     cart: CartSlide,
     user: AuthSlide,
+    injection: InjectionPark,
 });
 export default rootReducer
 

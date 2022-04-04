@@ -127,13 +127,13 @@ const SignupVaccinations = (props: any) => {
 
   const hanleClickshowProductPark = async (id: any) => {
     const { data } = await getInjectionPacks({ subcategory_id: id });
+
+    console.log("dataInjectionPark", data);
+
     setInjection(data);
 
-    // console.log("PACK: ", data);
 
-    // // console.log("idpark", id);
-
-    // // const {}
+    
   };
 
   const hanldeInputData = (e: any, id: any) => {
@@ -153,7 +153,7 @@ const SignupVaccinations = (props: any) => {
             <Form onSubmit={handleSubmit(onSubmit)}>
               <h5 className="text-h5">THÔNG TIN NGƯỜI TIÊM</h5>
 
-              <Row classNameName="mb-3">
+              <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Họ tên người tiêm </Form.Label>
                   <Form.Control
@@ -172,7 +172,7 @@ const SignupVaccinations = (props: any) => {
                   />
                 </Form.Group>
               </Row>
-              <Row classNameName="mb-3">
+              <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridPassword">
                   <Form.Label>Giới tính</Form.Label>
                   <input {...register("sex")} type="radio" value="male" />
@@ -292,7 +292,7 @@ const SignupVaccinations = (props: any) => {
                                                   <CardGroup className="card-groud">
                                                     {injection &&
                                                       injection.map(
-                                                        (product: any) => {
+                                                        (injection: any) => {
                                                           return (
                                                             <>
                                                               <div className="product-container">
@@ -302,14 +302,14 @@ const SignupVaccinations = (props: any) => {
                                                                       aria-label="Checkbox for following text input"
                                                                       type="checkbox"
                                                                       value={
-                                                                        product._id
+                                                                        injection._id
                                                                       }
                                                                       onClick={(
                                                                         e: any
                                                                       ) =>
                                                                         hanldeInputData(
                                                                           e,
-                                                                          product._id
+                                                                          injection._id
                                                                         )
                                                                       }
                                                                       {...register(
@@ -323,22 +323,22 @@ const SignupVaccinations = (props: any) => {
                                                                     <Card.Body>
                                                                       <Card.Title>
                                                                         <a
-                                                                          href={`/vaccine/${product.id}`}
+                                                                          href={`/vaccine/${injection.id}`}
                                                                         >
                                                                           {
-                                                                            product.name
+                                                                            injection.name
                                                                           }
                                                                         </a>
                                                                       </Card.Title>
                                                                       <Card.Text>
                                                                         <p>
                                                                           {
-                                                                            product.description
+                                                                            injection.description
                                                                           }
                                                                         </p>
                                                                         <span>
                                                                           {
-                                                                            product.price
+                                                                            injection.price
                                                                           }
                                                                         </span>
                                                                       </Card.Text>

@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Card, CardGroup, Pagination } from "react-bootstrap";
+import { Button, Card, CardGroup, Form, Pagination } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { fetchProduct } from "../ProductClientSlide";
-
+import { useForm } from 'react-hook-form';
+import { addToCart } from "../../Cart/CartSlide";
 // type typePage ={
 //   page: number,
 // }
@@ -15,8 +16,20 @@ const ListProduct = () => {
   const [page, setPage] = useState(1);
   const products = useSelector((state: any) => state.product.value);
   const paging = useSelector((state:any) => state.product.paging)
-  console.log("paginglistproduct", paging)
-  // console.log("getProduc", products);
+  // const productone = useSelector((state:any) => state.product.current)
+
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = () => {
+    const newData = {
+        ...products,
+
+        
+    } ;
+    console.log("newData", newData)
+    dispatch(addToCart(newData));
+    
+}
  
   useEffect(() => {
     dispatch(fetchProduct({ pageSize: 6, page: page }));
@@ -37,6 +50,7 @@ const ListProduct = () => {
   }
   return (
     <>
+      <Form onSubmit={handleSubmit(onSubmit)}>
       <CardGroup className="card-groud">
         {products &&
           products.map((productitem: any) => (
@@ -65,6 +79,8 @@ const ListProduct = () => {
             </div>
           ))}
       </CardGroup>
+      </Form>
+      
       <div>
         <Pagination>{items}</Pagination>
       </div>
