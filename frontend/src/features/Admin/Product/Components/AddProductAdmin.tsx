@@ -19,6 +19,7 @@ import { loadInjectionPark } from '../../InjectionPark/InjectionPark';
 import { listSub } from '../../../../api/subcategory';
 import { loadSubCategory } from '../../../Website/Subcategory/Subcategory';
 import { addProduct } from '../../../Website/ProductClient/ProductClientSlide';
+import { isAuthenticate } from '../../../../untils/localStoge';
 
 const { Option } = Select;
 
@@ -39,6 +40,14 @@ const AddProduct = () => {
     // const { register, handleSubmit, formState: { errors } } = useForm<any>()
     const [form] = Form.useForm();
     const navigate = useNavigate()
+    const {user} = isAuthenticate()
+    const {token} = isAuthenticate()
+    console.log("token", token)
+    
+    const iduser = user._id;
+   
+
+    console.log("iduser", iduser)
 
 
 
@@ -46,7 +55,7 @@ const AddProduct = () => {
 
        
         console.log("inputData", dataInput)
-        dispatch(addProduct(dataInput))
+        dispatch(addProduct({iduser, dataInput, token}))
         navigate("/admin/product")
 
 
@@ -61,12 +70,6 @@ const AddProduct = () => {
         
        
        
-        // const loadsubcategory = async () => {
-        //     const {data} = await listSub();
-        //     setSubcategory(data);
-            
-        // }
-        // loadsubcategory();
     }, [])
 
     return (

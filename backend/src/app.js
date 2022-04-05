@@ -30,15 +30,15 @@ app.use(express.json())
 // app.use("/api",categoryRoute);
 
 // connnect database
-// mongoose.connect('mongodb://localhost:27017/VNVC')
-//     .then(() => console.log("Kết nối db thành công"))
-//     .catch((error) => console.log(error));
-
-mongoose.connect('mongodb+srv://demodatabase:tiKHgyRnf6njJIbT@cluster0.myvkr.mongodb.net/VNVC?retryWrites=true&w=majority')
+mongoose.connect('mongodb://localhost:27017/VNVC')
     .then(() => console.log("Kết nối db thành công"))
     .catch((error) => console.log(error));
 
-// connection
+// mongoose.connect('mongodb+srv://demodatabase:tiKHgyRnf6njJIbT@cluster0.myvkr.mongodb.net/VNVC?retryWrites=true&w=majority')
+//     .then(() => console.log("Kết nối db thành công"))
+//     .catch((error) => console.log(error));
+
+// // connection
 const PORT = 8080;
 
 app.use("/api", userRouter);
@@ -50,6 +50,7 @@ app.use("/api", subcategoryRouter);
 app.use("/api", injectionParkRouter);
 app.use("/api", registerRouter);
 app.use("/api", cityRouter);
+
 app.listen(PORT, () => {
     console.log("Server is running port", PORT)
 })

@@ -6,22 +6,16 @@ const cartSlice = createSlice({
         items: []
     },
     reducers: {
-        addToCart(state, action) {
-            // const ItemsIndex = state.items.findIndex((item:any) => item._id === action.payload._id);
+        addToCart(state:any, action:any) {
+            console.log("ActionADdCart", action)
 
-            // if(ItemsIndex >= 0) {
-                
-            // }
-            const newProduct = action.payload;
-            // // const pesudoId = (new Date()).getTime();
-
-            // const existProduct = state.items.find((item:any) => item._id === newProduct.id);
-            // if (!existProduct) {
-                
-
-
-            //     // state.items.push(newProduct);
-            // }
+            const newProduct= action.payload;
+            const existProduct = state.items.find((item:any) => item._id === newProduct._id);
+            if (!existProduct) {
+                state.items.push(newProduct)
+            } else {
+                console.log("quanlity++")
+            }
         },
         // increaseCart(state, action) {
         //     state.items.find(item => item.id === action.payload).quantity++;

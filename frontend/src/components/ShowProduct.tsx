@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 
 import { fetchProduct, readone } from "../features/Website/ProductClient/ProductClientSlide";
 import { addToCart } from "../features/Website/Cart/CartSlide";
+import { add } from "lodash";
 
 const ShowProduct = () => {
   const dispatch = useDispatch();
@@ -16,30 +17,34 @@ const ShowProduct = () => {
   const [page, setPage] = useState(1);
   const showProduct = useSelector((state: any) => state.product.value);
   const paging = useSelector((state: any) => state.product.paging);
-  const productone = useSelector((state:any )=> state.product.current);
+  // const productone = useSelector((state:any) => state.product.current);
 
-  console.log("producone", productone)
-
+  // console.log("producone", productone)
+// 
   
-  const { register, handleSubmit } = useForm();
+  // const { register, handleSubmit } = useForm();
 
-  const onSubmit = () => {
-    console.log("prodcut1", productone)
-    // dispatch(readone(productone._id))
-    const newData = {
-        ...productone,
+//   const onSubmit = () => {
+//     // console.log("prodcut1", productone)
+//     // dispatch(readone(showProduct._id))
+//     // const newData = {
+//     //     ...productone,
 
         
-    } ;
-    console.log("newData", newData)
-    dispatch(addToCart(newData));
+//     // } ;
+//     // console.log("newData", newData)
+//     // dispatch(addToCart(newData));
     
-}
+// }
 
   useEffect(() => {
     
     dispatch(fetchProduct({ pageSize: 4, page: page }));
   }, [page]);
+  const addCart = (product: any) => {
+    console.log("productaddcart", product)
+    dispatch(addToCart(product))
+  }
 
   const onHanldClick = (e: any) => {
     // console.log("event", e);
@@ -63,12 +68,12 @@ const ShowProduct = () => {
   return (
     <>
       <h1 className="text-title">Các Loại Vắc Xin</h1>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+     
         <CardGroup className="card-product">
           {showProduct &&
             showProduct.map((productitem: any) => (
               <div className="product-container">
-                <Card>
+              <Card>
                   <Card.Img
                     variant="top"
                     src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
@@ -85,14 +90,17 @@ const ShowProduct = () => {
                       <span>{productitem.price}</span>
                     </Card.Text>
                   </Card.Body>
-                  <Button variant="success" className="btn-pro" type="submit">
+                  <Button variant="success" className="btn-pro" type="submit"
+                  onClick={() => addCart(productitem)}
+                  >
                     Chọn Mua
                   </Button>
                 </Card>
+              
               </div>
             ))}
         </CardGroup>
-      </Form>
+      {/* </Form> */}
 
       <div>
         <Pagination>{items}</Pagination>

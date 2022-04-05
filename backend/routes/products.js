@@ -1,16 +1,17 @@
 
 // import { checkAuth } from '../middlewares/checkAuth' 
 import { Router } from "express";
-import { create, getProducts, getProductsCategory, searchProduct, list, read, remove, update, listProducts, getProductsSubcateogy, fetchAllProduct } from "../controllers/product";
+import { create, getProducts, getProductsCategory, searchProduct, list, read, remove, update, getProductsSubcateogy, fetchAllProduct } from "../controllers/product";
 import { isAdmin, isAuth, requireSignin } from "../middlewares/checkAuth";
-import { userById } from '../controllers/user';
-// import { create } from "../controllers/user";
+import { userById } from '../controllers/users';
+
 
 const router = Router();
 
-router.post("/product",create)
+// router.post("/product",create)
 router.get("/products", list)
 router.get("/productall", fetchAllProduct)
+
 
 router.get("/search", searchProduct)
 router.get("/products/:id", getProducts)
@@ -20,5 +21,10 @@ router.delete("/product/:id", remove)
 router.get("/product/:id", read)
 router.put("/product/:id", update)
 
-// router.param("userId", userById);
+router.post('/product/:userId', requireSignin, isAuth, isAdmin,create);
+
+router.param("userId", userById);
+
+
+
 export default router;

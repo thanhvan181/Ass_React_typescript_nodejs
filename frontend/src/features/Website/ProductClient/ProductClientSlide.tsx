@@ -76,8 +76,11 @@ export const getAllproducts = createAsyncThunk(
 )
 export const addProduct = createAsyncThunk(
   "product/getAll",
-  async (product:any) => {
-    const {data} = await create(product);
+
+  async (params:any) => {
+    const {iduser, dataInput:product, token} = params
+
+    const {data} = await create(iduser, product, token);
     return data;
   }
 
@@ -125,6 +128,7 @@ const initialState = {
   paging: {},
   refProducts: [],
   productallAdmin: [],
+
   
 
 };
@@ -150,6 +154,7 @@ const productSlice = createSlice({
      
       builder.addCase(readone.fulfilled, (state, action) => {
         console.log("reducersercuren", action.payload)
+        console.log("actionssssss", action)
         state.current = action.payload;
       }),
       builder.addCase(searchSanpham.fulfilled, (state, action) => {

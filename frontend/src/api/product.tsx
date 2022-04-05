@@ -19,10 +19,15 @@ export const read = (id:any) => {
     const url = `/product/${id}`;
     return instance.get(url)
 }
-export const create = (product:any) => {
-    const url = `/product`;
-    return instance.post(url, product)
+export const create = (iduser: any, product:any, token:String) => {
+    // const config = 
+    
+    const url = `/product/${iduser}`;
+    return instance.post(url, product,{
+        headers: { Authorization: `Bearer ${token}` }
+    } )
 }
+
 export const getproducts = (id:any) => {
     const url = `/products/${id}`;
     return instance.get(url)
