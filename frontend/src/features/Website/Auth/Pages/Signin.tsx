@@ -27,7 +27,7 @@ const uiConfig = {
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     // firebase.auth.FacebookAuthProvider.PROVIDER_ID
   ]
-  
+
 };
 
 function SigninPage() {
@@ -36,7 +36,7 @@ function SigninPage() {
   // Listen to the Firebase Auth state and set the local state.
   useEffect(() => {
     const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-      setIsSignedIn(!!user);
+      setIsSignedIn(!user);
     });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
@@ -46,7 +46,7 @@ function SigninPage() {
       <div>
 
         <h1>My App</h1>
-       
+
         <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
       </div>
     );
@@ -55,7 +55,7 @@ function SigninPage() {
     <div>
       <h1>My App</h1>User.disp
       <p>Welcome {firebase.auth()}! You are now signed-in!</p>
-      {/* <a onClick={() => firebase.auth().signOut()}>Sign-out</a> */}
+      <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
     </div>
   );
 }

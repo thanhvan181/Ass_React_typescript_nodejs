@@ -16,9 +16,9 @@ router.get("/search", searchProduct)
 router.get("/products/:id", getProducts)
 router.get("/products/category/:id", getProductsCategory)
 router.get("/products/subcategory/:id", getProductsSubcateogy)
-router.delete("/product/:id", remove)
+router.delete("/product/:id", checkAuth, remove)
 router.get("/product/:id", read)
-router.put("/product/:id", update)
+router.put("/product/:id", checkAuth, update)
 
 router.post('/product/:userId', checkAuth, adminCheck, create);
 

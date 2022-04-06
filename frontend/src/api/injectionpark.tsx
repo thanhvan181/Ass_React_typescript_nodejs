@@ -3,9 +3,9 @@ import instance from './instance';
 
 
 export const getInjectionPacks = (params: any) => {
-  
+
     const paramString = new URLSearchParams(params).toString();
-    const url = `/injectionpacks?${paramString}`;
+    const url = `/injectionpack?${paramString}`;
     console.log("URL: ", url)
     return instance.get(url)
 }
@@ -17,7 +17,7 @@ export const readone = (id: any) => {
     const url = `/injectionparks/${id}`;
     return instance.get(url)
 }
-export const addInjection = (injection:any) => {
+export const addInjection = (injection: any) => {
     const url = `/injectionpark`;
     return instance.post(url, injection)
 }

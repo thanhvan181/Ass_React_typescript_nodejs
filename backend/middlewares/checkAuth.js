@@ -4,6 +4,7 @@ import User from '../models/user';
 export const checkAuth = async (req, res, next) => {
     try {
         const firebaseUser = await firebase.auth().verifyIdToken(req.headers.authtoken);
+        console.log("FB USER: ", firebaseUser);
         req.user = firebaseUser;
         next();
     } catch (error) {
@@ -17,7 +18,7 @@ export const adminCheck = async (req, res, next) => {
     console.log(email);
     const adminUser = await User.findOne({ email }).exec();
     console.log('adminUser', adminUser)
-    if (adminUser.role !== 'admin') {
+    if (adminUser.role !== 1) {
         res.status(400).json({
             err: "Admin resource. Access Denined"
         })

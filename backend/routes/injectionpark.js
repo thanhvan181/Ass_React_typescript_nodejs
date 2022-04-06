@@ -14,6 +14,5 @@ router.get("/injectionpark", getInjectPacks)
 router.delete("/injectionpark/:id", removeInjectionPark)
 router.put("/injectionpark/:id", updateInjectionPark)
 router.get('/injectionparks/:id', readoneInjectionPark)
-// router.delete("/category/:id", remove )
 
 export default router;

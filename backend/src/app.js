@@ -14,7 +14,7 @@ import cityRouter from "../routes/city";
 
 const app = express();
 const option = {
-    
+
 }
 
 // middleware
@@ -30,13 +30,13 @@ app.use(express.json())
 // app.use("/api",categoryRoute);
 
 // connnect database
-mongoose.connect('mongodb://localhost:27017/VNVC')
-    .then(() => console.log("Kết nối db thành công"))
-    .catch((error) => console.log(error));
-
-// mongoose.connect('mongodb+srv://demodatabase:tiKHgyRnf6njJIbT@cluster0.myvkr.mongodb.net/VNVC?retryWrites=true&w=majority')
+// mongoose.connect('mongodb://localhost:27017/VNVC')
 //     .then(() => console.log("Kết nối db thành công"))
 //     .catch((error) => console.log(error));
+
+mongoose.connect('mongodb://demodatabase:tiKHgyRnf6njJIbT@cluster0-shard-00-00.myvkr.mongodb.net:27017,cluster0-shard-00-01.myvkr.mongodb.net:27017,cluster0-shard-00-02.myvkr.mongodb.net:27017/VNVC?ssl=true&replicaSet=atlas-5mv8y2-shard-0&authSource=admin&retryWrites=true&w=majority')
+    .then(() => console.log("Kết nối db thành công"))
+    .catch((error) => console.log(error));
 
 // // connection
 const PORT = 8080;
