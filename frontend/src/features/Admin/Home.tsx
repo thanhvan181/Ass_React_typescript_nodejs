@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Card, Col, Row, Typography, Tooltip, Progress, Upload, message, Button, Timeline, Radio } from "antd";
 import { ToTopOutlined, MenuUnfoldOutlined, RightOutlined } from "@ant-design/icons";
 import Paragraph from "antd/lib/typography/Paragraph";
-import Echart from "../../components/admin/chart/Echar";
-import LineChart from "../../components/admin/chart/LineChart";
+
+
 import ava1 from "../../assets/images/logo-shopify.svg";
 import ava2 from "../../assets/images/logo-atlassian.svg";
 import ava3 from "../../assets/images/logo-slack.svg";
@@ -15,6 +15,10 @@ import team2 from "../../assets/images/team-2.jpg";
 import team3 from "../../assets/images/team-3.jpg";
 import team4 from "../../assets/images/team-4.jpg";
 import card from "../../assets/images/info-card-1.jpg";
+import Echar from "../../components/admin/chart/Echar";
+import LineChart from "../../components/admin/chart/LineChart";
+// import EChart from "../../components/admin/chart/EChart";
+// import LineChart from "../../components/admin/chart/LineChart";
 function Home() {
   const { Title, Text } = Typography;
   const onChange = (e: any) => console.log(`radio checked:${e.target.value}`);
@@ -266,7 +270,7 @@ function Home() {
         <Row gutter={[24, 0]}>
           <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
-              <Echart />
+              <Echar />
             </Card>
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">

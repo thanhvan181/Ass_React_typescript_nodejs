@@ -1,34 +1,28 @@
-import expressJWT from 'express-jwt';
+import firebase from '../firebase';
+import User from '../models/user';
 
-export const checkAuth = (req, res, next) => {
-    const status = true;
-    if(status){
+export const checkAuth = async (req, res, next) => {
+    try {
+        const firebaseUser = await firebase.auth().verifyIdToken(req.headers.authtoken);
+        req.user = firebaseUser;
         next();
-    } else {
-        console.log("Anh không có quyền truy cập");
-    }
-}
-
-export const requireSignin = expressJWT({
-    algorithms: ["HS256"],
-    secret: "123456",
-    requestProperty: "auth" ,
-})
-
-export const isAuth = (req, res, next) => {
-    const status = req.profile._id == req.auth._id;
-    if(!status){
-        res.status(400).json({
-            message: "Ban khong co quyen truy cap"
-        })
-    }
-    next();
-}
-export const isAdmin = (req, res, next) => {
-    if(req.profile.role === 0){
+    } catch (error) {
         res.status(401).json({
-            message: "Bạn không phải là admin, chim cút"
+            error: "invalid or expired token"
         })
     }
-    next();
 }
+export const adminCheck = async (req, res, next) => {
+    const { email } = req.user;
+    console.log(email);
+    const adminUser = await User.findOne({ email }).exec();
+    console.log('adminUser', adminUser)
+    if (adminUser.role !== 'admin') {
+        res.status(400).json({
+            err: "Admin resource. Access Denined"
+        })
+    } else {
+        next();
+    }
+}
+
