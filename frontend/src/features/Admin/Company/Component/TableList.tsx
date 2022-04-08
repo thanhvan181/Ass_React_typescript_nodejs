@@ -12,7 +12,7 @@ import {
   import { useState, useEffect } from "react";
   import { Link } from "react-router-dom";
   import { useDispatch, useSelector } from 'react-redux';
-  import { loadInjectionPark, removeInjection } from "../InjectionPark";
+import { loadCompany, removeCompany } from "../CompanySlide";
   
   
   
@@ -20,23 +20,25 @@ import {
   
   
   
-  const ListInjection  = () => {
+  
+  const TableList  = () => {
     
     const [filteredInfo, setFilteredInfo] = useState<any>({});
     const [sortedInfo, setSortedInfo] = useState<any>({});
-    const injectionparkAll = useSelector((state:any) => state.injection.injectionpark)
-    // console.log("allinjec", injectionparkAll)
+   
+   const showlistCompany = useSelector((state: any) => state.company.company)
    
   
     const dispatch = useDispatch();
     
       useEffect(() => {
-         dispatch(loadInjectionPark())
+         dispatch(loadCompany())
       }, [])
   
       const onRemove = (id:any) => {
+          console.log("idcompany", id)
        
-        dispatch(removeInjection(id))
+        dispatch(removeCompany(id))
           // console.log("id",id);
           
       }
@@ -66,7 +68,7 @@ import {
           columnKey: 'name',
       });
     };
-    const modifiData = injectionparkAll.map((item: any, index:any) => ({
+    const modifiData = showlistCompany.map((item: any, index:any) => ({
       ...item,
       key: item._id,
       index: index + 1,
@@ -96,16 +98,21 @@ import {
           ellipsis: true,
         },
         {
-          title: 'Price',
-          dataIndex: 'price',
-          key: 'price',
-        
-          filteredValue: filteredInfo.price || null,
-          onFilter: (value:any, record:any) => record.price.includes(value),
-          sorter: (a:any, b:any) => a.price - b.price,
-          sortOrder: sortedInfo.columnKey === 'price' ,
+          title: 'Address',
+          dataIndex: 'address',
+          key: 'address',
+          sorter: (a:any, b:any) => a.address.length - b.address.length,
+          sortOrder: sortedInfo.columnKey === 'address' && sortedInfo.order,
           ellipsis: true,
         },
+        {
+            title: 'MapUrl',
+            dataIndex: 'mapUrl',
+            key: 'addmapUrlress',
+            sorter: (a:any, b:any) => a.mapUrl.length - b.mapUrl.length,
+            sortOrder: sortedInfo.columnKey === 'address' && sortedInfo.order,
+            ellipsis: true,
+          },
         {
           title: 'DESCRIPTION',
           dataIndex: 'description',
@@ -115,7 +122,7 @@ import {
             { text: 'New York', value: 'New York' },
           ],
           filteredValue: filteredInfo.description || null,
-          onFilter: (value:any, record:any) => record.description.includes(value),
+          onFilter: (value:any, record:any) => record.address.includes(value),
           sorter: (a:any, b:any) => a.description.length - b.description.length,
           sortOrder: sortedInfo.columnKey === 'description' && sortedInfo.order,
           ellipsis: true,
@@ -142,7 +149,7 @@ import {
                 </Popconfirm>
   
                 <Button type="primary">
-               <Link to={`/admin/injection/${record._id}/edit`}> Edit</Link>
+               <Link to={`/admin/company/${record._id}/edit`}> Edit</Link>
              </Button>
                
               </Space>
@@ -163,7 +170,7 @@ import {
     return (
       <div>
         <Button type="primary" className="criclebox tablespace mb-24">
-          <a href="/admin/injection/add"> Add Injections</a>
+          <a href="/admin/company/add"> Add Company</a>
         </Button>
         <div className="table-responsive">
         <Space style={{ marginBottom: 16 }}>
@@ -184,5 +191,5 @@ import {
     );
   };
   
-  export default ListInjection;
+  export default TableList;
   

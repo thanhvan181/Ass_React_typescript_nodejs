@@ -1,6 +1,6 @@
 import Product from "../models/product"
 import slugify from "slugify"
-import product from "../models/product";
+
 
 export const create = async (req, res) => {
 
@@ -90,11 +90,11 @@ export const getProducts = async (req, res) => {
 
 export const searchProduct = async (req, res) => {
     const searchString = req.query.q || "";
-    console.log("SEARCH TEXT: ", searchString)
+    // console.log("SEARCH TEXT: ", searchString)
     const limit = req.query.limit || 10
     try {
         const productSeachName= await Product.find({$text: {$search: searchString}}).limit(limit).exec();
-        console.log("productName", productSeachName)
+        // console.log("productName", productSeachName)
         res.status(200).send(
             {
                 data: productSeachName
@@ -111,7 +111,7 @@ export const searchProduct = async (req, res) => {
 export const getProductsCategory = async (req, res) => {
     // console.log("ac")
 
-    const filter = { 'category_id': req.params.id }
+    const filter = { 'category_id': req.params.id,  }
     try {
         const productsCate = await Product.find(filter).exec();
         res.json(productsCate)
@@ -128,7 +128,7 @@ export const getProductsCategory = async (req, res) => {
 
 }
 export const getProductsSubcateogy = async (req, res) => {
-    // console.log("ac")
+   
 
     const filter = { 'subcategory_id': req.params.id }
     try {

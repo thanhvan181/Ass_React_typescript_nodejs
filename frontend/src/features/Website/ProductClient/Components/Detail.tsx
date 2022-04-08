@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 
 import { useEffect } from 'react';
 import { getProductinCategory, readone } from "../ProductClientSlide";
+import { addToCart } from "../../Cart/CartSlide";
 // import { loadCategory } from "../../Category/CategorySlide";
 
 const Details = () => {
@@ -34,6 +35,11 @@ const Details = () => {
     
  
    }, [product.category_id])
+
+   const addCartProduct = (product: any) => {
+    console.log("productaddcart", product);
+    dispatch(addToCart(product));
+  };
   
  
  
@@ -58,7 +64,9 @@ const Details = () => {
               {/* {product.category_id} */}
             {product.description}
             </p>
-            <Button variant="success" className="btn-pro">
+            <Button variant="success" className="btn-pro"
+            onClick={() => addCartProduct(product)}
+            >
                           Chọn Mua
             </Button>
           </Col>
@@ -92,7 +100,10 @@ const Details = () => {
                       <span>{items.price}</span>
                     </Card.Text>
                   </Card.Body>
-                  <Button variant="success" className="btn-pro">
+                  <Button variant="success" className="btn-pro"
+                   onClick={() => addCartProduct(items)}
+                  
+                  >
                     Chọn Mua
                   </Button>
                 </Card>

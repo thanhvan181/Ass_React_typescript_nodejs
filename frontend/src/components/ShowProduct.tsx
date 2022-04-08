@@ -44,6 +44,8 @@ const ShowProduct = () => {
   const addCart = (product: any) => {
     console.log("productaddcart", product)
     dispatch(addToCart(product))
+    
+
   }
 
   const onHanldClick = (e: any) => {

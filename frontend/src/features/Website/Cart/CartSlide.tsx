@@ -1,22 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import {  toast } from 'react-toastify';
+
 const cartSlice = createSlice({
+
     name: 'cart',
     initialState: {
-        items: []
+        items: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem("cartItems") as any) : [],
+        cartTotalQuanlity: 0,
+        cartTotalAmount: 0,
     },
     reducers: {
-        addToCart(state:any, action:any) {
-            console.log("ActionADdCart", action)
+      addToCart(state:any, action:any) {
 
-            const newProduct= action.payload;
-            const existProduct = state.items.find((item:any) => item._id === newProduct._id);
-            if (!existProduct) {
-                state.items.push(newProduct)
-            } else {
-                console.log("quanlity++")
-            }
-        },
+       const itemIndex = state.items.findIndex((item:any) => item._id === action.payload._id);
+       if(itemIndex >= 0){
+           state.items[itemIndex].cartQuanlity +=1;
+           toast.info(`Them ${state.items[itemIndex].name} gio hang`)
+           console.log("Items")
+
+           
+       }else{
+           const templateProduct = {...action.payload, cartQuanlity: 1}
+           state.items.push(templateProduct);
+           toast.success("Them san pham moi thanh cong ")
+           console.log("tempalteProduct", templateProduct)
+       } 
+       localStorage.setItem("cartItems", JSON.stringify(state.items) )
+        }
         // increaseCart(state, action) {
         //     state.items.find(item => item.id === action.payload).quantity++;
         // },

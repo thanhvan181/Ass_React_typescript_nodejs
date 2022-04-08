@@ -62,3 +62,43 @@ export const readCompanyinCity = async (req, res) => {
        
     }
 }
+export const readoneCompany = async (req, res) => {
+    const filter = {_id: req.params.id}
+    try {
+        const readone = await Company.find(filter).exec();
+        res.json(readone)
+        
+    } catch (error) {
+        
+    }
+}
+export const removeCompany = async (req, res) => {
+    const filter = {_id: req.params.id}
+    try {
+        const listCompanyinCitys = await Company.findByIdAndRemove(filter).exec();
+        res.json(listCompanyinCitys)
+        
+    } catch (error) {
+
+        console.log("error", error);
+        res.status(400).json({
+            message: "khong xoa dc "
+        })
+       
+    }
+}
+export const updateCompany = async (req, res) => {
+    const condition = { _id: req.params.id };
+    console.log("Update: ", condition)
+    const doc = req.body;
+    console.log("Update data: ", doc)
+    const option = { new: true };
+    try {
+        const companies = await Company.findOneAndUpdate(condition, doc, option);
+        res.json(companies);
+    } catch (error) {
+        res.status(400).json({
+            message: "Lỗi không tìm được sản phẩm"
+        })
+    }
+}

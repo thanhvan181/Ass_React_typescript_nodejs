@@ -13,39 +13,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-#root {
-  --blue: #007bff;
-  --indigo: #6610f2;
-  --purple: #6f42c1;
-  --pink: #e83e8c;
-  --red: #dc3545;
-  --orange: #fd7e14;
-  --yellow: #ffc107;
-  --green: #28a745;
-  --teal: #20c997;
-  --cyan: #17a2b8;
-  --white: #fff;
-  --gray: #6c757d;
-  --gray-dark: #343a40;
-  --primary: #007bff;
-  --secondary: #6c757d;
-  --success: #28a745;
-  --info: #17a2b8;
-  --warning: #ffc107;
-  --danger: #dc3545;
-  --light: #f8f9fa;
-  --dark: #343a40;
-  --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-}
+
 .navbar-brand {
   margin-right: 8rem;
 }
@@ -307,4 +275,44 @@ img.card-img.img-cate {
 }
 .bg-cate{
  background-color: #edffff;
+}
+.f-banner {
+  margin: 20px 0px;
+}
+.p-5.bg-primary.bs-cover {
+    margin-top: 10px;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7H94wmcsedgoiUYJ6krCJIXv1_aWebVBzs9GaJVykrfRLHowQEH4xaknmSjA087T3kQ&usqp=CAU);
+}
+.col-md-3 {
+  margin-top: 40px;
+}
+.card-header.font-weight-bold.text-uppercase {
+  
+  background-color: #007c7c;
+  color: white;
+}
+.col-md-9 {
+  margin-top: 40px;
+}
+.card-footer {
+  position: relative;
+}
+
+
+a.btn.btn-primary.float-right {
+    position: absolute;
+    right: 5px;
+}
+td.b-groud {
+  padding-top: 20px;
+}
+td.price-tx {
+  padding-top: 14px;
+  padding-left: 40px;
+}
+td.text-right {
+  text-align: center;
+}
+th.t-price {
+  padding-left: 40px;
 }

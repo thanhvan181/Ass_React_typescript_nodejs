@@ -1,5 +1,6 @@
 import React from 'react'
 import Banner from '../../components/Banner'
+import FooterBanner from '../../components/FooterBanner'
 import InfoCenter from '../../components/InfoCenter'
 import ShowProduct from '../../components/ShowProduct'
 import VaccineCate from '../../components/VaccineCate'
@@ -27,6 +28,7 @@ const HomePage = (props: Props) => {
       
       <VacsinReviewthree/>
       <InfoCenter/>
+      <FooterBanner/>
      
      
      

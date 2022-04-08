@@ -38,6 +38,13 @@ import Edit from "./features/Admin/Product/pages/Edit";
 import EditInjectionPark from "./features/Admin/InjectionPark/Pages/EditInjectionPark";
 import { loadUser } from "./features/Website/Auth/AuthSlide"; "./features/Website/Auth/AuthSlide"
 
+import EditCompany from "./features/Admin/Company/Pages/EditCompany";
+import ListCompany from "./features/Admin/Company/Pages/ListCompany";
+import AddCompany from "./features/Admin/Company/Pages/AddCompany";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Cart from "./features/Website/Cart/Pages/Cart";
+ 
 type InputCate = {
   // kiểu dữ liệu của từng input
   name: string;
@@ -78,8 +85,18 @@ function App() {
             <Route path="signup/complete" element={<RegisterComplete />} />
             <Route path="success" element={<SuccessSingupVacciation />} />
             {/* <Route path="test" element={<TestiMonials />} /> */}
-            <Route path="hethongtrungtamtiemchung" element={<FindVacciationCenter />} /> </Route>
-          <Route path="admin"
+            <Route
+              path="hethongtrungtamtiemchung"
+              element={<FindVacciationCenter />}
+            />
+            <Route
+              path="cart"
+              element={<Cart />}
+            />
+          </Route>
+          
+          <Route
+            path="admin"
             element={
               <PrivateRouter>
                 <AdminLayout />
@@ -100,12 +117,12 @@ function App() {
             <Route path="company">
               <Route
                 index
-              // element={}
+                element={<ListCompany/>}
               />
-              {/* <Route path=":id/edit" element={<ProductEdit  onUpdate={onHandleUpdate} />} /> */}
+              <Route path=":id/edit" element={<EditCompany />} />
               <Route
-                path="addcompany"
-              // element={}
+                path="add"
+                element={<AddCompany/>}
               />
             </Route>
             <Route path="product"> <Route index element={< ListProductAdmin />} />
@@ -115,6 +132,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
           </Route>
         </Routes>
+        <ToastContainer />
       </main>
     </div >
   );

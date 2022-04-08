@@ -73,8 +73,8 @@ const initialState = {
         // console.log("CAT", action.payload)
         state.injectionpark = action.payload;
       }),
-      builder.addCase(addInjectionPark.fulfilled, (state, action) => {
-        state.injectionpark = action.payload;
+      builder.addCase(addInjectionPark.fulfilled, (state:any, action:any) => {
+        state.injectionpark.push(action.payload)
       })
       builder.addCase(removeInjection.fulfilled, (state, action) => {
         state.injectionpark = state.injectionpark.filter((item:any) => item._id !== action.payload._id);
