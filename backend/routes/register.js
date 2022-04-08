@@ -1,7 +1,7 @@
 
 import { Router } from "express";
 import { create, list } from "../controllers/register";
-import { adminCheck, checkAuth } from '../middlewares/checkAuth';
+import { checkAuth } from '../middlewares/auth';
 
 
 

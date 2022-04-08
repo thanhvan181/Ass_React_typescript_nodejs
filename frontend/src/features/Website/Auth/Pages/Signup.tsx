@@ -32,10 +32,9 @@ const SignupPage = () => {
   useEffect(() => {
     if (user && user.token) navigate("/");
   }, [user, navigate])
-
   const onSubmit: SubmitHandler<TypeInputs> = async (data) => {
     const settings = {
-      url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
+      url: import.meta.env.VITE_REACT_APP_REGISTER_REDIRECT_URL,
       handleCodeInApp: true,
     };
     // send email to user's account

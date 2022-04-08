@@ -1,23 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { signin, signup } from "../../../api/auth";
+import { createOrUpdateUser, currentUser } from "../../../api/auth";
 import { list } from "../../../api/category";
 import { getproductsCate, listproduct } from "../../../api/product";
 import { authenticated, removeAuthencicate } from "../../../untils/localStoge";
 
 export const signIn = createAsyncThunk(
-  'auth/signin',
+  'auth/currentUser',
   async (Datauser: any) => {
-    const { data } = await signin(Datauser)
-    authenticated(data, () => {
-
-    })
+    const { data } = await currentUser(Datauser)
+    console.log("CRRENT USER: ", data)
     return data
   }
 )
 export const signUp = createAsyncThunk(
-  'auth/signup',
+  'auth/createOrUpdateUser',
   async (Datauser: any) => {
-    const { data } = await signup(Datauser)
+    const { data } = await createOrUpdateUser(Datauser)
     return data
   }
 )
@@ -45,6 +43,9 @@ const authSlice = createSlice({
       removeAuthencicate()
 
     },
+    loadUser: (state: any, action: any) => {
+      state.userInfo = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(signIn.pending, (state, action) => {
@@ -78,5 +79,5 @@ const authSlice = createSlice({
     });
   },
 })
-export const { logout } = authSlice.actions
+export const { logout, loadUser } = authSlice.actions
 export default authSlice.reducer;

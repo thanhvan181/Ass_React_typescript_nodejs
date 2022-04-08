@@ -20,6 +20,7 @@ export const currentUser = (req, res) => {
   const { email } = req.user;
   User.findOne({ email }).exec((err, user) => {
     if (err) throw new Error(err)
+    console.log("BACKEND currentuser api: ", user)
     res.json(user)
   });
 }

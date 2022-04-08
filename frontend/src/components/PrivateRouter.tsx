@@ -1,20 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Navigate } from 'react-router-dom';
-import { isAuthenticate } from '../untils/localStoge';
+import { useSelector } from "react-redux";
 
 type PrivateRouterProps = {
-    children: JSX.Element
+    children: JSX.Element,
 }
 
+
 const PrivateRouter = (props: PrivateRouterProps) => {
-    
-    const { user: { role} } = isAuthenticate();
-    if(!role){
+    const user = useSelector((state) => state.user.userInfo);
+    if (!(user.role === "admin")) {
         return <Navigate to="/signin" />
     }
-
     return props.children
-    
+
 }
 
 export default PrivateRouter 

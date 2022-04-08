@@ -1,9 +1,7 @@
-
-// import { checkAuth } from '../middlewares/checkAuth' 
 import { Router } from "express";
 import { create, getProducts, getProductsCategory, searchProduct, list, read, remove, update, getProductsSubcateogy, fetchAllProduct } from "../controllers/product";
 import { userById } from '../controllers/users';
-import { adminCheck, checkAuth } from '../middlewares/checkAuth';
+import { adminCheck, checkAuth } from '../middlewares/auth';
 
 const router = Router();
 

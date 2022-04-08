@@ -25,6 +25,7 @@ import FindVacciationCenter from "./features/Website/FindVacciationCenter";
 import ProductDetails from "./features/Website/ProductClient/Pages/Details";
 import SigninPage from "./features/Website/Auth/Pages/Signin";
 import SignupPage from "./features/Website/Auth/Pages/Signup";
+import RegisterComplete from "./features/Website/Auth/Pages/RegisterComplete";
 import ListProductAdmin from "./features/Admin/Product/pages/List";
 import SuccessSingupVacciation from "./components/SuccessSingupVacciation";
 import ListCategory from "./features/Admin/Category/Pages/ListCategory";
@@ -35,6 +36,7 @@ import AddInjectionPark from "./features/Admin/InjectionPark/Pages/AddInjectionP
 import Add from "./features/Admin/Product/pages/Add";
 import Edit from "./features/Admin/Product/pages/Edit";
 import EditInjectionPark from "./features/Admin/InjectionPark/Pages/EditInjectionPark";
+import { loadUser } from "./features/Website/Auth/AuthSlide"; "./features/Website/Auth/AuthSlide"
 
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -49,17 +51,8 @@ function App() {
       if (user) {
         const { token } = await user.getIdTokenResult();
         currentUser(token)
-          .then(({ data: { name, email, role, _id } }) => {
-            dispatch({
-              type: "LOGGED_IN_USER",
-              payload: {
-                name,
-                token,
-                email,
-                role,
-                _id,
-              },
-            });
+          .then(({ data }) => {
+            dispatch(loadUser(data));
           })
           .catch((error) => toast.error(error.message));
       }
@@ -69,6 +62,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer />
       <main>
         <Routes>
           <Route path="/" element={<WebsiteLayout />}>
@@ -81,6 +75,7 @@ function App() {
             {/* <Route path="vaccine" element={<ProductPage />} /> */}
             <Route path="signin" element={<SigninPage />} />
             <Route path="signup" element={<SignupPage />} />
+            <Route path="signup/complete" element={<RegisterComplete />} />
             <Route path="success" element={<SuccessSingupVacciation />} />
             {/* <Route path="test" element={<TestiMonials />} /> */}
             <Route path="hethongtrungtamtiemchung" element={<FindVacciationCenter />} /> </Route>
@@ -121,7 +116,7 @@ function App() {
           </Route>
         </Routes>
       </main>
-    </div>
+    </div >
   );
 }
 
