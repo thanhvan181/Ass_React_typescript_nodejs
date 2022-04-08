@@ -26,6 +26,9 @@ import Add from "./features/Admin/Product/pages/Add";
 import Edit from "./features/Admin/Product/pages/Edit";
 import 'react-toastify/dist/ReactToastify.css';
 import EditInjectionPark from "./features/Admin/InjectionPark/Pages/EditInjectionPark";
+import EditCompany from "./features/Admin/Company/Pages/EditCompany";
+import ListCompany from "./features/Admin/Company/Pages/ListCompany";
+import AddCompany from "./features/Admin/Company/Pages/AddCompany";
  
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -114,12 +117,12 @@ function App() {
             <Route path="company">
               <Route
                 index
-                // element={}
+                element={<ListCompany/>}
               />
-              {/* <Route path=":id/edit" element={<ProductEdit  onUpdate={onHandleUpdate} />} /> */}
+              <Route path=":id/edit" element={<EditCompany />} />
               <Route
-                path="addcompany"
-                // element={}
+                path="add"
+                element={<AddCompany/>}
               />
             </Route>
 

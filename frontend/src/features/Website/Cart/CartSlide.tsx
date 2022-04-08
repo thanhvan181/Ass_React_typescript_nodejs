@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Item from "antd/lib/list/Item";
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -10,9 +11,10 @@ const cartSlice = createSlice({
             console.log("ActionADdCart", action)
 
             const newProduct= action.payload;
-            const existProduct = state.items.find((item:any) => item._id === newProduct._id);
-            if (!existProduct) {
+            const nextProduct = state.items.find((item:any) => item._id === newProduct._id);
+            if (!nextProduct) {
                 state.items.push(newProduct)
+                localStorage.setItem('myCart', JSON.stringify(newProduct));
             } else {
                 console.log("quanlity++")
             }

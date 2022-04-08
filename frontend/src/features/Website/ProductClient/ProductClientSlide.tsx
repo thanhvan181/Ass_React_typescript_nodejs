@@ -75,7 +75,7 @@ export const getAllproducts = createAsyncThunk(
 
 )
 export const addProduct = createAsyncThunk(
-  "product/getAll",
+  "product/addProdct",
 
   async (params:any) => {
     const {iduser, dataInput:product, token} = params
@@ -87,7 +87,7 @@ export const addProduct = createAsyncThunk(
 )
 
 export const editProduct = createAsyncThunk(
-  'eidtProduct',
+  'product/eidtProduct',
   async (params:any) => {
 
     const {id, dataInput:product} = params
@@ -123,7 +123,7 @@ export const editProduct = createAsyncThunk(
 // }
 const initialState = {
   value: [],
-  cateogry: [],
+  // cateogry: [],
   current: {},
   paging: {},
   refProducts: [],
@@ -158,10 +158,10 @@ const productSlice = createSlice({
         state.current = action.payload;
       }),
       builder.addCase(searchSanpham.fulfilled, (state, action) => {
-        console.log("STATE: ", state)
-        console.log("Action: ", action)
+      
         state.value = action.payload.data;
       });
+      
       builder.addCase(removeproduct.fulfilled, (state, action) => {
         console.log("actionpayload", action.payload)
         state.productallAdmin = state.productallAdmin.filter((item:any) => item._id !== action.payload._id);
@@ -174,6 +174,10 @@ const productSlice = createSlice({
       builder.addCase(getAllproducts.fulfilled, (state, action) => {
         state.productallAdmin = action.payload
 
+      }),
+      builder.addCase(addProduct.fulfilled, (state:any, action:any) => {
+       
+        state.value.push(action.payload)
       })
 
   
