@@ -111,7 +111,7 @@ export const searchProduct = async (req, res) => {
 export const getProductsCategory = async (req, res) => {
     // console.log("ac")
 
-    const filter = { 'category_id': req.params.id, 'subcategory_id': req.params.id }
+    const filter = { 'category_id': req.params.id,  }
     try {
         const productsCate = await Product.find(filter).exec();
         res.json(productsCate)
