@@ -23,6 +23,7 @@ export const loadCategory = createAsyncThunk(
 export const getProductinCategory = createAsyncThunk(
   "category/listproduct",
   async (id: any) => {
+    console.log("idcategory", id);
     const { data } = await getproductsCate(id);
     console.log("datainputcate", data);
     return data;

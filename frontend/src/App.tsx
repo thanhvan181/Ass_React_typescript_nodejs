@@ -29,6 +29,9 @@ import EditInjectionPark from "./features/Admin/InjectionPark/Pages/EditInjectio
 import EditCompany from "./features/Admin/Company/Pages/EditCompany";
 import ListCompany from "./features/Admin/Company/Pages/ListCompany";
 import AddCompany from "./features/Admin/Company/Pages/AddCompany";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Cart from "./features/Website/Cart/Pages/Cart";
  
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -65,7 +68,12 @@ function App() {
               path="hethongtrungtamtiemchung"
               element={<FindVacciationCenter />}
             />
+            <Route
+              path="cart"
+              element={<Cart />}
+            />
           </Route>
+          
           <Route
             path="admin"
             element={
@@ -149,6 +157,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
           </Route>
         </Routes>
+        <ToastContainer />
       </main>
     </div>
   );

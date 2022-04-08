@@ -1,4 +1,5 @@
 import React from 'react'
+import ListCart from '../Component/ListCart'
 
 interface Props {
     
@@ -7,6 +8,7 @@ interface Props {
 const Cart = (props: Props) => {
     return (
         <div>
+            <ListCart/>
             
             
         </div>
