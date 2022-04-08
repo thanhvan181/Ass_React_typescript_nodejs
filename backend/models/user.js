@@ -1,44 +1,23 @@
-import mongoose, { Schema} from "mongoose";
-import { createHmac} from 'crypto'; 
-const userSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        maxLength: 30
-    },
+import mongoose from 'mongoose';
+const { ObjectId } = mongoose.Schema;
+const userSchema = new mongoose.Schema({
+    name: String,
     email: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
-    salt: {
-        type: String
-    },
-    password: {
-        type: String,
-        required: true
-    },
+    picture: String,
     role: {
-        type: Number,
-        default: 0
-    }
-}, { timestamps: true});
-
-userSchema.methods = {
-    authenticate(password){ //123456
-        return this.password == this.encrytPassword(password);
+        type: String,
+        default: 'subscriber'
     },
-    encrytPassword(password){
-        if(!password) return 
-        try {
-            return createHmac("sha256", "abcs").update(password).digest("hex");
-        } catch (error) {
-            console.log(error)
-        }
-    }
-}
-// trước khi execute .save() thì chạy middleware sau.
-userSchema.pre("save", function(next){
-    this.password = this.encrytPassword(this.password);
-    next();
-})
+    cart: {
+        type: Array,
+        default: []
+    },
+    address: String,
+
+}, { timestamps: true });
+
 export default mongoose.model('User', userSchema);

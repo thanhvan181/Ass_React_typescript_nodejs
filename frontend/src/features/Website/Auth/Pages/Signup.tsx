@@ -1,94 +1,68 @@
 import React, { useEffect } from "react";
-
 import { Button, Form } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "../AuthSlide";
 import { useNavigate } from 'react-router-dom';
-import { is } from "immer/dist/internal";
+import "react-toastify/dist/ReactToastify.css";
+
+import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
+import { signUp } from "../AuthSlide";
 
 type TypeInputs = {
   email: string;
-  password: string;
-  name: String;
+  // password: string;
+  // name: String;
 };
+
 
 const SignupPage = () => {
   const dispatch = useDispatch();
+  const auth = getAuth();
   const navigate = useNavigate();
-  const userInfo = useSelector((state: any) => state.user.userInfo)
-  const isAuthenticated = useSelector((state: any) => state.user.isAuthenticated)
-  const accessToken = useSelector((state: any) => state.user.accessToken)
-
-
+  const { user } = useSelector((state) => ({ ...state }));
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<TypeInputs>();
 
+  useEffect(() => {
+    if (user && user.token) navigate("/");
+  }, [user, navigate])
 
-  const onSubmit: SubmitHandler<TypeInputs> = (data) => {
-    console.log("data", data);
-
-    dispatch(signUp(data));
-    console.log("CurrentUSr: ", userInfo, isAuthenticated)
-    if (Object.keys(userInfo).length !== 0 && !isAuthenticated) {
-      navigate('/signin')
-    } else {
-      navigate('/')
-    }
+  const onSubmit: SubmitHandler<TypeInputs> = async (data) => {
+    const settings = {
+      url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
+      handleCodeInApp: true,
+    };
+    // send email to user's account
+    await sendSignInLinkToEmail(auth, data.email, settings);
+    toast.success(
+      `Email is send to ${data.email}. Click the link to complete your registration`,
+    );
+    window.localStorage.setItem("emailForRegistraion", data.email);
+    reset();
   };
 
-  // useEffect(() => {
-  //   if (isAuthenticated && accessToken !== null) {
-  //     console.log("NAV: ", isAuthenticated, accessToken)
-  //     navigate('/')
-  //   }
-  // }, [accessToken, isAuthenticated])
+  const formRegister = () => (
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <input
+        type="email"
+        {...register("email")}
+      />
+      {errors.email && <p>invalid email address</p>}
+      <button>Sign Up</button>
+    </Form>
+  );
 
   return (
     <div>
-      <div className="signinpage">
-        <h2 className="text-h1">ĐĂNG KÝ</h2>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Tên đăng nhập </Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter tên "
-              {...register("name")}
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Địa chỉ Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              {...register("email")}
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Mật khẩu</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              {...register("password")}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            {/* <Form.Check type="checkbox" label="Check me out" /> */}
-            <Link to="/signin">Đăng nhập </Link>
-          </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Đăng Ký
-          </Button>
-        </Form>
-      </div>
+      <h1>Register</h1>
+      <ToastContainer />
+      {formRegister()}
     </div>
   );
 };

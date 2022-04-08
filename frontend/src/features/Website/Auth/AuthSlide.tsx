@@ -9,7 +9,7 @@ export const signIn = createAsyncThunk(
   async (Datauser: any) => {
     const { data } = await signin(Datauser)
     authenticated(data, () => {
-      
+
     })
     return data
   }
@@ -27,6 +27,7 @@ export const signUp = createAsyncThunk(
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
+    user: {},
     userInfo: {},
     currentUser: null,
     isAuthenticated: false,

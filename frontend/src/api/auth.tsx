@@ -1,11 +1,38 @@
-import instance from './instance';
+import instance from "./instance";
 
-export const signup = (user: any) => {
-    const url = `/signup`;
-    
-    return instance.post(url, user)
-}
-export const signin = (user: any) => {
-    const url = `/signin`;
-    return instance.post(url, user);
-} 
+export const createOrUpdateUser = async (authtoken: string) => {
+    const url = "/create-or-update-user";
+    return instance.post(
+        url,
+        {},
+        {
+            headers: {
+                authtoken: authtoken,
+            },
+        },
+    );
+};
+export const currentUser = async (authtoken: string) => {
+    const url = "/current-user";
+    return instance.post(
+        url,
+        {},
+        {
+            headers: {
+                authtoken: authtoken,
+            },
+        },
+    );
+};
+export const currentAdmin = async (authtoken: string) => {
+    const url = "/current-admin";
+    return instance.post(
+        url,
+        {},
+        {
+            headers: {
+                authtoken: authtoken,
+            },
+        },
+    );
+};
