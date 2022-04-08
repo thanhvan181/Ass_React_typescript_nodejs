@@ -47,7 +47,7 @@ type InputCate = {
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const unsubcribe = onAuthStateChanged(auth, async (user) => {
+    const unsubcribe = onAuthStateChanged(auth, async (user:any) => {
       if (user) {
         const { token } = await user.getIdTokenResult();
         currentUser(token)
