@@ -1,14 +1,43 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { green } from '@material-ui/core/colors';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { addToCart, decreaseCart, getTotals, removeItemFromCart } from '../CartSlide';
+import { cartPrice } from '../selector';
+
 
 
 
 const ListCart = () => {
-    const carts = JSON.parse( localStorage.getItem('cartItems') as any)
+    // const carts = JSON.parse( localStorage.getItem('cartItems') as any)
+    const carts = useSelector((state: any) => state.cart.items)
+    console.log("carts", carts);
+    const cartTotal = useSelector((state:any) => state.cart.cartTotalAmount)
+    console.log("cartTotal", cartTotal)
+    // console
+    console.log('cart', carts)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getTotals({}))
+    }, [carts, dispatch])
+
+    const hanldeRomveFromCart = (id:any) => {
+        // console.log("itemcart", id)
+        dispatch(removeItemFromCart(id))
+        
+
+    }
+    const hanldeClickDecreaseCart = (itemcart: any) => {
+        dispatch(decreaseCart(itemcart))
+
+
+    }
+    const hanldeClickincreaseCart = (itemcart:any) => {
+        dispatch(addToCart(itemcart))
+    }
     return (
         <>
             <div className=" border-top p-4 text-white mb-3">
@@ -65,6 +94,7 @@ const ListCart = () => {
                                                     <div className="input-group input-group-sm mw-140">
                                                         <button
                                                             // className="btn btn-primary text-white"
+                                                            onClick={() => hanldeClickDecreaseCart(itemcart)}
                                                             type="button"
                                                             style={{ height: 30, width: 30 }}
                                                         >
@@ -75,9 +105,11 @@ const ListCart = () => {
                                                             className="form-control"
                                                             defaultValue="1"
                                                             style={{ height: 30 }}
+                                                            value={itemcart.cartQuanlity}
                                                         />
                                                         <button
                                                             style={{ height: 30, width: 30 }}
+                                                            onClick={() => hanldeClickincreaseCart(itemcart)}
                                                             // className="btn btn-primary text-white"
                                                             type="button"
                                                         >
@@ -92,7 +124,7 @@ const ListCart = () => {
                                                     </small>
                                                 </td>
                                                 <td className="text-right">
-                                                    <button className="btn btn-sm  mr-2">
+                                                    <button className="btn btn-sm  mr-2" onClick={() => hanldeRomveFromCart(itemcart._id)}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" className="bi bi-trash" viewBox="0 0 16 16">
                                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
                                                             <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
@@ -139,7 +171,7 @@ const ListCart = () => {
                             <div className="card-body">
                                 <dl className="row border-bottom">
                                     <dt className="col-6">Total price:</dt>
-                                    <dd className="col-6 text-right">$1,568</dd>
+                                    <dd className="col-6 text-right">{cartTotal}VND</dd>
 
                                     <dt className="col-6 text-success">Discount:</dt>
                                     <dd className="col-6 text-success text-right">-$58</dd>

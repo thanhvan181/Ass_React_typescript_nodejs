@@ -3,7 +3,7 @@ import HomePage from "./features/Website/HomePage";
 import WebsiteLayout from "./components/layouts/WebsiteLayout";
 import SignupVaccinationsPage from "./features/Website/SignupVaccinationsPage";
 import Home from "./features/Admin/Home";
-import Billing from "./features/Admin/Billing";
+
 import Profile from "./features/Admin/Profile";
 import AdminLayout from "./components/layouts/AdminLayout";
 import "antd/dist/antd.css";
@@ -32,6 +32,10 @@ import AddCompany from "./features/Admin/Company/Pages/AddCompany";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cart from "./features/Website/Cart/Pages/Cart";
+// import AddOrder from "./features/Website/Order/Pages/AddOrderPage";
+import AddOrderPage from "./features/Website/Order/Pages/AddOrderPage";
+import ListOrder from "./features/Admin/Order/Pages/ListOrder";
+import EditOrder from "./features/Admin/Order/Pages/EditOrder";
  
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -71,6 +75,10 @@ function App() {
             <Route
               path="cart"
               element={<Cart />}
+            />
+             <Route
+              path="checkout"
+              element={<AddOrderPage />}
             />
           </Route>
           
@@ -119,9 +127,18 @@ function App() {
              
              
             </Route>
+             
+            <Route path="order">
+              <Route
+                index
+                element={<ListOrder/>}
+              />
+              <Route path=":id/edit" element={<EditOrder />} />
+             
+            </Route>
            
 
-            <Route path="billing" element={<Billing />} />
+           
             <Route path="company">
               <Route
                 index

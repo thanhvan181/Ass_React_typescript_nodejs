@@ -13,15 +13,13 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 import {  addCompanyss } from "../CompanySlide";
-// import AddCompany from "../Pages/AddCompany";
+
 import { loadCity } from "../../City/CitySlide";
 
 const { Option } = Select;
 
 const Add = () => {
-  // const [injection, setInjection] = useState([])
-  // const [company, setCompany] = useState([])
-
+  
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();

@@ -316,3 +316,18 @@ td.text-right {
 th.t-price {
   padding-left: 40px;
 }
+
+.col-sm-4 {
+  
+    margin-top: 20px;
+}
+.text-h5 {
+  color: #007c7c;
+  padding-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+img.card-img-top1 {
+  
+  margin-left: 14%;
+}
