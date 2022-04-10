@@ -5,6 +5,8 @@ import InjectionPark from '../features/Admin/InjectionPark/InjectionPark';
 import AuthSlide from '../features/Website/Auth/AuthSlide';
 import CartSlide from '../features/Website/Cart/CartSlide';
 import CategorySlide from '../features/Website/Category/CategorySlide';
+import OrderSlide from '../features/Website/Order/OrderSlide';
+
 import productSlice from '../features/Website/ProductClient/ProductClientSlide';
 import Subcategory from '../features/Website/Subcategory/Subcategory';
 
@@ -21,7 +23,9 @@ const rootReducer = combineReducers({
     user: AuthSlide,
     injection: InjectionPark,
     company: CompanySlide,
-    city: CitySlide
+    city: CitySlide,
+    order: OrderSlide,
+
 });
 export default rootReducer
 
