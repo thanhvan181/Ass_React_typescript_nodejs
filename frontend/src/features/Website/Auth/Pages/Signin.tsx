@@ -1,63 +1,135 @@
-// Import FirebaseAuth and firebase.
-import React, { useEffect, useState } from 'react';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import { Button } from "antd";
+import { createOrUpdateUser } from "../../../../api/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { auth } from "../../../../firebase/firebase.config";
+import { MailOutlined } from "@ant-design/icons";
+import { ToastContainer, toast } from "react-toastify";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
-// Configure Firebase.
-const config = {
-  apiKey: "AIzaSyCPRXICm4k03fLEX22WjGz2dC-zqJQk6KU",
-  authDomain: "vnvc-d19eb.firebaseapp.com",
-  databaseURL: "https://vnvc-d19eb-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "vnvc-d19eb",
-  storageBucket: "vnvc-d19eb.appspot.com",
-  messagingSenderId: "33110884599",
-  appId: "1:33110884599:web:beab3c0ac63f4d36b893f2",
-  measurementId: "G-T6HZFW2KZC"
-};
-firebase.initializeApp(config);
+const SigninPage = () => {
+  // const auth = getAuth();
+  const navigate = useNavigate();
+  const googleAuthProvider = new GoogleAuthProvider();
+  const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user.userInfo);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-// Configure FirebaseUI.
-const uiConfig = {
-  // Popup signin flow rather than redirect flow.
-  signInFlow: 'redirect',
-  signInSuccessUrl: '/',
-  // We will display Google and Facebook as auth providers.
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    // firebase.auth.FacebookAuthProvider.PROVIDER_ID
-  ]
-
-};
-
-function SigninPage() {
-  const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
-
-  // Listen to the Firebase Auth state and set the local state.
   useEffect(() => {
-    const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-      setIsSignedIn(!user);
-    });
-    return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-  }, []);
+    if (user && user.token) navigate("/");
+    reset();
+  }, [user, reset, history]);
 
-  if (!isSignedIn) {
-    return (
-      <div>
+  const roleBaseRedirect = (role: string) => {
+    console.log("role", role);
+    if (role === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
+  };
+  const googleLogin = async () => {
+    try {
+      const {
+        user: { accessToken: token },
+      } = await signInWithPopup(auth, googleAuthProvider);
+      console.log("toekn google", token);
+      createOrUpdateUser(token)
+        .then(({ data: { name, email, role, _id } }) => {
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              name,
+              token,
+              email,
+              role,
+              _id,
+            },
+          });
+          roleBaseRedirect(role);
+        })
+        .catch((error) => console.log(error));
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    console.log("NNC login email and password: ", { email, password })
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      const { token } = await user.getIdTokenResult();
+      createOrUpdateUser(token)
+        .then(({ data: { name, email, role, _id } }) => {
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              name,
+              token,
+              email,
+              role,
+              _id,
+            },
+          });
+          roleBaseRedirect(role);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      reset();
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
-        <h1>My App</h1>
-
-        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      </div>
-    );
-  }
+  const formSignin = () => (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input
+        type="email"
+        {...register("email", {
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            required: true,
+          },
+        })}
+      />
+      {errors.email && <p>invalid email address</p>}
+      <input type="password" {...register("password", { required: true })} />
+      {errors.password && <p>Field is require</p>}
+      <br />
+      <Button htmlType="submit" type="primary" shape="round" icon={<MailOutlined />}>
+        Login with Email/Password
+      </Button>
+      <br />
+      <Button type="danger" shape="round" icon={<MailOutlined />} onClick={googleLogin}>
+        Login with Google
+      </Button>
+      <br />
+      <Link to="/forgot/password">Forgot password</Link>
+    </form>
+  );
   return (
     <div>
-      <h1>My App</h1>User.disp
-      <p>Welcome {firebase.auth()}! You are now signed-in!</p>
-      <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
+      <h1>Đăng nhập</h1>
+      <ToastContainer />
+      {formSignin()}
     </div>
   );
-}
+};
 
+// export default Signin;
 export default SigninPage;

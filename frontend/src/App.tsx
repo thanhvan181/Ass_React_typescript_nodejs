@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { auth } from './firebase/firebase.config';
+import app from './firebase/firebase.config';
 import { currentUser } from './api/auth';
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -26,6 +27,7 @@ import ProductDetails from "./features/Website/ProductClient/Pages/Details";
 import SigninPage from "./features/Website/Auth/Pages/Signin";
 import SignupPage from "./features/Website/Auth/Pages/Signup";
 import RegisterComplete from "./features/Website/Auth/Pages/RegisterComplete";
+import ForgotPassword from "./features/Website/Auth/Pages/ForgotPassword";
 import ListProductAdmin from "./features/Admin/Product/pages/List";
 import SuccessSingupVacciation from "./components/SuccessSingupVacciation";
 import ListCategory from "./features/Admin/Category/Pages/ListCategory";
@@ -44,7 +46,7 @@ import AddCompany from "./features/Admin/Company/Pages/AddCompany";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cart from "./features/Website/Cart/Pages/Cart";
- 
+
 type InputCate = {
   // kiểu dữ liệu của từng input
   name: string;
@@ -54,9 +56,10 @@ type InputCate = {
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const unsubcribe = onAuthStateChanged(auth, async (user:any) => {
+    const unsubcribe = onAuthStateChanged(auth, async (user: any) => {
       if (user) {
         const { token } = await user.getIdTokenResult();
+        console.log("GET USER token: ", token)
         currentUser(token)
           .then(({ data }) => {
             dispatch(loadUser(data));
@@ -83,6 +86,7 @@ function App() {
             <Route path="signin" element={<SigninPage />} />
             <Route path="signup" element={<SignupPage />} />
             <Route path="signup/complete" element={<RegisterComplete />} />
+            <Route path="forgot/password" element={<ForgotPassword />} />
             <Route path="success" element={<SuccessSingupVacciation />} />
             {/* <Route path="test" element={<TestiMonials />} /> */}
             <Route
@@ -94,7 +98,7 @@ function App() {
               element={<Cart />}
             />
           </Route>
-          
+
           <Route
             path="admin"
             element={
@@ -117,12 +121,12 @@ function App() {
             <Route path="company">
               <Route
                 index
-                element={<ListCompany/>}
+                element={<ListCompany />}
               />
               <Route path=":id/edit" element={<EditCompany />} />
               <Route
                 path="add"
-                element={<AddCompany/>}
+                element={<AddCompany />}
               />
             </Route>
             <Route path="product"> <Route index element={< ListProductAdmin />} />

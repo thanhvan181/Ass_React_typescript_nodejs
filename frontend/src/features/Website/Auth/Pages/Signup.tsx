@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import "react-toastify/dist/ReactToastify.css";
+import { auth } from "../../../../firebase/firebase.config";
 
 import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
 import { signUp } from "../AuthSlide";
@@ -19,7 +20,6 @@ type TypeInputs = {
 
 const SignupPage = () => {
   const dispatch = useDispatch();
-  const auth = getAuth();
   const navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
   const {
@@ -42,6 +42,7 @@ const SignupPage = () => {
     toast.success(
       `Email is send to ${data.email}. Click the link to complete your registration`,
     );
+    console.log("SET EMAIL TO LOCALSTorage: ", data.email)
     window.localStorage.setItem("emailForRegistraion", data.email);
     reset();
   };

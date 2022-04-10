@@ -26,7 +26,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: {},
-    userInfo: {},
+    userInfo: null,
     currentUser: null,
     isAuthenticated: false,
     isLoading: false,
@@ -35,12 +35,12 @@ const authSlice = createSlice({
   },
   reducers: {
     logout: (state: any, action: any) => {
-      state.userInfo = {}
+      state.userInfo = null
       state.currentUser = null
       state.isAuthenticated = false
       state.isLoading = false
       state.errorMessage = ''
-      removeAuthencicate()
+
 
     },
     loadUser: (state: any, action: any) => {

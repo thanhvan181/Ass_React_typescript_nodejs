@@ -1,6 +1,11 @@
 import React from "react";
 // import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Menu } from "antd";
+import { getAuth, signOut } from "firebase/auth";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Form,
@@ -11,6 +16,7 @@ import {
 } from "react-bootstrap";
 
 import { logout } from "../../features/Website/Auth/AuthSlide";
+
 import {
   MDBFooter,
   MDBContainer,
@@ -32,10 +38,14 @@ type TypeInputs = {
 
 const WebsiteLayout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isAuthenticated = useSelector(
     (state: any) => state.user.isAuthenticated
   );
-  const user = useSelector((state: any) => state.user.currentUser);
+  const auth = getAuth();
+  // const user = auth.currentUser;
+  // console.log("CurrentUSER WL: ", user)
+  const user = useSelector((state: any) => state.user.userInfo);
 
   const { register, handleSubmit } = useForm<TypeInputs>();
 
@@ -44,6 +54,17 @@ const WebsiteLayout = () => {
 
     dispatch(searchSanpham(data));
   };
+
+  const hanldeLogout = async () => {
+    try {
+      await signOut(auth)
+      dispatch(logout({ email: null }));
+      navigate("/signin");
+
+    } catch {
+      toast.info("Logout error!");
+    }
+  }
 
   return (
     <div>
@@ -160,34 +181,28 @@ const WebsiteLayout = () => {
                 <Nav.Link href="/dangkytiemchung">ĐĂNG KÝ TIÊM</Nav.Link>
                 <Nav.Link href="/product">ĐẶT MUA VẮC XIN</Nav.Link>
 
-                {!isAuthenticated ? (
-                  <Nav.Link href="/signin">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="#007c7c"
-                      className="bi bi-person-rolodex"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                      <path d="M1 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h.5a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h.5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6.707L6 1.293A1 1 0 0 0 5.293 1H1Zm0 1h4.293L6 2.707A1 1 0 0 0 6.707 3H15v10h-.085a1.5 1.5 0 0 0-2.4-.63C11.885 11.223 10.554 10 8 10c-2.555 0-3.886 1.224-4.514 2.37a1.5 1.5 0 0 0-2.4.63H1V2Z" />
-                    </svg>
-                    ĐĂNG KÝ/ĐĂNG NHẬP
-                  </Nav.Link>
+                {!user ? (
+                  <>
+                    <Nav.Link href="/signup">
+                      ĐĂNG KÝ
+                    </Nav.Link>
+                    <Nav.Link href="/signin">
+                      ĐĂNG NHẬP
+                    </Nav.Link>
+                  </>
                 ) : (
                   <>
                     {/* <Navbar.Collapse>
                    <Nav> */}
                     <NavDropdown
-                      title={user.user.name}
+                      title={user.email}
                       id="basic-nav-dropdown"
                       style={{ fontSize: "18px" }}
                       className="dropdown"
                     >
                       <div className="one">
                         <NavDropdown.Item href="">
-                          {user.user.name}
+                          {user.email}
                         </NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="/publishers/podcasters">
@@ -196,7 +211,7 @@ const WebsiteLayout = () => {
                         <NavDropdown.Divider />
                         <NavDropdown.Item
                           to="/signin"
-                          onClick={(e) => dispatch(logout(e))}
+                          onClick={hanldeLogout}
                         >
                           Logout
                         </NavDropdown.Item>
