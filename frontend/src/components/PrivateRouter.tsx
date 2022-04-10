@@ -9,7 +9,7 @@ type PrivateRouterProps = {
 
 const PrivateRouter = (props: PrivateRouterProps) => {
     const user = useSelector((state) => state.user.userInfo);
-    if (!(user.role === "admin")) {
+    if (!(user?.role === "admin")) {
         return <Navigate to="/signin" />
     }
     return props.children
