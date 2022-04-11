@@ -78,7 +78,7 @@ const ShowProduct = () => {
               <Card>
                   <Card.Img
                     variant="top"
-                    src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
+                    src={`${import.meta.env.VITE_BASE_URL_BACKEND}/${productitem.image}`}
                   />
                   <Card.Body>
                     <Card.Title>

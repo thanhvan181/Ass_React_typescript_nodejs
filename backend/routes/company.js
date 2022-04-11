@@ -11,7 +11,7 @@ router.post("/company", create )
 
 router.get("/company", listCompany )
 router.get("/company/:id", readCompanyinCity )
-router.get("/company/:id", readoneCompany )
+router.get("/companyone/:id", readoneCompany )
 router.delete("/company/:id", removeCompany )
 router.put("/company/:id", updateCompany)
 

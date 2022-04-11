@@ -25,6 +25,7 @@ export const addCategory = createAsyncThunk(
 
   async (params:any) => {
     const { userid,  dataInput:category, token} = params
+    console.log("params", params)
 
     const {data} = await create(userid, category, token);
     return data;

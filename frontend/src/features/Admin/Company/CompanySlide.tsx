@@ -3,7 +3,8 @@ import {
   createCompany,
   listCompany,
   readCompanyincity,
-  readoneCompany,
+  readone,
+ 
   removecompanycity,
   updatecompanycity,
 } from "../../../api/company";
@@ -31,7 +32,8 @@ export const removeCompany = createAsyncThunk(
 export const readoneCompa= createAsyncThunk("company/readone", async (id: any) => {
   console.log("idcdd", id);
 
-  const { data } = await readoneCompany (id);
+  const { data } = await readone(id);
+  console.log("data", data)
   return data;
 });
 export const EditCompany = createAsyncThunk(
@@ -74,6 +76,7 @@ const CompanySlide = createSlice({
         );
       });
     builder.addCase(readoneCompa.fulfilled, (state: any, action: any) => {
+      console.log('payload', action.payload)
       state.current = action.payload;
     });
   },

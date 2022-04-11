@@ -19,15 +19,18 @@ const AddCategory = () => {
     const navigate = useNavigate();
     const users = useSelector((state:any) => state.user.userInfo)
 
+
    
 
     const onSubmit = (dataInput:any) => {
         console.log('datainput', dataInput)
-        const token = users.token;
-        const user_id = users._id;
+         const token = users.token
+
+      const iduser = users._id;
+      console.log("iduser", iduser)
 
 
-        dispatch(addCategory({user_id, dataInput, token}))
+        dispatch(addCategory({iduser, dataInput, token}))
         navigate("/admin/category")
 
     

@@ -171,7 +171,9 @@ const AddOrder = () => {
               return (
                 <>
                   <Card  >
-                    <Card.Img className="card-img-top1" variant="top" src="https://media.istockphoto.com/vectors/covid-19-vaccine-bottle-icon-vector-vector-id1295981135?k=20&m=1295981135&s=170667a&w=0&h=rO-zw-Sby_bqUGLUkqQj_hUB14599f6N3kzfZbe3w1A=" style={{ width: "286px", height: "180px" }} />
+                    <Card.Img className="card-img-top1" variant="top" 
+                     src={`${import.meta.env.VITE_BASE_URL_BACKEND}/${item.image}`}
+                     style={{ width: "286px", height: "180px" }} />
                     <Card.Body>
                       <Card.Title>{item.name.slice(0, 30)}</Card.Title>
                       <Card.Text>

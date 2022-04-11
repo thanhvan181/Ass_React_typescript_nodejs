@@ -64,8 +64,10 @@ export const readCompanyinCity = async (req, res) => {
 }
 export const readoneCompany = async (req, res) => {
     const filter = {_id: req.params.id}
+    console.log('filter', filter)
     try {
-        const readone = await Company.find(filter).exec();
+        const readone = await Company.findOne(filter).exec();
+        console.log('readone', readone)
         res.json(readone)
         
     } catch (error) {

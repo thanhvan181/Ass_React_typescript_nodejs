@@ -384,3 +384,22 @@ h5.text-uppercase {
 ul.list-unstyled.mb-0 {
   text-align: left;
 }
+.dropdown-menu.show {
+  z-index: 3000;
+}
+.col-md-3.text-center {
+  position: relative;
+}
+img.logo {
+  position: absolute;
+  bottom: -10px;
+ 
+}
+button.search {
+  background-color: #0b8080;
+  border: 1px solid;
+  border-color: #0b8080;
+}
+.ms-auto.navbar-nav {
+  margin: auto;
+}

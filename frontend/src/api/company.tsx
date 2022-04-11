@@ -13,8 +13,8 @@ export const readCompanyincity = (id: any) => {
     const url = `/company/${id}`;
     return instance.get(url)
 }
-export const readoneCompany = (id: any) => {
-    const url = `/companyedit/${id}`;
+export const readone = (id: any) => {
+    const url = `/companyone/${id}`;
     return instance.get(url)
 }
 

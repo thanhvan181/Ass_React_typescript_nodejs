@@ -15,7 +15,7 @@ const ListCart = () => {
     const carts = useSelector((state: any) => state.cart.items)
     console.log("carts", carts);
     const cartTotal = useSelector((state:any) => state.cart.cartTotalAmount)
-    console.log("cartTotal", cartTotal)
+    // console.log("cartTotal", cartTotal)
     // console
     console.log('cart', carts)
     const dispatch = useDispatch()
@@ -72,7 +72,7 @@ const ListCart = () => {
                                                     <div className="row">
                                                         <div className="col-3 d-none d-md-block">
                                                             <img
-                                                                src="https://vietnamese.cdc.gov/img/cdc/VI_109516.png?_=13435"
+                                                             src={`${import.meta.env.VITE_BASE_URL_BACKEND}/${itemcart.image}`}
                                                                 width="80"
                                                                 alt="..."
                                                             />
@@ -118,7 +118,7 @@ const ListCart = () => {
                                                     </div>
                                                 </td>
                                                 <td className='price-tx'>
-                                                    <var className="price">$237.00</var>
+                                                    <var className="price"></var>
                                                     <small className="d-block text-muted">
                                                         $79.00 each
                                                     </small>
@@ -143,14 +143,14 @@ const ListCart = () => {
                             </div>
                             <div className="card-footer">
                                 <Link to="/checkout" className="btn btn-primary float-right">
-                                    Make Purchase <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                    Đặt hàng <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-return-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
                                     </svg>
                                 </Link>
                                 <Link to="/" className="btn btn-secondary">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-return-left" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z" />
-                                    </svg>Continue shopping
+                                    </svg>Tiếp tục đặt hàng
                                 </Link>
                             </div>
                         </div>

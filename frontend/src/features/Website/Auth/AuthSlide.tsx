@@ -3,6 +3,10 @@ import { createOrUpdateUser, currentUser } from "../../../api/auth";
 import { list } from "../../../api/category";
 import { getproductsCate, listproduct } from "../../../api/product";
 import { authenticated, removeAuthencicate } from "../../../untils/localStoge";
+import { useSelector } from "react-redux";
+
+// const carts = useSelector((state:any) => state.)
+
 
 export const signIn = createAsyncThunk(
   'auth/currentUser',
@@ -31,6 +35,7 @@ const authSlice = createSlice({
     isAuthenticated: false,
     isLoading: false,
     errorMessage: '',
+    mycart: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem("cartItems") as any) : [],
 
   },
   reducers: {
@@ -40,6 +45,7 @@ const authSlice = createSlice({
       state.isAuthenticated = false
       state.isLoading = false
       state.errorMessage = ''
+      state.mycart =  localStorage.removeItem("cartItems")
 
 
     },

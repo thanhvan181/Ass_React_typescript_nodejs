@@ -35,8 +35,7 @@ const AddProduct = () => {
     const injection = useSelector((state: any) => state.injection.injectionpark)
     const cateogory = useSelector((state: any) => state.category.category);
     const subcategory = useSelector((state: any) => state.subcategory.subcategory)
-    const [fileList, setFileList] = useState<any>([
-    ])
+    const [fileList, setFileList] = useState<any>([])
 
 
 
@@ -64,12 +63,11 @@ const AddProduct = () => {
         dispatch(loadSubCategory())
     }, [])
 
-    const handleChange = (info: object) => {
+    const handleChange = (info: any) => {
         console.log("Change upload: ", info)
-        let fileList = [...info.fileList];
+        let fileList= [...info.fileList];
         console.log("ADD product handle change: ", fileList)
-        // 1. Limit the number of uploaded files
-        // Only to show two recent uploaded files, and old ones will be replaced by the new
+      
         fileList = fileList.slice(-1);
 
         // 2. Read from response and show file link

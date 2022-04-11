@@ -86,7 +86,7 @@ const ListProduct = () => {
               <div className="col-md-8">
                 <span className="align-middle font-weight-bold">
                
-                  <span className="text-warning">"t-shirts"</span>
+                  <span className="text-warning">"VACCINE"</span>
                 </span>
               </div>
               <div className="col-md-4">
@@ -112,7 +112,7 @@ const ListProduct = () => {
                     <div key={idx} className="col-md-4">
                       <div className="card">
                         <img
-                          src="https://www.cdc.gov/coronavirus/2019-ncov/images/vaccines/VaccineCard-250x250-1.png?_=66031"
+                          src={`${import.meta.env.VITE_BASE_URL_BACKEND}/${product.image}`}
                           className="card-img-top"
                           alt="..."
                         />
