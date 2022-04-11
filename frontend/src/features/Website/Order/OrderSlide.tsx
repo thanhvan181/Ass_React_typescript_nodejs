@@ -8,6 +8,7 @@ import { create } from "../../../api/order";
 export const createOrders= createAsyncThunk(
     'order/createOrder', 
     async (newOrder:any) => {
+      console.log("newOrder", newOrder)
      
       // const {id, dataInput:newOrder} = params
       // console.log("params", params)

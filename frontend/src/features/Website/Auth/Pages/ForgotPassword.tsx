@@ -27,7 +27,7 @@ const ForgotPassword = () => {
 
     const onSubmit = async (data: any) => {
         const { email } = data;
-        const actionCodeSettings = {
+        const actionCodeSettings:any = {
             url: import.meta.env.VITE_REACT_APP_FORGOT_PASSWORD_REDIRECT,
             handleCodeInApp: true,
         };
@@ -42,7 +42,21 @@ const ForgotPassword = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <ToastContainer />
-            <input
+
+            <div className="container-signup">
+        <h3 className="txt-signup">Forgot Password</h3>
+
+        <div className="form-group">
+          <label className="label-signup">Nhap Email</label>
+          <input type="email" className="form-control" placeholder="Enter email"   {...register("email")} />
+          {errors.email && <p>{errors.email.message}</p>}
+        </div>
+        <Button htmlType="submit" type="primary" shape="round" icon={<MailOutlined />}>
+                Continue
+            </Button>
+
+      </div>
+            {/* <input
                 type="email"
                 {...register("email", {
                     pattern: {
@@ -52,10 +66,8 @@ const ForgotPassword = () => {
                 })}
             />
             {errors.email && <p>invalid email address</p>}
-            <br />
-            <Button htmlType="submit" type="primary" shape="round" icon={<MailOutlined />}>
-                Continue
-            </Button>
+            <br /> */}
+          
             <br />
             <br />
         </form>

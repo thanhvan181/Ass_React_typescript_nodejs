@@ -138,7 +138,7 @@ function Sidenav({ color} : any) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="4">
-          <NavLink to="rtl">
+          <NavLink to="signupvaccine">
             <span
               className="icon"
               style={{
@@ -147,12 +147,10 @@ function Sidenav({ color} : any) {
             >
               {rtl}
             </span>
-            <span className="label">RTL</span>
+            <span className="label">Vaccine</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item className="menu-item-header" key="5">
-          Account Pages
-        </Menu.Item>
+      
         <Menu.Item key="6">
           <NavLink to="profile">
             <span

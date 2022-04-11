@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input, Button, Select, Space } from "antd";
 
 import { createRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCategory } from "../../../Website/Category/CategorySlide";
 import { useNavigate } from "react-router-dom";
 
@@ -17,14 +17,17 @@ const AddCategory = () => {
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const users = useSelector((state:any) => state.user.userInfo)
 
-    
+   
 
     const onSubmit = (dataInput:any) => {
         console.log('datainput', dataInput)
+        const token = users.token;
+        const user_id = users._id;
 
 
-        dispatch(addCategory(dataInput))
+        dispatch(addCategory({user_id, dataInput, token}))
         navigate("/admin/category")
 
     

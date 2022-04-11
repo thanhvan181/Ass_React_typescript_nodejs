@@ -73,9 +73,9 @@ const WebsiteLayout = () => {
           <Navbar bg="white" sticky="top" expand="sm" collapseOnSelect>
             <Navbar.Brand>
               <img
-                src="data:image/png;base64,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"
-                width="100px"
-                height="100px"
+                src="http://rayoflightthemes.com/wordpress-themes/vaxi-wordpress-theme/wp-content/uploads/2021/09/Logo1.png"
+                // width="100px"
+                // height="100px"
               />{" "}
               {/* <span className="text-h1">VNVC</span> */}
             </Navbar.Brand>
@@ -217,8 +217,11 @@ const WebsiteLayout = () => {
                         </NavDropdown.Item>
                       </div>
                     </NavDropdown>
+                    <img className="img-icon" src={user.picture}/>
                   </>
                 )}
+               
+                
               </Nav>
               <Nav>
                 <Form className="d-flex" onSubmit={handleSubmit(onSubmit)}>
@@ -248,31 +251,10 @@ const WebsiteLayout = () => {
             <section className="">
               <form action="">
                 <div className="row d-flex justify-content-center">
-                  <div className="col-auto">
-                    <p className="pt-2">
-                      <strong>Đăng ký nhận bản tin của chúng tôi</strong>
-                    </p>
-                  </div>
+                 
 
-                  <MDBCol md="5" start="12">
-                    <MDBInput
-                      contrast
-                      type="email"
-                      label="Email address"
-                      className="mb-4"
-                    />
-                  </MDBCol>
-
-                  <div className="col-auto">
-                    <MDBBtn
-                      outline
-                      color="light"
-                      type="submit"
-                      className="mb-4"
-                    >
-                      Subscribe
-                    </MDBBtn>
-                  </div>
+               
+                 
                 </div>
               </form>
             </section>

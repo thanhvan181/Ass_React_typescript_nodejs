@@ -1,19 +1,33 @@
 import { Button } from "antd";
 import { createOrUpdateUser } from "../../../../api/auth";
 import {
-  getAuth,
+
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
 import { auth } from "../../../../firebase/firebase.config";
-import { MailOutlined } from "@ant-design/icons";
+import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+// import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+// import firebase from 'firebase/compat/app';
+// import 'firebase/compat/auth';
+type accessToken = {
+  accessToken: string
+}
+
+type TypeInputs = {
+  email: string;
+  // accessToken: any
+  password: string;
+  // required: any,
+  // name: String;
+};
 
 const SigninPage = () => {
   // const auth = getAuth();
@@ -26,7 +40,7 @@ const SigninPage = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm<TypeInputs>();
 
   useEffect(() => {
     if (user && user.token) navigate("/");
@@ -43,10 +57,13 @@ const SigninPage = () => {
   };
   const googleLogin = async () => {
     try {
+
+
+
       const {
         user: { accessToken: token },
       } = await signInWithPopup(auth, googleAuthProvider);
-      console.log("toekn google", token);
+      // console.log("toekn google", token);
       createOrUpdateUser(token)
         .then(({ data: { name, email, role, _id } }) => {
           dispatch({
@@ -63,11 +80,11 @@ const SigninPage = () => {
         })
         .catch((error) => console.log(error));
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
     }
   };
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     const { email, password } = data;
     console.log("NNC login email and password: ", { email, password })
     try {
@@ -91,14 +108,47 @@ const SigninPage = () => {
           console.log(error);
         });
       reset();
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
     }
   };
+  
 
   const formSignin = () => (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input
+
+      <div className="container-signup">
+        <h3 className="txt-signup">Sign In</h3>
+
+        <div className="form-group">
+          <label className="label-signup">Email address</label>
+          <input type="email" className="form-control" placeholder="Enter email"   {...register("email")} />
+
+          {errors.email && <p>{errors.email.message}</p>}
+        </div>
+        <div className="form-group">
+          <label className="label-signup" >Password</label>
+          <input type="password" className="form-control" placeholder="Enter password"  {...register("password", { required: true })} />
+          {/* {errors.email && <p>{errors.email.message}</p>} */}
+          {errors.password && <p>Field is require</p>}
+        </div>
+        <Button htmlType="submit" type="primary" shape="round" icon={<MailOutlined />}>
+          Login with Email/Password
+        </Button>
+        <br />
+        <Button shape="round" icon={<GoogleOutlined />} onClick={googleLogin}>
+          Login with Google
+        </Button>
+        <p className="forgot-password text-right">
+          <a className="forget" href="/forgot/password">Forgot password</a>
+        </p>
+
+
+
+
+
+      </div>
+      {/* <input
         type="email"
         {...register("email", {
           pattern: {
@@ -110,21 +160,21 @@ const SigninPage = () => {
       {errors.email && <p>invalid email address</p>}
       <input type="password" {...register("password", { required: true })} />
       {errors.password && <p>Field is require</p>}
-      <br />
-      <Button htmlType="submit" type="primary" shape="round" icon={<MailOutlined />}>
+      <br /> */}
+      {/* <Button htmlType="submit" type="primary" shape="round" icon={<MailOutlined />}>
         Login with Email/Password
       </Button>
       <br />
-      <Button type="danger" shape="round" icon={<MailOutlined />} onClick={googleLogin}>
+      <Button shape="round" icon={<MailOutlined />} onClick={googleLogin}>
         Login with Google
-      </Button>
-      <br />
-      <Link to="/forgot/password">Forgot password</Link>
+      </Button> */}
+      {/* <br />
+      <Link to="/forgot/password">Forgot password</Link> */}
     </form>
   );
   return (
     <div>
-      <h1>Đăng nhập</h1>
+
       <ToastContainer />
       {formSignin()}
     </div>

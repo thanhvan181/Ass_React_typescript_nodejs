@@ -22,10 +22,14 @@ export const removeCategory = createAsyncThunk(
 )
 export const addCategory = createAsyncThunk(
   'category/addcategory', 
-  async (category:any) => {
-    const {data} = await create(category);
-    return data
+
+  async (params:any) => {
+    const { userid,  dataInput:category, token} = params
+
+    const {data} = await create(userid, category, token);
+    return data;
   }
+ 
 )
 export const editCategory = createAsyncThunk(
   'eidtCategory',

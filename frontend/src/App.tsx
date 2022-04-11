@@ -135,6 +135,15 @@ function App() {
               <Route path=":id/edit" element={<EditOrder />} />
 
             </Route>
+            <Route path="signupvaccine">
+              <Route
+                index
+                element={<ListOrder />}
+              />
+              <Route path=":id/edit" element={<EditOrder />} />
+
+            </Route>
+            
 
 
 

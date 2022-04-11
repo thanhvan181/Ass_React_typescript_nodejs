@@ -3,6 +3,7 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {useEffect} from 'react'
 import { loadCategory } from "../features/Website/Category/CategorySlide";
+import { getProductinCategory } from "../features/Website/ProductClient/ProductClientSlide";
 
 
 
@@ -15,6 +16,11 @@ const VaccineCate = () => {
 
         
     }, [])
+    const showProductinCategory = (id:any) => {
+      console.log("idcate", id);
+
+      dispath(getProductinCategory(id))
+    }
 
     
   return (
@@ -29,7 +35,10 @@ const VaccineCate = () => {
                     <Col className="col-h">
                     <Card style={{ height: '18rem' }}>
                     <Card.Body className="card-bo" >
-                    <Card.Title className="title-cate"><a href="">{cateitems.name}</a></Card.Title>
+                    <Card.Title className="title-cate"><a href="#"
+                    onClick={() => showProductinCategory(cateitems._id)}
+                    
+                    >{cateitems.name}</a></Card.Title>
                            
 
                     </Card.Body>

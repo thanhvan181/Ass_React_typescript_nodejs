@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
-import { EditCompany, readone } from "../CompanySlide";
+import { EditCompany, readoneCompa } from "../CompanySlide";
 
 import { loadCity } from "../../City/CitySlide";
 import { useParams } from "react-router-dom";
@@ -37,7 +37,7 @@ const {id} = useParams();
   };
   useEffect(() => {
     dispatch(loadCity())
-    dispatch(readone(id))
+    dispatch(readoneCompa(id))
     form.setFieldsValue(readoneCompany)
    
 }, [id]);

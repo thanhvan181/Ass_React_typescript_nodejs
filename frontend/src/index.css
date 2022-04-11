@@ -331,3 +331,56 @@ img.card-img-top1 {
   
   margin-left: 14%;
 }
+.card.mb-3 {
+  margin-top: 40px;
+}
+/* signin */
+
+.container-signup {
+  width: 500px;
+  margin: auto;
+  background-color: #0b8080;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 40px;
+  border-radius: 10px;
+}
+label.label-signup {
+  margin-bottom: 20px;
+ 
+    color: white;
+
+}
+h3.txt-signup {
+  color: wheat;
+}
+button.ant-btn.ant-btn-round.ant-btn-primary {
+ 
+  margin: 30px 100px 30px 100px;
+}
+button.ant-btn.ant-btn-round.ant-btn-default {
+  margin: 10px 100px 10px 100px;
+}
+
+a.forget {
+    color: white;
+}
+label.label-signup {
+  margin-top: 20px;
+}
+.nav-one {
+  margin: auto;
+  margin-left: 30px;
+}
+img.img-icon {
+  max-width: 100%;
+  border-radius: 50px;
+  width: 40px;
+  margin-right: 40px;
+}
+h5.text-uppercase {
+  text-align: left;
+}
+ul.list-unstyled.mb-0 {
+  text-align: left;
+}

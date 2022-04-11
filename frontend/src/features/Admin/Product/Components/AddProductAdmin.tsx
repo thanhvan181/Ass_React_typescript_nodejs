@@ -35,7 +35,7 @@ const AddProduct = () => {
     const injection = useSelector((state: any) => state.injection.injectionpark)
     const cateogory = useSelector((state: any) => state.category.category);
     const subcategory = useSelector((state: any) => state.subcategory.subcategory)
-    const [fileList, setFileList] = useState([
+    const [fileList, setFileList] = useState<any>([
     ])
 
 

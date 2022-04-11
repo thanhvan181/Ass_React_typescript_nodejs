@@ -28,7 +28,7 @@ export const removeCompany = createAsyncThunk(
     return data;
   }
 );
-export const readone = createAsyncThunk("company/readone", async (id: any) => {
+export const readoneCompa= createAsyncThunk("company/readone", async (id: any) => {
   console.log("idcdd", id);
 
   const { data } = await readoneCompany (id);
@@ -73,7 +73,7 @@ const CompanySlide = createSlice({
           (item: any) => item._id !== action.payload._id
         );
       });
-    builder.addCase(readone.fulfilled, (state: any, action: any) => {
+    builder.addCase(readoneCompa.fulfilled, (state: any, action: any) => {
       state.current = action.payload;
     });
   },

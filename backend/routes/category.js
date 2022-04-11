@@ -10,7 +10,7 @@ router.post("/category", checkAuth, create)
 router.get("/category", list)
 router.get("/category/:id", readone)
 router.get("/categories", getCategory)
-router.put("/category/:id", checkAuth, update)
-router.delete("/category/:id", checkAuth, remove)
+router.put("/category/:id",  update)
+router.delete("/category/:id",  remove)
 
 export default router;

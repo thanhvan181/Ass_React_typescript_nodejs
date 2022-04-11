@@ -8,7 +8,7 @@ type PrivateRouterProps = {
 
 
 const PrivateRouter = (props: PrivateRouterProps) => {
-    const user = useSelector((state) => state.user.userInfo);
+    const user = useSelector((state:any) => state.user.userInfo);
     if (!(user?.role === "admin")) {
         return <Navigate to="/signin" />
     }

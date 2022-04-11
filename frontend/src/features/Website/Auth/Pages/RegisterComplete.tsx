@@ -14,9 +14,15 @@ const RegisterComplete = () => {
     const auth = getAuth();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm();
-    const [email, setEmail] = useState("");
-    const user = useSelector((state) => state.user.userInfo);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm();
+    // const { register, handleSubmit } = useForm();
+    const [email, setEmail] = useState<any>("");
+    const user = useSelector((state: any) => state.user.userInfo);
 
     useEffect(() => {
         setEmail(window.localStorage.getItem("emailForRegistraion"));
@@ -50,20 +56,44 @@ const RegisterComplete = () => {
                     .catch((error) => console.log(error));
                 navigate("/");
             }
-        } catch (error) {
-            toast.error(error.message);
+        } catch (error:any) {
+            toast.error(error.message)
         }
     };
     const completeRegistrationForm = () => (
         <form onSubmit={handleSubmit(onSubmit)}>
+
+            <div className="container-signup">
+                <h3 className="txt-signup">Sign Up</h3>
+
+                <div className="form-group">
+                    <label className="label-signup">Email address</label>
+                    <input type="email" className="form-control" placeholder="Enter email" value={email}  {...register("email")} disabled />
+                    {errors.email && <p>{errors.email.message}</p>}
+                </div>
+                <div className="form-group">
+                    <label className="label-signup">Password</label>
+                    <input type="password" className="form-control" placeholder="Enter password"   {...register("password")} />
+                    {errors.password && <p>{errors.email.password}</p>}
+                </div>
+
+
+                <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+
+
+            </div>
+
+
+
+            {/* 
             <input type="email" value={email} disabled />
             <input type="password" {...register("password")} autoFocus placeholder="password" />
-            <button>Sign Up</button>
+            <button>Sign Up</button> */}
         </form>
     );
     return (
         <div>
-            <h1>Register</h1>
+
             <ToastContainer />
             {completeRegistrationForm()}
         </div>

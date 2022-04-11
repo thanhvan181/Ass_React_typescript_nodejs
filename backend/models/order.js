@@ -35,7 +35,7 @@ const orderSchema = new Schema({
         type: ObjectId,
         ref: "Company"
     },
-    product_order: [{}],
+    product_order: [],
     payment: {
         type: String,
     },

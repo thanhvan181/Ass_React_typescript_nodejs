@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loadCompany } from "../../../Admin/Company/CompanySlide";
 import { createOrders } from "../OrderSlide";
+import { values } from "lodash";
 // import { createOrder } from "../OrderSlide";
 
 
@@ -16,14 +17,16 @@ const AddOrder = () => {
 
   const company = useSelector((state: any) => state.company.company);
   const productorder = useSelector((state: any) => state.cart.items)
+  const users = useSelector((state:any) => state.user.userInfo);
+  console.log("user,", users);
   // const { user } = JSON.parse(localStorage.getItem("user") as any);
   const { register, handleSubmit, formState: { errors}} = useForm()
 
   const onSubmit: SubmitHandler<any>  = (dataInput) => {
     console.log("inputDate", dataInput);
  
-     const {user}= JSON.parse(localStorage.getItem("user") as any)
-     const user_id = user._id
+    //  const {user}= JSON.parse(localStorage.getItem("user") as any)
+     const user_id = users._id
        
     dataInput.productOrder = productorder
     dataInput.user_id = user_id
@@ -62,6 +65,7 @@ const AddOrder = () => {
                   type="text"
                   placeholder="Nhập họ tên"
                 {...register("name")}
+                value={users.name}
                 />
               </Form.Group>
 
@@ -71,6 +75,7 @@ const AddOrder = () => {
                   type="date"
                   placeholder=""
                 {...register("birthday")}
+                value={users.birthday ? users.birthday : "" }
                 />
               </Form.Group>
             </Row>
@@ -82,6 +87,7 @@ const AddOrder = () => {
                   type="text"
                   placeholder=""
                 {...register("email")}
+                value={users.email ? users.email : "" }
                 />
               </Form.Group>
 
@@ -91,6 +97,7 @@ const AddOrder = () => {
                   type="text"
                   placeholder=""
                 {...register("phone")}
+                // value={users.phone ? users.phone : "" }
                 />
               </Form.Group>
             </Row>
@@ -168,15 +175,18 @@ const AddOrder = () => {
                     <Card.Body>
                       <Card.Title>{item.name.slice(0, 30)}</Card.Title>
                       <Card.Text>
+                       
                         {item.description.slice(0, 50)}
                       </Card.Text>
                       <Card.Text>
-                        {item.price}
+                      <label htmlFor="">Price</label>:  {item.price}
+                       
                       </Card.Text>
 
                       <Card.Text>
+                      <label htmlFor="">So luong</label> :  {item.cartQuanlity}
 
-                        {item.cartQuanlity}
+                       
                       </Card.Text>
 
 

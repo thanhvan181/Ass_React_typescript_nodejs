@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import "react-toastify/dist/ReactToastify.css";
 import { auth } from "../../../../firebase/firebase.config";
 
-import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
-import { signUp } from "../AuthSlide";
+import { sendSignInLinkToEmail } from "firebase/auth";
+
 
 type TypeInputs = {
   email: string;
@@ -21,7 +21,7 @@ type TypeInputs = {
 const SignupPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user } = useSelector((state: any) => ({ ...state }));
   const {
     register,
     handleSubmit,
@@ -33,7 +33,7 @@ const SignupPage = () => {
     if (user && user.token) navigate("/");
   }, [user, navigate])
   const onSubmit: SubmitHandler<TypeInputs> = async (data) => {
-    const settings = {
+    const settings: any = {
       url: import.meta.env.VITE_REACT_APP_REGISTER_REDIRECT_URL,
       handleCodeInApp: true,
     };
@@ -49,18 +49,34 @@ const SignupPage = () => {
 
   const formRegister = () => (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <input
-        type="email"
-        {...register("email")}
-      />
-      {errors.email && <p>invalid email address</p>}
-      <button>Sign Up</button>
+    
+
+      <div className="container-signup">
+        <h3 className="txt-signup">Sign Up</h3>
+
+        <div className="form-group">
+          <label className="label-signup">Email address</label>
+          <input type="email" className="form-control" placeholder="Enter email"   {...register("email")} />
+          {errors.email && <p>{errors.email.message}</p>}
+        </div>
+
+        <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+        <p className="forgot-password text-right">
+          Already registered <a href="/signin">sign in?</a>
+        </p>
+
+      </div>
+
+
+
+
+     
     </Form>
   );
 
   return (
     <div>
-      <h1>Register</h1>
+     
       <ToastContainer />
       {formRegister()}
     </div>

@@ -133,7 +133,7 @@ const SignupVaccinations = (props: any) => {
     setInjection(data);
 
 
-    
+
   };
 
   const hanldeInputData = (e: any, id: any) => {
@@ -277,7 +277,7 @@ const SignupVaccinations = (props: any) => {
                                             <Accordion>
                                               <Accordion.Item
                                                 eventKey={`${sub._id}${category.id}`}
-                                                
+
                                                 onClick={() => {
                                                   hanleClickshowProductPark(
                                                     sub._id
@@ -418,7 +418,84 @@ const SignupVaccinations = (props: any) => {
             </Form>
           </Col>
 
-          <Col sm={4}>sm=4</Col>
+          <Col sm={4}>
+            <>
+            <h2 className="text-h5">Tin Tuc</h2>
+              <Card border="primary" >
+                <Card.Header>Header</Card.Header>
+                <Card.Body>
+                  <Card.Title>Primary Card Title</Card.Title>
+                  <Card.Text>
+                    Some quick example text to build on the card title and make up the bulk
+                    of the card's content.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              <br />
+
+              <Card border="secondary" >
+                <Card.Header>Header</Card.Header>
+                <Card.Body>
+                  <Card.Title>Secondary Card Title</Card.Title>
+                  <Card.Text>
+                    Some quick example text to build on the card title and make up the bulk
+                    of the card's content.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              <br />
+
+              <Card border="success" >
+                <Card.Header>Header</Card.Header>
+                <Card.Body>
+                  <Card.Title>Success Card Title</Card.Title>
+                  <Card.Text>
+                    Some quick example text to build on the card title and make up the bulk
+                    of the card's content.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              <br />
+
+              <Card border="danger" >
+                <Card.Header>Header</Card.Header>
+                <Card.Body>
+                  <Card.Title>Danger Card Title</Card.Title>
+                  <Card.Text>
+                    Some quick example text to build on the card title and make up the bulk
+                    of the card's content.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              <br />
+
+              <Card border="warning" >
+                <Card.Header>Header</Card.Header>
+                <Card.Body>
+                  <Card.Title>Warning Card Title</Card.Title>
+                  <Card.Text>
+                    Some quick example text to build on the card title and make up the bulk
+                    of the card's content.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              <br />
+
+              <Card border="info" >
+                <Card.Header>Header</Card.Header>
+                <Card.Body>
+                  <Card.Title>Info Card Title</Card.Title>
+                  <Card.Text>
+                    Some quick example text to build on the card title and make up the bulk
+                    of the card's content.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              <br />
+
+             
+            </>
+          </Col>
         </Row>
       </Container>
     </div>
