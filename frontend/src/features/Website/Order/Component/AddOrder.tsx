@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -13,27 +13,27 @@ import { values } from "lodash";
 
 const AddOrder = () => {
   const dispatch = useDispatch();
-  
+
 
   const company = useSelector((state: any) => state.company.company);
   const productorder = useSelector((state: any) => state.cart.items)
-  const users = useSelector((state:any) => state.user.userInfo);
+  const users = useSelector((state: any) => state.user.userInfo);
   console.log("user,", users);
   // const { user } = JSON.parse(localStorage.getItem("user") as any);
-  const { register, handleSubmit, formState: { errors}} = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm()
 
-  const onSubmit: SubmitHandler<any>  = (dataInput) => {
+  const onSubmit: SubmitHandler<any> = (dataInput) => {
     console.log("inputDate", dataInput);
- 
+
     //  const {user}= JSON.parse(localStorage.getItem("user") as any)
-     const user_id = users._id
-       
-    dataInput.productOrder = productorder
+    const user_id = users._id
+
+    dataInput.product_order = productorder
     dataInput.user_id = user_id
     dataInput.status = "Cho xac nhan"
     dispatch(createOrders(dataInput))
     // console.log("ALL", dataInput)
-  
+
   }
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const AddOrder = () => {
 
 
   }, [])
- 
+
   return (
 
     <Container>
@@ -64,8 +64,8 @@ const AddOrder = () => {
                 <Form.Control
                   type="text"
                   placeholder="Nhập họ tên"
-                {...register("name")}
-                value={users.name}
+                  {...register("name")}
+                  value={users.name}
                 />
               </Form.Group>
 
@@ -74,8 +74,8 @@ const AddOrder = () => {
                 <Form.Control
                   type="date"
                   placeholder=""
-                {...register("birthday")}
-                value={users.birthday ? users.birthday : "" }
+                  {...register("birthday")}
+                  value={users.birthday ? users.birthday : ""}
                 />
               </Form.Group>
             </Row>
@@ -86,8 +86,8 @@ const AddOrder = () => {
                 <Form.Control
                   type="text"
                   placeholder=""
-                {...register("email")}
-                value={users.email ? users.email : "" }
+                  {...register("email")}
+                  value={users.email ? users.email : ""}
                 />
               </Form.Group>
 
@@ -96,7 +96,7 @@ const AddOrder = () => {
                 <Form.Control
                   type="text"
                   placeholder=""
-                {...register("phone")}
+                  {...register("phone")}
                 // value={users.phone ? users.phone : "" }
                 />
               </Form.Group>
@@ -111,7 +111,7 @@ const AddOrder = () => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGridAddress1">
               <Form.Label>Trung tam tiem chung </Form.Label>
-              <Form.Select  defaultValue="Choose..."  {...register("company")} >
+              <Form.Select defaultValue="Choose..."  {...register("company")} >
                 <option>Choose...</option>
                 {company &&
                   company.map((compan: any) => {
@@ -126,25 +126,25 @@ const AddOrder = () => {
             <h5 className="text-h5">PHƯƠNG THỨC THANH TOÁN </h5>
 
             <Form.Group as={Col} controlId="formGridPassword">
-            <div className="mb-3">
+              <div className="mb-3">
                 <div>
-                <input {...register("payment")} type="radio" value="Thanh toán tại quầy lễ tân" />
-                Thanh toán tại quầy lễ tân
+                  <input {...register("payment")} type="radio" value="Thanh toán tại quầy lễ tân" />
+                  Thanh toán tại quầy lễ tân
                 </div>
-                 <div>
-                 <input {...register("payment")} type="radio" value="Thanh toán qua chuyển khoản" />
-                 Thanh toán qua chuyển khoản
-                 </div>
-                 <div>
-                 <input {...register("payment")} type="radio" value="Thanh toán qua thẻ" />
-                 Thanh toán qua thẻ
+                <div>
+                  <input {...register("payment")} type="radio" value="Thanh toán qua chuyển khoản" />
+                  Thanh toán qua chuyển khoản
+                </div>
+                <div>
+                  <input {...register("payment")} type="radio" value="Thanh toán qua thẻ" />
+                  Thanh toán qua thẻ
 
-                 </div>
-                 </div>
-              </Form.Group>
-          
+                </div>
+              </div>
+            </Form.Group>
 
-              <Button variant="primary" type="submit">
+
+            <Button variant="primary" type="submit">
               Submit
             </Button>
 
@@ -167,28 +167,28 @@ const AddOrder = () => {
 
               DANH SÁCH VẮC XIN CHỌN MUA
             </h4>
-            {productorder  && productorder.map((item: any) => {
+            {productorder && productorder.map((item: any) => {
               return (
                 <>
                   <Card  >
-                    <Card.Img className="card-img-top1" variant="top" 
-                     src={`${import.meta.env.VITE_BASE_URL_BACKEND}/${item.image}`}
-                     style={{ width: "286px", height: "180px" }} />
+                    <Card.Img className="card-img-top1" variant="top"
+                      src={`${import.meta.env.VITE_BASE_URL_BACKEND}/${item.image}`}
+                      style={{ width: "286px", height: "180px" }} />
                     <Card.Body>
                       <Card.Title>{item.name.slice(0, 30)}</Card.Title>
                       <Card.Text>
-                       
+
                         {item.description.slice(0, 50)}
                       </Card.Text>
                       <Card.Text>
-                      <label htmlFor="">Price</label>:  {item.price}
-                       
+                        <label htmlFor="">Price</label>:  {item.price}
+
                       </Card.Text>
 
                       <Card.Text>
-                      <label htmlFor="">So luong</label> :  {item.cartQuanlity}
+                        <label htmlFor="">So luong</label> :  {item.cartQuanlity}
 
-                       
+
                       </Card.Text>
 
 

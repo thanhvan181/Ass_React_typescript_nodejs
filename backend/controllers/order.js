@@ -1,13 +1,12 @@
 import Order from "../models/order"
+import Product from "../models/product";
 
 
 
 export const create = async (req, res) => {
 
     try {
-
-
-      
+        console.log("DATA ORDER: ", req.body)
         const orders = await new Order(req.body).save();
         res.json(orders)
 
