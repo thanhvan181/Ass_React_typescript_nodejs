@@ -11,6 +11,7 @@ import injectionParkRouter from "../routes/injectionpark"
 import registerRouter from "../routes/register"
 import cityRouter from "../routes/city";
 import orderRouter from "../routes/order";
+import uploadRouter from "../routes/upload";
 
 
 
@@ -23,6 +24,11 @@ const option = {
 app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json())
+console.log("PATH: ", express.static('public'))
+app.use("/public", express.static('public'))
+// app.get('/', function(req, res){
+//     res.download('Hello.txt');
+// });
 
 // const specs = swaggerJSDoc(option)
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJSDoc));
@@ -53,6 +59,7 @@ app.use("/api", injectionParkRouter);
 app.use("/api", registerRouter);
 app.use("/api", cityRouter);
 app.use("/api", orderRouter);
+app.use("/api", uploadRouter);
 
 
 app.listen(PORT, () => {

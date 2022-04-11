@@ -1,5 +1,6 @@
-import Product from "../models/product"
-import slugify from "slugify"
+import Product from "../models/product";
+import slugify from "slugify";
+import { deleteImage } from "../utils/fileUtils";
 
 
 export const create = async (req, res) => {
@@ -15,6 +16,7 @@ export const create = async (req, res) => {
                 trim: true         // trim leading and trailing replacement chars, defaults to `true`
             }
         )
+        console.log("ADD PRODUCT: ", req.body)
         const products = await new Product(req.body).save();
         res.json(products)
 
@@ -41,7 +43,7 @@ export const list = async (req, res) => {
         }
         // if(req.query.getAll){
         //     const products = await Product.find().exec();
-            
+
 
         // }
         console.log("Sort: ", sort)
@@ -93,7 +95,7 @@ export const searchProduct = async (req, res) => {
     // console.log("SEARCH TEXT: ", searchString)
     const limit = req.query.limit || 10
     try {
-        const productSeachName= await Product.find({$text: {$search: searchString}}).limit(limit).exec();
+        const productSeachName = await Product.find({ $text: { $search: searchString } }).limit(limit).exec();
         // console.log("productName", productSeachName)
         res.status(200).send(
             {
@@ -111,7 +113,7 @@ export const searchProduct = async (req, res) => {
 export const getProductsCategory = async (req, res) => {
     // console.log("ac")
 
-    const filter = { 'category_id': req.params.id,  }
+    const filter = { 'category_id': req.params.id, }
     try {
         const productsCate = await Product.find(filter).exec();
         res.json(productsCate)
@@ -128,7 +130,7 @@ export const getProductsCategory = async (req, res) => {
 
 }
 export const getProductsSubcateogy = async (req, res) => {
-   
+
 
     const filter = { 'subcategory_id': req.params.id }
     try {
@@ -150,9 +152,15 @@ export const remove = async (req, res) => {
     const condition = { _id: req.params.id };
     try {
         const products = await Product.findOneAndDelete(condition).exec();
+        console.log("DELATE PRODUCT: ", products)
+        if (products) {
+            await deleteImage(products.image)
+        }
+        console.log("Product2: ", products)
         res.json(products)
     } catch (error) {
-        res.status(error).json({
+        console.log("ERROR", error)
+        res.status(400).json({
             message: "loi khong them duoc"
         })
 
@@ -187,7 +195,7 @@ export const update = async (req, res) => {
     }
 }
 export const fetchAllProduct = async (req, res) => {
-   
+
     try {
         const products = await Product.find().exec();
         res.json(products)

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import {Schema, ObjectId } from "mongoose";
+import { Schema, ObjectId } from "mongoose";
 
 const productSchema = new Schema({
-    
+
     name: {
         type: String,
         trim: true,
@@ -13,9 +13,9 @@ const productSchema = new Schema({
     },
     code: {
         type: String,
-        
+
     },
-    images: {
+    image: {
         type: String,
         required: false
     },
@@ -30,7 +30,7 @@ const productSchema = new Schema({
         required: true,
         text: true
     },
-  
+
 
     slug: {
         type: String,
@@ -52,7 +52,7 @@ const productSchema = new Schema({
         type: Date,
         required: false
     },
-    end_use : {
+    end_use: {
         type: Date,
         required: false
 
@@ -61,21 +61,21 @@ const productSchema = new Schema({
         type: Boolean,
         required: false
     },
-    
+
     injectionPark_id: {
         type: ObjectId,
         ref: "Injectionpark"
 
     }
 
-    
 
-    
-   
 
-   
-},  { timestamps: true});
-productSchema.index({"$**": "text"});
+
+
+
+
+}, { timestamps: true });
+productSchema.index({ "$**": "text" });
 
 export default mongoose.model("Product", productSchema)
 

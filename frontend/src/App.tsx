@@ -66,6 +66,7 @@ function App() {
         console.log("GET USER token: ", token)
         currentUser(token)
           .then(({ data }) => {
+            data.token = token
             dispatch(loadUser(data));
           })
           .catch((error) => toast.error(error.message));
