@@ -50,6 +50,9 @@ import Cart from "./features/Website/Cart/Pages/Cart";
 import AddOrderPage from "./features/Website/Order/Pages/AddOrderPage";
 import ListOrder from "./features/Admin/Order/Pages/ListOrder";
 import EditOrder from "./features/Admin/Order/Pages/EditOrder";
+import LIstOrderPage from "./features/Website/Order/Pages/LIstOrderPage";
+import SuccessOrder from "./components/SuccessOrder";
+import DetailOrderPage from "./features/Website/Order/Pages/DetailOrderPage";
 
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -106,6 +109,19 @@ function App() {
               path="checkout"
               element={<AddOrderPage />}
             />
+              <Route
+              path="order"
+              element={<LIstOrderPage />}
+            />
+              <Route
+              path="successorder"
+              element={<SuccessOrder />}
+            />
+             <Route
+              path="orderdetail/:id"
+              element={<DetailOrderPage />}
+            />
+             
           </Route>
 
           <Route

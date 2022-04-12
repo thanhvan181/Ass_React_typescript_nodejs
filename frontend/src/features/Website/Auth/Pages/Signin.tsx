@@ -45,7 +45,7 @@ const SigninPage = () => {
   useEffect(() => {
     if (user && user.token) navigate("/");
     reset();
-  }, [user, reset, history]);
+  }, [user, reset, navigate]);
 
   const roleBaseRedirect = (role: string) => {
     console.log("role", role);
@@ -86,7 +86,6 @@ const SigninPage = () => {
   };
   const onSubmit = async (data: any) => {
     const { email, password } = data;
-    console.log("NNC login email and password: ", { email, password })
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       const { token } = await user.getIdTokenResult();

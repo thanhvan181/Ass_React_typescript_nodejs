@@ -78,8 +78,8 @@ const categorySlice = createSlice({
 
       state.category = state.category.filter((item:any) => item._id !== action.payload._id )
     }),
-    builder.addCase(addCategory.fulfilled, (state,action) => {
-      state.category = action.payload;
+    builder.addCase(addCategory.fulfilled, (state:any,action:any) => {
+      state.category.push(action.payload)
 
     })
     builder.addCase(readonecategory.fulfilled, (state,action) => {

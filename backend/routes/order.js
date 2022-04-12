@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { create } from "../controllers/order";
+import { create, getListOrderbyUserid, listorderdetails } from "../controllers/order";
 // import { userById } from '../controllers/users';
 
 
@@ -9,6 +9,8 @@ import { create } from "../controllers/order";
 const router = Router();
 
 router.post("/order", create )
+router.get('/order/:id', getListOrderbyUserid)
+router.get('/orderdetail/:id', listorderdetails)
 
 // router.get("/register", list)
 // router.delete("/category/:id", remove )

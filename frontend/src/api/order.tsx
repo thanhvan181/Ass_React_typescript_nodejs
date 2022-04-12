@@ -9,6 +9,16 @@ export const create = ( order: any) => {
     
     return instance.post(url, order)
 }
+export const getListOrderbyId = (id:any) => {
+    const url = `/order/${id}`;
+    return instance.get(url)
+    
+
+}
+export const orderdetails = (id:any) => {
+    const url = `/orderdetail/${id}`;
+    return instance.get(url)
+}
 // export const readCompanyincity = (id: any) => {
 //     const url = `/company/${id}`;
 //     return instance.get(url)

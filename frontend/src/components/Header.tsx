@@ -25,28 +25,34 @@ import { useSelector, useDispatch } from "react-redux";
 import Search from './Search'
 import { useEffect } from "react";
 import { getTotals } from "../features/Website/Cart/CartSlide";
+import { useState } from "react";
 
 
 
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [countcart, setCountCart]  = useState(0)
   
     const auth = getAuth();
     // const cartQuantily = useSelector((state:any) => state.cart.cartTotalQuantity)
     const carts = useSelector((state: any) => state.cart.items)
     console.log("cartheader", carts)
     const user = useSelector((state: any) => state.user.userInfo);
-    // useEffect(() => {
-    //     dispatch(getTotals({}))
-    // }, [carts, dispatch])
+    console.log('uservvvvvv', user);
+    useEffect(() => {
+        setCountCart(carts.length)
+    }, [carts])
     
     const hanldeLogout = async () => {
         try {
           await signOut(auth)
+
           dispatch(logout({ email: null }));
+          setCountCart(0)
 
           navigate("/signin");
+          
 
         } catch {
           toast.info("Logout error!");
@@ -78,7 +84,7 @@ const Header = () => {
                                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                                 </svg>
                                 <div className="position-absolute top-0 left-100 translate-middle badge bg-danger rounded-circle">
-                                {carts.length}
+                                {countcart}
                                 </div>
                             </Link>
                         </div>
@@ -97,7 +103,7 @@ const Header = () => {
                                     {/* <Navbar.Collapse>
                    <Nav> */}
                                     <NavDropdown
-                                        title={user.email}
+                                        title={user.name}
                                         id="basic-nav-dropdown"
                                         style={{ fontSize: "18px" }}
                                         className="dropdown"
@@ -107,15 +113,18 @@ const Header = () => {
                                                 {user.email}
                                             </NavDropdown.Item>
                                             <NavDropdown.Divider />
-                                            <NavDropdown.Item href="/publishers/podcasters">
-                                                Audio Podcasters
+                                            <NavDropdown.Item href="/order">
+                                               Lịch sử đơn hàng
                                             </NavDropdown.Item>
                                             <NavDropdown.Divider />
+                                            <NavDropdown.Item href="/publishers/podcasters">
+                                               Lịch sử đăng ký tiêm
+                                            </NavDropdown.Item>
                                             <NavDropdown.Item
                                                 to="/signin"
                                                 onClick={hanldeLogout}
                                             >
-                                                Logout
+                                               Thoát
                                             </NavDropdown.Item>
                                         </div>
                                     </NavDropdown>

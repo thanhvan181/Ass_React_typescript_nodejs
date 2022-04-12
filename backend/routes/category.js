@@ -6,7 +6,7 @@ import { create, getCategory, list, readone, remove, update } from '../controlle
 
 const router = Router();
 
-router.post("/category", checkAuth, create)
+router.post("/category/:id", checkAuth, create)
 router.get("/category", list)
 router.get("/category/:id", readone)
 router.get("/categories", getCategory)

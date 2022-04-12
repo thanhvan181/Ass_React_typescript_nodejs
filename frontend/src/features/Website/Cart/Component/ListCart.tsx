@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { addToCart, decreaseCart, getTotals, removeItemFromCart } from '../CartSlide';
 import { cartPrice } from '../selector';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -15,7 +16,9 @@ const ListCart = () => {
     const carts = useSelector((state: any) => state.cart.items)
     console.log("carts", carts);
     const cartTotal = useSelector((state:any) => state.cart.cartTotalAmount)
+    const users = useSelector((state:any) => state.user.userInfo)
     // console.log("cartTotal", cartTotal)
+    const navigate = useNavigate();
     // console
     console.log('cart', carts)
     const dispatch = useDispatch()
@@ -23,6 +26,13 @@ const ListCart = () => {
     useEffect(() => {
         dispatch(getTotals({}))
     }, [carts, dispatch])
+    useEffect(() => {
+        if(!users){
+            navigate("/signin")
+        }
+        
+
+    }, [users])
 
     const hanldeRomveFromCart = (id:any) => {
         // console.log("itemcart", id)
@@ -51,7 +61,8 @@ const ListCart = () => {
                                 <table className="table table-borderless">
                                     <thead className="text-muted">
                                         <tr className="small text-uppercase">
-                                            <th scope="col">Tên sản phẩm</th>
+                                            {/* <th scope="col">Hình sản phẩm</th> */}
+                                            <th scope="col">Hinh & Tên sản phẩm</th>
                                             <th scope="col" style={{ width: 120 }}>
                                                 Số lượng 
                                             </th>
@@ -120,7 +131,7 @@ const ListCart = () => {
                                                 <td className='price-tx'>
                                                     <var className="price"></var>
                                                     <small className="d-block text-muted">
-                                                        $79.00 each
+                                                       {itemcart.price}
                                                     </small>
                                                 </td>
                                                 <td className="text-right">
@@ -147,11 +158,12 @@ const ListCart = () => {
                                         <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
                                     </svg>
                                 </Link>
-                                <Link to="/" className="btn btn-secondary">
+                                {users && <Link to="/" className="btn btn-secondary">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-return-left" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z" />
                                     </svg>Tiếp tục đặt hàng
-                                </Link>
+                                </Link>}
+                              
                             </div>
                         </div>
                         <div className="alert alert-success mt-3">
@@ -184,7 +196,7 @@ const ListCart = () => {
                                 <dl className="row">
                                     <dt className="col-6">Total:</dt>
                                     <dd className="col-6 text-right  h5">
-                                        <strong>$1,350</strong>
+                                        <strong>{cartTotal}</strong>
                                     </dd>
                                 </dl>
                                 <hr />

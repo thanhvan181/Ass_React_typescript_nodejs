@@ -45,7 +45,8 @@ const authSlice = createSlice({
       state.isAuthenticated = false
       state.isLoading = false
       state.errorMessage = ''
-      state.mycart =  localStorage.removeItem("cartItems")
+      state.mycart = [] 
+      localStorage.removeItem("cartItems")
 
 
     },

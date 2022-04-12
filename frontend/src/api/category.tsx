@@ -1,11 +1,11 @@
 import instance from './instance';
 
-export const create = (iduser: any, category:any, token:String) => {
+export const create = (iduser: any, category:any, token: string) => {
     // const config = 
     
     const url = `/category/${iduser}`;
     return instance.post(url, category,{
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { authtoken: token }
     } )
 }
 export const list = () => {

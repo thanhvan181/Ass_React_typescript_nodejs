@@ -21,7 +21,7 @@ import { loadInjectionPark } from '../../InjectionPark/InjectionPark';
 import { listSub } from '../../../../api/subcategory';
 import { loadSubCategory } from '../../../Website/Subcategory/Subcategory';
 import { addProduct } from '../../../Website/ProductClient/ProductClientSlide';
-// import { isAuthenticate } from '../../../../untils/localStoge';
+
 
 
 const { Option } = Select;

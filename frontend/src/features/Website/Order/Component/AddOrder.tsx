@@ -6,13 +6,12 @@ import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loadCompany } from "../../../Admin/Company/CompanySlide";
 import { createOrders } from "../OrderSlide";
-import { values } from "lodash";
-// import { createOrder } from "../OrderSlide";
-
+import { useNavigate } from "react-router-dom";
 
 
 const AddOrder = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 
   const company = useSelector((state: any) => state.company.company);
@@ -32,6 +31,7 @@ const AddOrder = () => {
     dataInput.user_id = user_id
     dataInput.status = "Cho xac nhan"
     dispatch(createOrders(dataInput))
+    navigate("/successorder")
     // console.log("ALL", dataInput)
 
   }
@@ -75,7 +75,7 @@ const AddOrder = () => {
                   type="date"
                   placeholder=""
                   {...register("birthday")}
-                  value={users.birthday ? users.birthday : ""}
+                  // value={users.birthday ? users.birthday : ""}
                 />
               </Form.Group>
             </Row>
