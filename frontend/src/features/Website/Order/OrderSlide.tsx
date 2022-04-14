@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { create, getListOrderbyId, orderdetails } from "../../../api/order";
+import { create, getListOrderbyId, orderdetails, searchOrderinPhone } from "../../../api/order";
 
 
 
@@ -50,7 +50,19 @@ export const getOrderDetails= createAsyncThunk(
     return data;
   }
 )
-
+export const showOrderbyPhone= createAsyncThunk(
+  'order/orderPhone', 
+  async (params:any) => {
+    // console.log("idorderdetaisl", id)
+   
+    
+  
+   
+    const {data} = await searchOrderinPhone(params)
+    console.log("DATA listOrder", data)
+    return data;
+  }
+)
 const initialState = {
   order: [],
  
@@ -75,6 +87,9 @@ const OrderSlide = createSlice({
     }),
     builder.addCase(getOrderDetails.fulfilled, (state, action) => {
       state.orderdetail = action.payload
+    }),
+    builder.addCase(showOrderbyPhone.fulfilled, (state, action) => {
+      state.current = action.payload
     })
     // builder.addCase()
 

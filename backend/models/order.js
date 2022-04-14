@@ -22,6 +22,7 @@ const orderSchema = new Schema({
     phone: {
         type: String,
         required: true,
+        index: true
        
     },
     email: {
@@ -59,7 +60,7 @@ const orderSchema = new Schema({
 
    
 },  { timestamps: true});
-// productSchema.index({"$**": "text"});
+orderSchema.index({"$**": "text"});
 
 export default mongoose.model("Order", orderSchema)
 

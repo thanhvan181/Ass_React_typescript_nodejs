@@ -19,6 +19,12 @@ export const orderdetails = (id:any) => {
     const url = `/orderdetail/${id}`;
     return instance.get(url)
 }
+export const searchOrderinPhone = (params: any) => {
+    const paramString = new URLSearchParams(params).toString();
+    const url = `/orderphone?${paramString}`
+    console.log("SEARch URL: ", url, params)
+    return instance.get(url);
+}
 // export const readCompanyincity = (id: any) => {
 //     const url = `/company/${id}`;
 //     return instance.get(url)

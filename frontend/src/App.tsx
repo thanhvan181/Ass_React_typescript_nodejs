@@ -53,6 +53,7 @@ import EditOrder from "./features/Admin/Order/Pages/EditOrder";
 import LIstOrderPage from "./features/Website/Order/Pages/LIstOrderPage";
 import SuccessOrder from "./components/SuccessOrder";
 import DetailOrderPage from "./features/Website/Order/Pages/DetailOrderPage";
+import SeachPhone from "./components/SeachPhone";
 
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -121,6 +122,11 @@ function App() {
               path="orderdetail/:id"
               element={<DetailOrderPage />}
             />
+             <Route
+              path="orderphone"
+              element={<SeachPhone />}
+            />
+            
              
           </Route>
 

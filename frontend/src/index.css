@@ -526,3 +526,17 @@ hr {
 .btn:hover {
   color: white
 }
+.bg-dark.text-white.card {
+  margin: 30px 0px;
+}
+.bg-seach {
+  
+  background-color: #edffff 
+}
+
+
+input#inputPassword5 {
+  width: 50%;
+  margin: 30px 0px;
+  
+}

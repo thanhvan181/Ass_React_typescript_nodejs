@@ -25,7 +25,7 @@ const TopNav = () => {
                         <Nav.Link href="/product">ĐẶT MUA VẮC XIN</Nav.Link>
                         <Nav.Link href="/product">TIÊM CHỦNG CHO TRẺ EM</Nav.Link>
                         <Nav.Link href="/product">TIÊM CHỦNG CHO NGƯỜI LỚN</Nav.Link>
-                        <Nav.Link href="/product">TRA CỨU </Nav.Link>
+                        <Nav.Link href="/orderphone">TRA CỨU </Nav.Link>
                         
                        
 

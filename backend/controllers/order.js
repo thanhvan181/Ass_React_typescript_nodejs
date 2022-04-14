@@ -68,4 +68,25 @@ export const listorderdetails = async(req, res) => {
 
     }
 }
+export const searchOrderByUser = async (req, res) => {
+    const searchString = req.query.phone || "";
+    // console.log("SEARCH TEXT: ", searchString)
+    // const limit = req.query.limit || 10
+    console.log("paramsseacrh", searchString)
+    try {
+        const OrderSeachPhone = await Order.find({"phone": searchString}).exec();
+
+        console.log("productName", OrderSeachPhone)
+        res.status(200).send(
+            {
+                data: OrderSeachPhone
+            }
+        )
+    } catch (error) {
+        res.status(404).json({
+            message: "Not Found!"
+        })
+
+    }
+}
 
