@@ -66,7 +66,7 @@ export const showOrderbyPhone= createAsyncThunk(
 const initialState = {
   order: [],
  
-  current: {},
+  current:{},
   orderdetail: {}
 
 };

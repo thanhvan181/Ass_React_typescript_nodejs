@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { create, list, read, remove, updatecate } from "../../../api/category";
+import { Action } from "history";
+import { create, getCategory, list, read, remove, updatecate } from "../../../api/category";
 // const [form] = Form.useForm();
 
 
@@ -10,6 +11,13 @@ export const loadCategory = createAsyncThunk(
             return data
        
     }
+)
+export const showcategory = createAsyncThunk(
+  'category/allcategory',
+ async () => {
+   const {data} = await getCategory();
+   return data;
+ }
 )
 
 export const removeCategory = createAsyncThunk(
@@ -58,7 +66,8 @@ export const readonecategory = createAsyncThunk(
 const initialState = {
   category: [],
  
-  current: {}
+  current: {},
+  allcategory: []
 
 };
 
@@ -90,7 +99,11 @@ const categorySlice = createSlice({
   builder.addCase(editCategory.fulfilled, (state, action) => {
     // state.category = action.payload;
 
+  }),
+  builder.addCase(showcategory.fulfilled, (state, action) =>{
+    state.allcategory = action.payload
   })
+
 
 
    

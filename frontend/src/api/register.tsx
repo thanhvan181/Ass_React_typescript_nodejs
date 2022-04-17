@@ -8,7 +8,11 @@ export const create = (data: any) => {
     const url = `/register`;
     return instance.post(url, data);
 }
-// export const remove = (id:any) => {
-//     const url = `/register/${id}`;
-//     return instance.delete(url)
-// }
+export const resgiterdetails = (id:any) => {
+    const url = `/regiterdetail${id}`;
+    return instance.get(url)
+}
+export const listResgister = (id:any) => {
+    const url = `/register/${id}`;
+    return instance.get(url)
+}

@@ -117,7 +117,7 @@ const Header = () => {
                                                Lịch sử đơn hàng
                                             </NavDropdown.Item>
                                             <NavDropdown.Divider />
-                                            <NavDropdown.Item href="/publishers/podcasters">
+                                            <NavDropdown.Item href="/historyregister">
                                                Lịch sử đăng ký tiêm
                                             </NavDropdown.Item>
                                             <NavDropdown.Item

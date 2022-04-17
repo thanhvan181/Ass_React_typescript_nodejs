@@ -47,7 +47,15 @@ const RegisterSchema = new Schema({
         require: false,
         type: String
     },
-    injectionPark_id: [String],
+    product_injection: [],
+    user_id: {
+
+        type: ObjectId,
+        ref: "User"
+
+    },
+    product_odd: [],
+    // injectionPark_id: [String],
 
 
 

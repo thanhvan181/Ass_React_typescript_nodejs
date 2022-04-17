@@ -27,8 +27,9 @@ export const create = async (req, res) => {
 }
 
 export const list = async (req, res) => {
+    const condition = { 'user_id': req.params.id }
     try {
-        const Registerss = await Register.find().exec();
+        const Registerss = await Register.find(condition).exec();
         res.json(Registerss)
         
     } catch (error) {
@@ -41,6 +42,23 @@ export const list = async (req, res) => {
     }
     
 
+}
+export const listregisterdetails = async(req, res) => {
+    const condition = { _id: req.params.id }
+  
+    try {
+       
+        const resgiters = await Register.findOne(condition).exec();
+        res.json(resgiters)
+
+    } catch (error) {
+
+        console.log("error", error);
+        res.status(400).json({
+            message: "khong lay duoc list resgirer "
+        })
+
+    }
 }
 // export const remove = async ( req, res) => {
 //     const condition = { _id: req.params.id};

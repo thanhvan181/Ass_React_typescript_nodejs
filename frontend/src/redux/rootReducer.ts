@@ -8,6 +8,7 @@ import CategorySlide from '../features/Website/Category/CategorySlide';
 import OrderSlide from '../features/Website/Order/OrderSlide';
 
 import productSlice from '../features/Website/ProductClient/ProductClientSlide';
+import RegisterSlide from '../features/Website/Register/RegisterSlide';
 import Subcategory from '../features/Website/Subcategory/Subcategory';
 
 
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     company: CompanySlide,
     city: CitySlide,
     order: OrderSlide,
+    register: RegisterSlide,
 
 });
 export default rootReducer

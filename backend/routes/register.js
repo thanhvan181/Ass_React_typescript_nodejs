@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { create, list } from "../controllers/register";
+import { create, list, listregisterdetails } from "../controllers/register";
 import { checkAuth } from '../middlewares/auth';
 
 
@@ -8,9 +8,10 @@ import { checkAuth } from '../middlewares/auth';
 
 const router = Router();
 
-router.post("/register", checkAuth, create)
+router.post("/register", create)
 
-router.get("/register", checkAuth, list)
-// router.delete("/category/:id", remove )
+router.get("/register/:id", list)
+router.get("/regiterdetail/:id", listregisterdetails)
+
 
 export default router;

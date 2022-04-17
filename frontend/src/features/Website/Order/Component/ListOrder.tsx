@@ -11,6 +11,7 @@ import { Container } from '@material-ui/core'
 const ListOrder = () => {
     const orderinUser = useSelector((state: any) => state.order.current)
     console.log("orderinUser", orderinUser)
+
     // const cartTotal = useSelector((state:any) => state.cart.cartTotalAmount)
     // console.log("cartTotal", cartTotal)
     const userId = useSelector((state: any) => state.user.userInfo);

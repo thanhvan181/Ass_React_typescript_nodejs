@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Accordion,
   Button,
@@ -12,137 +13,78 @@ import {
   Row,
   Tab,
 } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import { listCompany } from "../api/company";
-import { getCategory } from "../api/category";
-import { getInjectionPacks } from "../api/injectionpark";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { getAll, listproduct } from "../api/product";
 
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { create } from "../api/register";
-
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllproducts } from "../../ProductClient/ProductClientSlide";
+import { loadCategory, showcategory } from "../../Category/CategorySlide";
+import { addRegisterVaccine, resgiterVaccine } from "../RegisterSlide";
 
-type Inputs = {
-  name: {
-    type: String;
-  };
-  birthday: {
-    type: Date;
-  };
-  code: {
-    type: String;
-  };
-  sex: {
-    type: String;
-  };
+const Register = () => {
+  const dispatch = useDispatch();
 
-  address: {
-    type: String;
-  };
-  contact_person_name: {
-    type: String;
-  };
-  relativeship_phone: {
-    type: String;
-  };
-  relativeship_name: {
-    type: String;
-  };
-  dateo_injection: {
-    type: Date;
-  };
-  injectionPark_id: {
-    type: [];
-  };
-};
-
-const SignupVaccinations = (props: any) => {
-  const [company, setCompany] = useState([]);
-  const [injection, setInjection] = useState([]);
   const [isShowPack, setIsShowPack] = useState(true);
-  const [productslist, setProductslist] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
-  const notify = () => toast(`Dang ky thanh cong`);
-  const navigate = useNavigate();
+  const company = useSelector((state: any) => state.company.company);
+  const categoryList = useSelector((state: any) => state.category.allcategory);
+  const productslist = useSelector(
+    (state: any) => state.product.productallAdmin
+  );
+    console.log("productlist",productslist );
+  const users = useSelector((state: any) => state.user.userInfo);
+  const injection = useSelector((state: any) => state.register.injection);
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    const getCategories = async () => {
-      const { data } = await getCategory();
-      console.log("GET CATEGORY: ", data);
-      setCategoryList(data);
-    };
-
-    getCategories();
-  }, []);
-  useEffect(() => {
-    const loadCompany = async () => {
-      const { data } = await listCompany();
-      setCompany(data);
-    };
-    loadCompany();
-  }, []);
-
-  useEffect(() => {
-    const loadallProduct = async () => {
-      const { data } = await getAll();
-      setProductslist(data);
-    };
-    loadallProduct();
-  }, []);
-
+  console.log("injection", injection);
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
-  // sử dụng hook useNavigate để chuyển sang
-  //  const navigate = useNavigate()
-  const onSubmit: SubmitHandler<Inputs> = async (dataInput: any) => {
+    // formState: { errors },
+  } = useForm<any>();
+  const onSubmit = (dataInput: any) => {
+    const user_id = users._id;
     let checkboxs = document.querySelectorAll(
-      'input[name="injectionPark_id"][type="checkbox"]:checked'
+      'input[name="product_id"][type="checkbox"]:checked'
     );
-    let selected = Array.from(checkboxs).map((x: any) => x.value);
+    let checkboxs1 = document.querySelectorAll(
+        'input[name="injection_id"][type="checkbox"]:checked'
+      );
+      let selected = Array.from(checkboxs).map((x: any) => x.value);
+    let selected1 = Array.from(checkboxs1).map((x: any) => x.value);
+    dataInput.product_injection = selected1;
+    dataInput.product_odd = selected;
+    dataInput.user_id = user_id;
 
-    const { data } = await create({
-      ...dataInput,
-      ...{ injectionPark_id: selected },
-    });
-    console.log("data", data);
-    navigate("/success");
-
-    // notify(data);
+    dispatch(resgiterVaccine(dataInput));
+    navigate("/success")
+    
+    console.log("inputDate", dataInput);
   };
-
   const handleButtonShowPack = () => {
     console.log("show pack");
     setIsShowPack(true);
+    dispatch(showcategory());
   };
   const handleButtonShowProducts = () => {
     console.log("hidden pack");
     setIsShowPack(false);
+    dispatch(getAllproducts());
+    
   };
 
-  const hanleClickshowProductPark = async (id: any) => {
-    const { data } = await getInjectionPacks({ subcategory_id: id });
+  //   const handleButtonShowProducts = () => {
+  //       dispatch(getAllproducts())
 
-    console.log("dataInjectionPark", data);
+  //   };
 
-    setInjection(data);
-
-
-
-  };
-
-  const hanldeInputData = (e: any, id: any) => {
-    console.log("Click Product: ", id);
-    console.log("Click Product eenv: ", e);
-    // setAddProduct(id);
-
-    console.log("e", e.target);
-    // e.target.parentElement.style.color = 'green'
+  const hanleClickshowProductPark = (idsub: any) => {
+    console.log("idsub", idsub);
+    dispatch(addRegisterVaccine({ subcategory_id: idsub }));
   };
 
   return (
@@ -264,8 +206,8 @@ const SignupVaccinations = (props: any) => {
                   >
                     <Row>
                       <Col>
-                        {isShowPack ? (
-                          <ListGroup>
+                     
+                          <ListGroup style={{display: isShowPack ? "block" :  "none"} } >
                             {categoryList &&
                               categoryList.map((category: any) => {
                                 return (
@@ -277,7 +219,6 @@ const SignupVaccinations = (props: any) => {
                                             <Accordion>
                                               <Accordion.Item
                                                 eventKey={`${sub._id}${category.id}`}
-
                                                 onClick={() => {
                                                   hanleClickshowProductPark(
                                                     sub._id
@@ -304,22 +245,16 @@ const SignupVaccinations = (props: any) => {
                                                                       value={
                                                                         injection._id
                                                                       }
-                                                                      onClick={(
-                                                                        e: any
-                                                                      ) =>
-                                                                        hanldeInputData(
-                                                                          e,
-                                                                          injection._id
-                                                                        )
-                                                                      }
+                                                                    //   name="product_id"
+                                                                      
                                                                       {...register(
-                                                                        "injectionPark_id"
+                                                                        "injection_id"
                                                                       )}
                                                                     />
-                                                                    <Card.Img
+                                                                    {/* <Card.Img
                                                                       variant="top"
                                                                       src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
-                                                                    />
+                                                                    /> */}
                                                                     <Card.Body>
                                                                       <Card.Title>
                                                                         <a
@@ -332,9 +267,10 @@ const SignupVaccinations = (props: any) => {
                                                                       </Card.Title>
                                                                       <Card.Text>
                                                                         <p>
-                                                                          {
-                                                                            injection.description
-                                                                          }
+                                                                          {injection.description.slice(
+                                                                            0,
+                                                                            50
+                                                                          )}
                                                                         </p>
                                                                         <span>
                                                                           {
@@ -361,58 +297,70 @@ const SignupVaccinations = (props: any) => {
                                 );
                               })}
                           </ListGroup>
-                        ) : (
-                          <CardGroup className="card-groud">
+                        <ListGroup  style={{display: !isShowPack ? "block" :  "none"} }>
+                        <CardGroup className="card-groud" >
                             {productslist &&
                               productslist.map((product: any) => {
                                 return (
                                   <>
                                     <div className="product-container">
-                                      <Card>
-                                        <Card.Img
-                                          variant="top"
-                                          src="https://wbc.net.au/wp-content/uploads/2021/05/covid-vaccine_title-page.png"
-                                        />
-                                        <Card.Body>
-                                          <Card.Title>
-                                            <a
-                                              href={`/product/${product._id}`}
-                                            >
-                                              {product.name.slice(0, 30)}...
-                                            </a>
-                                          </Card.Title>
-                                          <Card.Text>
-                                            <span>Phòng bệnh:</span>
-                                            <p>
-                                              {product.description.slice(
-                                                0,
-                                                90
-                                              )}{" "}
-                                              ...
-                                            </p>
-                                            <span>{product.price}</span>
-                                          </Card.Text>
-                                        </Card.Body>
-                                        <Button
-                                          variant="success"
-                                          className="btn-pro"
-                                        >
-                                          Chọn Mua
-                                        </Button>
-                                      </Card>
+                                      <InputGroup>
+                                        <Card>
+                                          <InputGroup.Checkbox
+                                            aria-label="Checkbox for following text input"
+                                            type="checkbox"
+                                            value={product._id}
+                                            {...register(
+                                                "product_id"
+                                              )}
+                                            // {...register("product_id")}
+                                          />
+                                          <Card.Img
+                                            variant="top"
+                                            src={`${
+                                              import.meta.env
+                                                .VITE_BASE_URL_BACKEND
+                                            }/${product.image}`}
+                                          />
+                                          <Card.Body>
+                                            <Card.Title>
+                                              <a
+                                                href={`/product/${product._id}`}
+                                              >
+                                                {product.name.slice(0, 30)}...
+                                              </a>
+                                            </Card.Title>
+                                            <Card.Text>
+                                              <span>Phòng bệnh:</span>
+                                              <p>
+                                                {product.description.slice(
+                                                  0,
+                                                  90
+                                                )}{" "}
+                                                ...
+                                              </p>
+                                              <span>{product.price}</span>
+                                            </Card.Text>
+                                          </Card.Body>
+                                        
+                                        </Card>
+                                      </InputGroup>
                                     </div>
                                   </>
                                 );
                               })}
                           </CardGroup>
-                        )}
+
+                        </ListGroup>
+                        
+                    
                       </Col>
                     </Row>
                   </Tab.Container>
                 </Form.Group>
               </Row>
 
-              <Button variant="primary" type="submit" onClick={notify}>
+              <Button variant="primary" type="submit">
                 Submit
               </Button>
             </Form>
@@ -420,80 +368,78 @@ const SignupVaccinations = (props: any) => {
 
           <Col sm={4}>
             <>
-            <h2 className="text-h5">Tin Tuc</h2>
-              <Card border="primary" >
+              <h2 className="text-h5">Tin Tuc</h2>
+              <Card border="primary">
                 <Card.Header>Header</Card.Header>
                 <Card.Body>
                   <Card.Title>Primary Card Title</Card.Title>
                   <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk
-                    of the card's content.
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
                   </Card.Text>
                 </Card.Body>
               </Card>
               <br />
 
-              <Card border="secondary" >
+              <Card border="secondary">
                 <Card.Header>Header</Card.Header>
                 <Card.Body>
                   <Card.Title>Secondary Card Title</Card.Title>
                   <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk
-                    of the card's content.
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
                   </Card.Text>
                 </Card.Body>
               </Card>
               <br />
 
-              <Card border="success" >
+              <Card border="success">
                 <Card.Header>Header</Card.Header>
                 <Card.Body>
                   <Card.Title>Success Card Title</Card.Title>
                   <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk
-                    of the card's content.
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
                   </Card.Text>
                 </Card.Body>
               </Card>
               <br />
 
-              <Card border="danger" >
+              <Card border="danger">
                 <Card.Header>Header</Card.Header>
                 <Card.Body>
                   <Card.Title>Danger Card Title</Card.Title>
                   <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk
-                    of the card's content.
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
                   </Card.Text>
                 </Card.Body>
               </Card>
               <br />
 
-              <Card border="warning" >
+              <Card border="warning">
                 <Card.Header>Header</Card.Header>
                 <Card.Body>
                   <Card.Title>Warning Card Title</Card.Title>
                   <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk
-                    of the card's content.
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
                   </Card.Text>
                 </Card.Body>
               </Card>
               <br />
 
-              <Card border="info" >
+              <Card border="info">
                 <Card.Header>Header</Card.Header>
                 <Card.Body>
                   <Card.Title>Info Card Title</Card.Title>
                   <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk
-                    of the card's content.
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
                   </Card.Text>
                 </Card.Body>
               </Card>
               <br />
-
-             
             </>
           </Col>
         </Row>
@@ -502,4 +448,4 @@ const SignupVaccinations = (props: any) => {
   );
 };
 
-export default SignupVaccinations;
+export default Register;

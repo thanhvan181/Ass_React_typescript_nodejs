@@ -15,7 +15,7 @@ import "./assets/styles/responsive.css";
 
 import HomePage from "./features/Website/HomePage";
 import WebsiteLayout from "./components/layouts/WebsiteLayout";
-import SignupVaccinationsPage from "./features/Website/SignupVaccinationsPage";
+
 import Home from "./features/Admin/Home";
 
 import Profile from "./features/Admin/Profile";
@@ -54,6 +54,8 @@ import LIstOrderPage from "./features/Website/Order/Pages/LIstOrderPage";
 import SuccessOrder from "./components/SuccessOrder";
 import DetailOrderPage from "./features/Website/Order/Pages/DetailOrderPage";
 import SeachPhone from "./components/SeachPhone";
+import RegisterVaccine from "./features/Website/Register/Page/RegisterVaccine";
+import HistoryRegister from "./features/Website/HistoryRegister";
 
 type InputCate = {
   // kiểu dữ liệu của từng input
@@ -86,7 +88,7 @@ function App() {
         <Routes>
           <Route path="/" element={<WebsiteLayout />}>
             <Route index element={<HomePage />} />
-            <Route path="dangkytiemchung" element={<SignupVaccinationsPage />} />
+            <Route path="dangkytiemchung" element={<RegisterVaccine />} />
             <Route path="product">
               <Route index element={<MainPage />} />
               <Route path=":id" element={<ProductDetails />} />
@@ -125,6 +127,10 @@ function App() {
              <Route
               path="orderphone"
               element={<SeachPhone />}
+            />
+              <Route
+              path="historyregister"
+              element={<HistoryRegister />}
             />
             
              
